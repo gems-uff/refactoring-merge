@@ -10,16 +10,30 @@ import time
 import traceback
 import csv
 
+def authors_in_commits(commits):
+	authors = set()
+	for commit in commits:
+		authors.add(commit.author.name)
 
+	return authors
+
+def commits_between_commits(c0,cN, repo):
+	commits = []
+
+	for commit in repo.walk(cN.id, GIT_SORT_TOPOLOGICAL ):
+		if(commit.hex == c0.hex):
+			break
+		else:
+			commits.append(commit)
+	return commits
 
 def collect_attributes(diff_a_b, c0, cN, repo):
 	print()
-
 	files_changed = []
 	files_add = []
 	files_rm = []
-	#commits = commits_between_commits(c0,cN)
-	#authors = authors_in_commits(commits)
+	commits = commits_between_commits(c0,cN, repo)
+	authors = authors_in_commits(commits)
 
 	add_lines = 0
 	rm_lines = 0
@@ -43,8 +57,8 @@ def collect_attributes(diff_a_b, c0, cN, repo):
 	attributes['files_changed'] = len(files_changed)
 	attributes['files_add'] = len(files_add)
 	attributes['files_rm'] = len(files_rm)
-	#attributes['authors'] = len(authors)
-	#attributes['commits'] = len(commits)
+	attributes['authors'] = len(authors)
+	attributes['commits'] = len(commits)
 
 	print (attributes)
 
