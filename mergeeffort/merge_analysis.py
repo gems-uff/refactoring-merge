@@ -14,7 +14,6 @@ def authors_in_commits(commits):
 	authors = set()
 	for commit in commits:
 		authors.add(commit.author.name)
-
 	return authors
 
 def commits_between_commits(c0,cN, repo):
@@ -27,40 +26,88 @@ def commits_between_commits(c0,cN, repo):
 			commits.append(commit)
 	return commits
 
-def collect_attributes(diff_a_b, c0, cN, repo):
-	print()
-	files_changed = []
-	files_add = []
-	files_rm = []
-	commits = commits_between_commits(c0,cN, repo)
-	authors = authors_in_commits(commits)
-
+def lines_attributes(diff_a_b):
 	add_lines = 0
 	rm_lines = 0
+
+	lines_attributes = {}
+
+	for patch in diff_a_b:
+		add_lines += patch.line_stats[1]
+		rm_lines += patch.line_stats[2]
+
+	lines_attributes['lines_add'] = add_lines
+	lines_attributes['lines_rm'] = rm_lines
+
+	return lines_attributes
+
+def files_attributes(diff_a_b):
+	files_changed = set()
+	files_add = set()
+	files_rm = set()
+
+	files_attributes = {}
 
 	for patch in diff_a_b:
 		new_file = patch.delta.new_file.path
 		old_file = patch.delta.old_file.path
 		if (new_file == old_file):
-			files_changed.append(patch.delta.new_file.path)
+			files_changed.add(patch.delta.new_file.path)
 		else:
-			files_add.append(new_file)
-			files_rm.append(old_file)
+			files_add.add(new_file)
+			files_rm.add(old_file)
 
-		add_lines += patch.line_stats[1]
-		rm_lines += patch.line_stats[2]
-		
+	files_attributes['files_changed'] = files_changed
+	files_attributes['files_add'] = files_add
+	files_attributes['files_rm'] = files_rm
+
+	return files_attributes
+
+
+def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo):
+	files_branch1 = files_attributes(diff_base_parent1)
+	files_branch2 = files_attributes(diff_base_parent2)
+
+	lines_branch1 = lines_attributes(diff_base_parent1)
+	lines_branch2 = lines_attributes(diff_base_parent2)
+
+	commits_branch1 = commits_between_commits(base_version, parent1, repo)
+	commits_branch2 = commits_between_commits(base_version, parent2, repo)
+
+	authors_branch1 = authors_in_commits(commits_branch1)
+	authors_branch2 = authors_in_commits(commits_branch2)
+
 	attributes = {}
 
-	attributes['add_lines'] = add_lines
-	attributes['rm_lines'] = rm_lines
-	attributes['files_changed'] = len(files_changed)
-	attributes['files_add'] = len(files_add)
-	attributes['files_rm'] = len(files_rm)
-	attributes['authors'] = len(authors)
-	attributes['commits'] = len(commits)
+	attributes['files_changed_b1'] = len(files_branch1['files_changed'])
+	attributes['files_changed_b2'] = len(files_branch2['files_changed'])
+	attributes['files_changed_intersection'] = len(files_branch1['files_changed'].intersection(files_branch2['files_changed']))
+	attributes['files_changed_union'] = len(files_branch1['files_changed'].union(files_branch2['files_changed']))
+	attributes['files_add_b1'] = len(files_branch1['files_add'])
+	attributes['files_add_b2'] = len(files_branch2['files_add'])
+	attributes['files_add_intersection'] = len(files_branch1['files_add'].intersection(files_branch2['files_add']))
+	attributes['files_add_union'] = len(files_branch1['files_add'].union(files_branch2['files_add']))
+	attributes['files_rm_b1'] = len(files_branch1['files_rm'])
+	attributes['files_rm_b2'] = len(files_branch2['files_rm'])
+	attributes['files_rm_intersection'] = len(files_branch1['files_rm'].intersection(files_branch2['files_rm']))
+	attributes['files_rm_union'] = len(files_branch1['files_rm'].union(files_branch2['files_rm']))
+	attributes['lines_add_b1'] = lines_branch1['lines_add']
+	attributes['lines_add_b2'] = lines_branch2['lines_add']
+	#attributes['lines_add_intersection']=
+	#attributes['lines_add_union']=
+	attributes['lines_rm_b1'] = lines_branch1['lines_rm']
+	attributes['lines_rm_b2'] = lines_branch2['lines_rm']
+	#attributes['lines_rm_intersection']=
+	#attributes['lines_rm_union']=
+	attributes['commits_b1'] = len(commits_branch1)
+	attributes['commits_b2'] = len(commits_branch2)
+	attributes['commits_total'] = len(commits_branch1) + len(commits_branch2)
+	attributes['authors_b1'] = len(authors_branch1)
+	attributes['authors_b2'] = len(authors_branch2)
+	attributes['authors_intersection'] = len(authors_branch1.intersection(authors_branch2))
+	attributes['authors_union'] = len(authors_branch1.union(authors_branch2))
 
-	print (attributes)
+	return attributes
 
 def get_actions(diff_a_b):
 	actions = Counter()
@@ -96,12 +143,10 @@ def calculate_additional_effort(parents_actions, merge_actions):
 
 def analyse(commits, repo, normalized=False, collect=False):
 	commits_metrics = {}
+	
 	try:
 		for commit in commits:
 			if (len(commit.parents)==2):
-				print()
-				print("****** Merge:")
-				print (commit.hex)
 				
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
@@ -113,24 +158,20 @@ def analyse(commits, repo, normalized=False, collect=False):
 					diff_base_parent1 = repo.diff(base_version, parent1, context_lines=0)
 					diff_base_parent2 = repo.diff(base_version, parent2, context_lines=0)
 					
-					if (collect):
-						print("branch1")
-						collect_attributes(diff_base_parent1, base_version, parent1, repo)
-						print("branch2")
-						collect_attributes(diff_base_parent2, base_version, parent2, repo)
-
 					merge_actions = get_actions(diff_base_final)
 					parent1_actions = get_actions(diff_base_parent1)
 					parent2_actions = get_actions(diff_base_parent2)
 
-					commits_metrics[commit.hex] = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized)
+					metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized)
+					if (collect):
+						 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo))
+					
+					commits_metrics[commit.hex] = metrics
 				else:
 					print(commit.hex + " - this merge doesn't have a base version")
-			print()
 	except:
 		print ("Unexpected error")
 		print (traceback.format_exc())
-
 	return commits_metrics	
 
 def delete_repo_folder(folder):
