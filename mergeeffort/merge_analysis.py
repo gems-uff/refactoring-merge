@@ -49,13 +49,13 @@ def files_attributes(diff_a_b):
 	files_attributes = {}
 
 	for patch in diff_a_b:
-		new_file = patch.delta.new_file.path
-		old_file = patch.delta.old_file.path
-		if (new_file == old_file):
-			files_changed.add(patch.delta.new_file.path)
+		if(str(patch.delta.new_file.id) == "0000000000000000000000000000000000000000"):
+			files_rm.add(patch.delta.old_file.path)
+
+		elif(str(patch.delta.old_file.id) == "0000000000000000000000000000000000000000"):
+			files_add.add(patch.delta.new_file.path)
 		else:
-			files_add.add(new_file)
-			files_rm.add(old_file)
+			files_changed.add(patch.delta.new_file.path)
 
 	files_attributes['files_changed'] = files_changed
 	files_attributes['files_add'] = files_add
