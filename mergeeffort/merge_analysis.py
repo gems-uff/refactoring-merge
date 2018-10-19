@@ -42,7 +42,7 @@ def lines_attributes(diff_a_b):
 	return lines_attributes
 
 def files_attributes(diff_a_b):
-	files_changed = set()
+	files_edited = set()
 	files_add = set()
 	files_rm = set()
 
@@ -55,9 +55,9 @@ def files_attributes(diff_a_b):
 		elif(str(patch.delta.old_file.id) == "0000000000000000000000000000000000000000"):
 			files_add.add(patch.delta.new_file.path)
 		else:
-			files_changed.add(patch.delta.new_file.path)
+			files_edited.add(patch.delta.new_file.path)
 
-	files_attributes['files_changed'] = files_changed
+	files_attributes['files_edited'] = files_edited
 	files_attributes['files_add'] = files_add
 	files_attributes['files_rm'] = files_rm
 
@@ -79,10 +79,10 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	attributes = {}
 
-	attributes['files_changed_b1'] = len(files_branch1['files_changed'])
-	attributes['files_changed_b2'] = len(files_branch2['files_changed'])
-	attributes['files_changed_intersection'] = len(files_branch1['files_changed'].intersection(files_branch2['files_changed']))
-	attributes['files_changed_union'] = len(files_branch1['files_changed'].union(files_branch2['files_changed']))
+	attributes['files_edited_b1'] = len(files_branch1['files_edited'])
+	attributes['files_edited_b2'] = len(files_branch2['files_edited'])
+	attributes['files_edited_intersection'] = len(files_branch1['files_edited'].intersection(files_branch2['files_edited']))
+	attributes['files_edited_union'] = len(files_branch1['files_edited'].union(files_branch2['files_edited']))
 	attributes['files_add_b1'] = len(files_branch1['files_add'])
 	attributes['files_add_b2'] = len(files_branch2['files_add'])
 	attributes['files_add_intersection'] = len(files_branch1['files_add'].intersection(files_branch2['files_add']))
