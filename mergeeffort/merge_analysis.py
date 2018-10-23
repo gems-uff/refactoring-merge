@@ -10,6 +10,21 @@ import time
 import traceback
 import csv
 
+def save_attributes_in_csv(commits_attributes):
+	attributes = []
+
+	attributes.append('commit')
+	for attr in list(commits_attributes.values())[0]:
+		attributes.append(attr)
+
+	with open('project.csv', 'w', newline='') as csvfile:
+		fieldnames = attributes
+		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+		writer.writeheader()
+		for commit, attribute in commits_attributes.items():
+			attribute['commit'] = commit
+			writer.writerow(attribute)
+
 def authors_in_commits(commits):
 	authors = set()
 	for commit in commits:
@@ -183,6 +198,8 @@ def analyse(commits, repo, normalized=False, collect=False):
 		print ("Unexpected error")
 		print (traceback.format_exc())
 
+	if(collect):
+		save_attributes_in_csv(commits_metrics)
 	return commits_metrics	
 
 def delete_repo_folder(folder):
