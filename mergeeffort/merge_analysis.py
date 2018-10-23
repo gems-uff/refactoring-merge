@@ -41,6 +41,9 @@ def lines_attributes(diff_a_b):
 
 	return lines_attributes
 
+def get_total_changed_files(files_attributes):
+	return len(files_attributes['files_edited']) + len(files_attributes['files_add']) + len(files_attributes['files_rm'])
+
 def files_attributes(diff_a_b):
 	files_edited = set()
 	files_add = set()
@@ -68,6 +71,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	files_branch1 = files_attributes(diff_base_parent1)
 	files_branch2 = files_attributes(diff_base_parent2)
 
+	total_changed_files_b1 = get_total_changed_files(files_branch1)
+	total_changed_files_b2 = get_total_changed_files(files_branch2)
+
 	lines_branch1 = lines_attributes(diff_base_parent1)
 	lines_branch2 = lines_attributes(diff_base_parent2)
 
@@ -91,6 +97,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['files_rm_b2'] = len(files_branch2['files_rm'])
 	attributes['files_rm_intersection'] = len(files_branch1['files_rm'].intersection(files_branch2['files_rm']))
 	attributes['files_rm_union'] = len(files_branch1['files_rm'].union(files_branch2['files_rm']))
+	attributes['files_changed_b1'] = total_changed_files_b1
+	attributes['files_changed_b2'] = total_changed_files_b2
+	attributes['files_changed_total'] = total_changed_files_b1 + total_changed_files_b2
 	attributes['lines_add_b1'] = lines_branch1['lines_add']
 	attributes['lines_add_b2'] = lines_branch2['lines_add']
 	#attributes['lines_add_intersection']=
@@ -106,6 +115,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['authors_b2'] = len(authors_branch2)
 	attributes['authors_intersection'] = len(authors_branch1.intersection(authors_branch2))
 	attributes['authors_union'] = len(authors_branch1.union(authors_branch2))
+
 
 	return attributes
 
@@ -172,6 +182,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 	except:
 		print ("Unexpected error")
 		print (traceback.format_exc())
+
 	return commits_metrics	
 
 def delete_repo_folder(folder):
