@@ -41,6 +41,9 @@ def commits_between_commits(c0,cN, repo):
 			commits.append(commit)
 	return commits
 
+def get_total_changed_lines(lines_attributes):
+	return lines_attributes['lines_add'] + lines_attributes['lines_rm'] 
+
 def lines_attributes(diff_a_b):
 	add_lines = 0
 	rm_lines = 0
@@ -92,6 +95,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	lines_branch1 = lines_attributes(diff_base_parent1)
 	lines_branch2 = lines_attributes(diff_base_parent2)
 
+	total_changed_lines_b1 = get_total_changed_lines(lines_branch1)
+	total_changed_lines_b2 = get_total_changed_lines(lines_branch2)
+
 	commits_branch1 = commits_between_commits(base_version, parent1, repo)
 	commits_branch2 = commits_between_commits(base_version, parent2, repo)
 
@@ -123,6 +129,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['lines_rm_b2'] = lines_branch2['lines_rm']
 	#attributes['lines_rm_intersection']=
 	#attributes['lines_rm_union']=
+	attributes['lines_changed_b1'] = total_changed_lines_b1
+	attributes['lines_changed_b2'] = total_changed_lines_b2
+	attributes['lines_changed_total'] = total_changed_files_b1 + total_changed_lines_b2
 	attributes['commits_b1'] = len(commits_branch1)
 	attributes['commits_b2'] = len(commits_branch2)
 	attributes['commits_total'] = len(commits_branch1) + len(commits_branch2)
