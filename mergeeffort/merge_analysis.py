@@ -12,24 +12,29 @@ import csv
 
 def save_attributes_in_csv(commits_attributes):
 	attributes = []
+	if(commits_attributes):
+		attributes.append('commit')
+		for attr in list(commits_attributes.values())[0]:
+			attributes.append(attr)
 
-	attributes.append('commit')
-	for attr in list(commits_attributes.values())[0]:
-		attributes.append(attr)
-
-	with open('project.csv', 'w', newline='') as csvfile:
-		fieldnames = attributes
-		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-		writer.writeheader()
-		for commit, attribute in commits_attributes.items():
-			attribute['commit'] = commit
-			writer.writerow(attribute)
+		with open('project.csv', 'w', newline='') as csvfile:
+			writer = csv.DictWriter(csvfile, fieldnames=attributes)
+			writer.writeheader()
+			for commit, attribute in commits_attributes.items():
+				attribute['commit'] = commit
+				writer.writerow(attribute)
 
 def authors_in_commits(commits):
 	authors = set()
 	for commit in commits:
 		authors.add(commit.author.name)
 	return authors
+
+def committers_in_commits(commits):
+	committers = set()
+	for commit in commits:
+		committers.add(commit.committer.name)
+	return committers
 
 def commits_between_commits(c0,cN, repo):
 	commits = []
@@ -104,6 +109,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	authors_branch1 = authors_in_commits(commits_branch1)
 	authors_branch2 = authors_in_commits(commits_branch2)
 
+	committers_branch1 = committers_in_commits(commits_branch1)
+	committers_branch2 = committers_in_commits(commits_branch2)
+
 	attributes = {}
 
 	attributes['files_edited_b1'] = len(files_branch1['files_edited'])
@@ -139,6 +147,11 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['authors_b2'] = len(authors_branch2)
 	attributes['authors_intersection'] = len(authors_branch1.intersection(authors_branch2))
 	attributes['authors_union'] = len(authors_branch1.union(authors_branch2))
+
+	attributes['committers_b1'] = len(committers_branch1)
+	attributes['committers_b2'] = len(committers_branch2)
+	attributes['committers_intersection'] = len(committers_branch1.intersection(committers_branch2))
+	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
 
 
 	return attributes
