@@ -47,18 +47,21 @@ def commits_between_commits(c0,cN, repo):
 	return commits
 
 def get_total_changed_lines(lines_attributes):
-	return lines_attributes['lines_add'] + lines_attributes['lines_rm'] 
+	return len(lines_attributes['lines_add']) + len(lines_attributes['lines_rm'])
 
 def lines_attributes(diff_a_b):
-	add_lines = 0
-	rm_lines = 0
-
 	lines_attributes = {}
 
-	for patch in diff_a_b:
-		add_lines += patch.line_stats[1]
-		rm_lines += patch.line_stats[2]
-
+	add_lines = set()
+	rm_lines = set()
+	for d in diff_a_b:
+		file_name = d.delta.new_file.path
+		for h in d.hunks:
+			for l in h.lines:
+				if l.origin == "+":
+					add_lines.add(file_name + l.content)
+				else: 
+					rm_lines.add(file_name + l.content)
 	lines_attributes['lines_add'] = add_lines
 	lines_attributes['lines_rm'] = rm_lines
 
@@ -129,14 +132,14 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['files_changed_b1'] = total_changed_files_b1
 	attributes['files_changed_b2'] = total_changed_files_b2
 	attributes['files_changed_total'] = total_changed_files_b1 + total_changed_files_b2
-	attributes['lines_add_b1'] = lines_branch1['lines_add']
-	attributes['lines_add_b2'] = lines_branch2['lines_add']
-	#attributes['lines_add_intersection']=
-	#attributes['lines_add_union']=
-	attributes['lines_rm_b1'] = lines_branch1['lines_rm']
-	attributes['lines_rm_b2'] = lines_branch2['lines_rm']
-	#attributes['lines_rm_intersection']=
-	#attributes['lines_rm_union']=
+	attributes['lines_add_b1'] = len(lines_branch1['lines_add'])
+	attributes['lines_add_b2'] = len(lines_branch2['lines_add'])
+	attributes['lines_add_intersection'] = len(lines_branch1['lines_add'].intersection(lines_branch2['lines_add']))
+	attributes['lines_add_union']= len(lines_branch1['lines_add'].union(lines_branch2['lines_add']))
+	attributes['lines_rm_b1'] = len(lines_branch1['lines_rm'])
+	attributes['lines_rm_b2'] = len(lines_branch2['lines_rm'])
+	attributes['lines_rm_intersection'] = len(lines_branch1['lines_rm'].intersection(lines_branch2['lines_rm']))
+	attributes['lines_rm_union'] = len(lines_branch1['lines_rm'].union(lines_branch2['lines_rm']))
 	attributes['lines_changed_b1'] = total_changed_lines_b1
 	attributes['lines_changed_b2'] = total_changed_lines_b2
 	attributes['lines_changed_total'] = total_changed_files_b1 + total_changed_lines_b2
