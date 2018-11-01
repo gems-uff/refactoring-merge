@@ -70,6 +70,13 @@ def lines_attributes(diff_a_b):
 def get_total_changed_files(files_attributes):
 	return len(files_attributes['files_edited']) + len(files_attributes['files_add']) + len(files_attributes['files_rm'])
 
+
+def file_exists(file_name):
+	if (str(file_name.id) == "0000000000000000000000000000000000000000"):
+		return False
+	return True
+
+
 def files_attributes(diff_a_b):
 	files_edited = set()
 	files_add = set()
@@ -78,10 +85,10 @@ def files_attributes(diff_a_b):
 	files_attributes = {}
 
 	for patch in diff_a_b:
-		if(str(patch.delta.new_file.id) == "0000000000000000000000000000000000000000"):
+		if(not file_exists(patch.delta.new_file)):
 			files_rm.add(patch.delta.old_file.path)
 
-		elif(str(patch.delta.old_file.id) == "0000000000000000000000000000000000000000"):
+		elif(not file_exists(patch.delta.old_file)):
 			files_add.add(patch.delta.new_file.path)
 		else:
 			files_edited.add(patch.delta.new_file.path)
