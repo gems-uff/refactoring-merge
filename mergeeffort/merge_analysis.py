@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timedelta
 startTime = datetime.now()
 from collections import Counter
 
@@ -24,6 +25,25 @@ def save_attributes_in_csv(commits_attributes):
 				attribute['commit'] = commit
 				writer.writerow(attribute)
 
+
+def calculate_parallelism_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
+
+	first = max(first_commit_b1.commit_time, first_commit_b2.commit_time)
+	last = min(last_commit_b1.commit_time, last_commit_b2.commit_time)
+	
+	start = datetime.fromtimestamp(first)
+	end = datetime.fromtimestamp(last)
+
+	if(first > last):
+		parallelism_time = start - end
+
+	else:
+		parallelism_time = end - start
+
+	return parallelism_time.total_seconds()
+
+
+
 def authors_in_commits(commits):
 	authors = set()
 	for commit in commits:
@@ -34,6 +54,7 @@ def committers_in_commits(commits):
 	committers = set()
 	for commit in commits:
 		committers.add(commit.committer.name)
+
 	return committers
 
 def commits_between_commits(c0,cN, repo):
@@ -122,6 +143,11 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	committers_branch1 = committers_in_commits(commits_branch1)
 	committers_branch2 = committers_in_commits(commits_branch2)
 
+	#time_total =
+	time_parallelism = calculate_parallelism_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+	#time_merge = 
+	#time_branches =  calculate_time_branches(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+
 	attributes = {}
 
 	attributes['files_edited_b1'] = len(files_branch1['files_edited'])
@@ -157,11 +183,12 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['authors_b2'] = len(authors_branch2)
 	attributes['authors_intersection'] = len(authors_branch1.intersection(authors_branch2))
 	attributes['authors_union'] = len(authors_branch1.union(authors_branch2))
-
 	attributes['committers_b1'] = len(committers_branch1)
 	attributes['committers_b2'] = len(committers_branch2)
 	attributes['committers_intersection'] = len(committers_branch1.intersection(committers_branch2))
 	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
+
+	attributes['time_parallelism'] = time_parallelism
 
 
 	return attributes
