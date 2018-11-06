@@ -26,20 +26,28 @@ def save_attributes_in_csv(commits_attributes):
 				writer.writerow(attribute)
 
 
-def calculate_parallelism_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
-
-	first = max(first_commit_b1.commit_time, first_commit_b2.commit_time)
-	last = min(last_commit_b1.commit_time, last_commit_b2.commit_time)
-	
-	start = datetime.fromtimestamp(first)
-	end = datetime.fromtimestamp(last)
-
-	if(first > last):
-		parallelism_time = start - end
-
+def diff_time(timestamp1, timestamp2):
+	time1 = datetime.fromtimestamp(timestamp1)
+	time2 = datetime.fromtimestamp(timestamp2)
+	if(time1 > time2):
+		diff_time = time1 - time2
 	else:
-		parallelism_time = end - start
+		diff_time = time2 - time1
+	return diff_time
 
+
+def calculate_branches_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
+	timestamp1 = min(first_commit_b1.commit_time, first_commit_b2.commit_time)
+	timestamp2 = max(last_commit_b1.commit_time, last_commit_b2.commit_time)
+
+	branches_time = diff_time(timestamp1, timestamp2)
+	return branches_time.total_seconds()
+
+def calculate_parallelism_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
+	timestamp1 = max(first_commit_b1.commit_time, first_commit_b2.commit_time)
+	timestamp2 = min(last_commit_b1.commit_time, last_commit_b2.commit_time)
+	
+	parallelism_time = diff_time(timestamp1, timestamp2)
 	return parallelism_time.total_seconds()
 
 
@@ -146,7 +154,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	#time_total =
 	time_parallelism = calculate_parallelism_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 	#time_merge = 
-	#time_branches =  calculate_time_branches(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+	time_branches =  calculate_branches_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
 	attributes = {}
 
@@ -189,6 +197,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
 
 	attributes['time_parallelism'] = time_parallelism
+	attributes['time_branches'] = time_branches
 
 
 	return attributes
