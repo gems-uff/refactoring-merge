@@ -73,6 +73,7 @@ def commits_between_commits(c0,cN, repo):
 			break
 		else:
 			commits.append(commit)
+	commits.reverse()
 	return commits
 
 def get_total_changed_lines(lines_attributes):
