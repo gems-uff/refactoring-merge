@@ -29,10 +29,9 @@ def save_attributes_in_csv(commits_attributes):
 def diff_time(timestamp1, timestamp2):
 	time1 = datetime.fromtimestamp(timestamp1)
 	time2 = datetime.fromtimestamp(timestamp2)
-	if(time1 > time2):
-		diff_time = time1 - time2
-	else:
-		diff_time = time2 - time1
+	
+	diff_time = time2 - time1
+
 	return diff_time
 
 
