@@ -35,12 +35,12 @@ def diff_time(timestamp1, timestamp2):
 	return diff_time
 
 
-def calculate_branches_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
+def calculate_max_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
 	timestamp1 = min(first_commit_b1.commit_time, first_commit_b2.commit_time)
 	timestamp2 = max(last_commit_b1.commit_time, last_commit_b2.commit_time)
 
-	branches_time = diff_time(timestamp1, timestamp2)
-	return branches_time.total_seconds()
+	max_branch_time = diff_time(timestamp1, timestamp2)
+	return max_branch_time.total_seconds()
 
 def calculate_min_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
 	timestamp1 = max(first_commit_b1.commit_time, first_commit_b2.commit_time)
@@ -49,7 +49,9 @@ def calculate_min_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, 
 	min_branch_time = diff_time(timestamp1, timestamp2)
 	return min_branch_time.total_seconds()
 
-
+def calculate_total_time(base, merge):
+	total_time = diff_time(base.commit_time, merge.commit_time)
+	return total_time.total_seconds()
 
 def authors_in_commits(commits):
 	authors = set()
@@ -129,7 +131,7 @@ def files_attributes(diff_a_b):
 	return files_attributes
 
 
-def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo):
+def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, merge):
 	files_branch1 = files_attributes(diff_base_parent1)
 	files_branch2 = files_attributes(diff_base_parent2)
 
@@ -151,10 +153,10 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	committers_branch1 = committers_in_commits(commits_branch1)
 	committers_branch2 = committers_in_commits(commits_branch2)
 
-	#time_total =
+	time_total = calculate_total_time(base_version, merge)
 	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 	#time_merge = 
-	time_branches =  calculate_branches_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
 	attributes = {}
 
@@ -196,8 +198,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['committers_intersection'] = len(committers_branch1.intersection(committers_branch2))
 	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
 
+	attributes['time_total'] = time_total
 	attributes['time_min_branch'] = time_min_branch
-	attributes['time_branches'] = time_branches
+	attributes['time_max_branch'] = time_max_branch
 
 
 	return attributes
@@ -257,7 +260,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 
 					metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized)
 					if (collect):
-						 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo))
+						 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, commit))
 					
 					commits_metrics[commit.hex] = metrics
 				else:
