@@ -42,12 +42,12 @@ def calculate_branches_time(first_commit_b1, first_commit_b2, last_commit_b1, la
 	branches_time = diff_time(timestamp1, timestamp2)
 	return branches_time.total_seconds()
 
-def calculate_parallelism_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
+def calculate_min_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
 	timestamp1 = max(first_commit_b1.commit_time, first_commit_b2.commit_time)
 	timestamp2 = min(last_commit_b1.commit_time, last_commit_b2.commit_time)
 	
-	parallelism_time = diff_time(timestamp1, timestamp2)
-	return parallelism_time.total_seconds()
+	min_branch_time = diff_time(timestamp1, timestamp2)
+	return min_branch_time.total_seconds()
 
 
 
@@ -152,7 +152,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	committers_branch2 = committers_in_commits(commits_branch2)
 
 	#time_total =
-	time_parallelism = calculate_parallelism_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 	#time_merge = 
 	time_branches =  calculate_branches_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
@@ -196,7 +196,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['committers_intersection'] = len(committers_branch1.intersection(committers_branch2))
 	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
 
-	attributes['time_parallelism'] = time_parallelism
+	attributes['time_min_branch'] = time_min_branch
 	attributes['time_branches'] = time_branches
 
 
