@@ -32,7 +32,7 @@ def diff_time(timestamp1, timestamp2):
 	
 	diff_time = time2 - time1
 
-	return diff_time
+	return diff_time.total_seconds()
 
 
 def calculate_max_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
@@ -40,18 +40,30 @@ def calculate_max_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, 
 	timestamp2 = max(last_commit_b1.commit_time, last_commit_b2.commit_time)
 
 	max_branch_time = diff_time(timestamp1, timestamp2)
-	return max_branch_time.total_seconds()
+	return max_branch_time
 
 def calculate_min_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
 	timestamp1 = max(first_commit_b1.commit_time, first_commit_b2.commit_time)
 	timestamp2 = min(last_commit_b1.commit_time, last_commit_b2.commit_time)
 	
 	min_branch_time = diff_time(timestamp1, timestamp2)
-	return min_branch_time.total_seconds()
+	return min_branch_time
+
+def calculate_min_total_time(base, last_commit_b1, last_commit_b2):
+	timestamp = min(last_commit_b1.commit_time, last_commit_b2.commit_time)
+
+	min_total_time = diff_time(base.commit_time, timestamp)
+	return min_total_time
+
+def calculate_max_total_time(base, last_commit_b1, last_commit_b2):
+	timestamp = max(last_commit_b1.commit_time, last_commit_b2.commit_time)
+
+	max_total_time = diff_time(base.commit_time, timestamp)
+	return max_total_time
 
 def calculate_total_time(base, merge):
 	total_time = diff_time(base.commit_time, merge.commit_time)
-	return total_time.total_seconds()
+	return total_time
 
 def authors_in_commits(commits):
 	authors = set()
@@ -154,8 +166,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	committers_branch2 = committers_in_commits(commits_branch2)
 
 	time_total = calculate_total_time(base_version, merge)
+	time_max_total = calculate_max_total_time(base_version, commits_branch1[-1], commits_branch2[-1])
+	time_min_total = calculate_min_total_time(base_version, commits_branch1[-1], commits_branch2[-1])
 	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
-	#time_merge = 
 	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
 	attributes = {}
@@ -199,6 +212,8 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
 
 	attributes['time_total'] = time_total
+	attributes['time_min_total'] = time_min_total
+	attributes['time_max_total'] = time_max_total
 	attributes['time_min_branch'] = time_min_branch
 	attributes['time_max_branch'] = time_max_branch
 
