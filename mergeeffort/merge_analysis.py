@@ -105,10 +105,6 @@ def lines_attributes(diff_a_b):
 
 	return lines_attributes
 
-def get_total_changed_files(files_attributes):
-	return len(files_attributes['files_edited']) + len(files_attributes['files_add']) + len(files_attributes['files_rm'])
-
-
 def file_exists(file_name):
 	if (str(file_name.id) == "0000000000000000000000000000000000000000"):
 		return False
@@ -142,14 +138,14 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	files_branch1 = files_attributes(diff_base_parent1)
 	files_branch2 = files_attributes(diff_base_parent2)
 
-	total_changed_files_b1 = get_total_changed_files(files_branch1)
-	total_changed_files_b2 = get_total_changed_files(files_branch2)
+	changed_files_branch1 = files_branch1['files_edited'].union(files_branch1['files_add']).union(files_branch1['files_rm'])
+	changed_files_branch2 = files_branch2['files_edited'].union(files_branch2['files_add']).union(files_branch2['files_rm'])
 
 	lines_branch1 = lines_attributes(diff_base_parent1)
 	lines_branch2 = lines_attributes(diff_base_parent2)
 
-	total_changed_lines_b1 = get_total_changed_lines(lines_branch1)
-	total_changed_lines_b2 = get_total_changed_lines(lines_branch2)
+	changed_lines_branch1 = lines_branch1['lines_add'].union(lines_branch1['lines_rm'])
+	changed_lines_branch2 = lines_branch2['lines_add'].union(lines_branch2['lines_rm'])
 
 	commits_branch1 = commits_between_commits(base_version, parent1, repo)
 	commits_branch2 = commits_between_commits(base_version, parent2, repo)
@@ -172,35 +168,46 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['files_edited_b2'] = len(files_branch2['files_edited'])
 	attributes['files_edited_intersection'] = len(files_branch1['files_edited'].intersection(files_branch2['files_edited']))
 	attributes['files_edited_union'] = len(files_branch1['files_edited'].union(files_branch2['files_edited']))
+
 	attributes['files_add_b1'] = len(files_branch1['files_add'])
 	attributes['files_add_b2'] = len(files_branch2['files_add'])
 	attributes['files_add_intersection'] = len(files_branch1['files_add'].intersection(files_branch2['files_add']))
 	attributes['files_add_union'] = len(files_branch1['files_add'].union(files_branch2['files_add']))
+
 	attributes['files_rm_b1'] = len(files_branch1['files_rm'])
 	attributes['files_rm_b2'] = len(files_branch2['files_rm'])
 	attributes['files_rm_intersection'] = len(files_branch1['files_rm'].intersection(files_branch2['files_rm']))
 	attributes['files_rm_union'] = len(files_branch1['files_rm'].union(files_branch2['files_rm']))
-	attributes['files_changed_b1'] = total_changed_files_b1
-	attributes['files_changed_b2'] = total_changed_files_b2
-	attributes['files_changed_total'] = total_changed_files_b1 + total_changed_files_b2
+
+	attributes['files_changed_b1'] = len(changed_files_branch1)
+	attributes['files_changed_b2'] = len(changed_files_branch2)
+	attributes['files_changed_intersection'] = len(changed_files_branch1.intersection(changed_files_branch2))
+	attributes['files_changed_union'] = len(changed_files_branch1.union(changed_files_branch2))
+
 	attributes['lines_add_b1'] = len(lines_branch1['lines_add'])
 	attributes['lines_add_b2'] = len(lines_branch2['lines_add'])
 	attributes['lines_add_intersection'] = len(lines_branch1['lines_add'].intersection(lines_branch2['lines_add']))
 	attributes['lines_add_union']= len(lines_branch1['lines_add'].union(lines_branch2['lines_add']))
+
 	attributes['lines_rm_b1'] = len(lines_branch1['lines_rm'])
 	attributes['lines_rm_b2'] = len(lines_branch2['lines_rm'])
 	attributes['lines_rm_intersection'] = len(lines_branch1['lines_rm'].intersection(lines_branch2['lines_rm']))
 	attributes['lines_rm_union'] = len(lines_branch1['lines_rm'].union(lines_branch2['lines_rm']))
-	attributes['lines_changed_b1'] = total_changed_lines_b1
-	attributes['lines_changed_b2'] = total_changed_lines_b2
-	attributes['lines_changed_total'] = total_changed_files_b1 + total_changed_lines_b2
+
+	attributes['lines_changed_b1'] = len(changed_lines_branch1)
+	attributes['lines_changed_b2'] = len(changed_lines_branch2)
+	attributes['lines_changed_intersection'] = len(changed_lines_branch1.intersection(changed_lines_branch2))
+	attributes['lines_changed_union'] = len(changed_lines_branch1.union(changed_lines_branch2))
+
 	attributes['commits_b1'] = len(commits_branch1)
 	attributes['commits_b2'] = len(commits_branch2)
 	attributes['commits_total'] = len(commits_branch1) + len(commits_branch2)
+
 	attributes['authors_b1'] = len(authors_branch1)
 	attributes['authors_b2'] = len(authors_branch2)
 	attributes['authors_intersection'] = len(authors_branch1.intersection(authors_branch2))
 	attributes['authors_union'] = len(authors_branch1.union(authors_branch2))
+
 	attributes['committers_b1'] = len(committers_branch1)
 	attributes['committers_b2'] = len(committers_branch2)
 	attributes['committers_intersection'] = len(committers_branch1.intersection(committers_branch2))
@@ -211,7 +218,6 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['time_max_total'] = time_max_total
 	attributes['time_min_branch'] = time_min_branch
 	attributes['time_max_branch'] = time_max_branch
-
 
 	return attributes
 
