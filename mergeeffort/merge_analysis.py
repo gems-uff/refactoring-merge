@@ -27,12 +27,7 @@ def save_attributes_in_csv(commits_attributes):
 
 
 def diff_time(timestamp1, timestamp2):
-	time1 = datetime.fromtimestamp(timestamp1)
-	time2 = datetime.fromtimestamp(timestamp2)
-	
-	diff_time = time2 - time1
-
-	return diff_time.total_seconds()
+	return timestamp2-timestamp1
 
 
 def calculate_max_branch_time(first_commit_b1, first_commit_b2, last_commit_b1, last_commit_b2):
