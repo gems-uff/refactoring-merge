@@ -27,17 +27,12 @@ def save_attributes_in_csv(commits_attributes):
 
 def get_merge_type(merge, authors_branch1, authors_branch2):
 	merge_branch = False
-	print(merge.message)
-	print(authors_branch1)
-	print(authors_branch2)
 	if('merge' in merge.message.lower() and 'branch' in merge.message.lower()):
 		merge_branch = True
 
 	if(merge_branch or (len(authors_branch1)>1 and len(authors_branch2)>1)):
-		print("True")
 		return True
 
-	print("False")
 	return False
 
 
