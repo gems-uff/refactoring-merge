@@ -156,11 +156,33 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	committers_branch1 = committers_in_commits(commits_branch1)
 	committers_branch2 = committers_in_commits(commits_branch2)
 
+
 	time_total = calculate_total_time(base_version, merge)
-	time_max_total = calculate_max_total_time(base_version, commits_branch1[-1], commits_branch2[-1])
-	time_min_total = calculate_min_total_time(base_version, commits_branch1[-1], commits_branch2[-1])
-	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
-	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+
+	if(commits_branch1):
+		first_commit_b1_branch = commits_branch1[0]
+		last_commit_b1_branch = commits_branch1[-1]
+		last_commit_b1_total = commits_branch1[-1]
+	else:
+		first_commit_b1_branch = commits_branch2[0]
+		last_commit_b1_branch = commits_branch2[-1]
+		last_commit_b1_total = base_version
+
+	if(commits_branch2):
+		first_commit_b2_branch = commits_branch2[0]
+		last_commit_b2_branch = commits_branch2[-1]
+		last_commit_b2_total = commits_branch2[-1]
+	else:
+		first_commit_b2_branch = commits_branch1[0]
+		last_commit_b2_branch = commits_branch1[-1]
+		last_commit_b2_total = base_version
+
+	
+	time_max_total = calculate_max_total_time(base_version, last_commit_b1_total, last_commit_b2_total)
+	time_min_total = calculate_min_total_time(base_version, last_commit_b1_total, last_commit_b2_total)
+	time_min_branch = calculate_min_branch_time(first_commit_b1_branch, first_commit_b2_branch, last_commit_b2_branch, last_commit_b2_branch)
+	time_max_branch =  calculate_max_branch_time(first_commit_b1_branch, first_commit_b2_branch, last_commit_b2_branch, last_commit_b2_branch)
+
 
 	attributes = {}
 
@@ -259,7 +281,6 @@ def analyse(commits, repo, normalized=False, collect=False):
 	try:
 		for commit in commits:
 			if (len(commit.parents)==2):
-				
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
 				base = repo.merge_base(parent1.hex, parent2.hex)
