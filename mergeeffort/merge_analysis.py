@@ -25,6 +25,21 @@ def save_attributes_in_csv(commits_attributes):
 				attribute['commit'] = commit
 				writer.writerow(attribute)
 
+def get_merge_type(merge, authors_branch1, authors_branch2):
+	merge_branch = False
+	print(merge.message)
+	print(authors_branch1)
+	print(authors_branch2)
+	if('merge' in merge.message.lower() and 'branch' in merge.message.lower()):
+		merge_branch = True
+
+	if(merge_branch or (len(authors_branch1)>1 and len(authors_branch2)>1)):
+		print("True")
+		return True
+
+	print("False")
+	return False
+
 
 def diff_time(timestamp1, timestamp2):
 	return timestamp2-timestamp1
@@ -183,6 +198,11 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	time_min_branch = calculate_min_branch_time(first_commit_b1_branch, first_commit_b2_branch, last_commit_b2_branch, last_commit_b2_branch)
 	time_max_branch =  calculate_max_branch_time(first_commit_b1_branch, first_commit_b2_branch, last_commit_b2_branch, last_commit_b2_branch)
 
+	if get_merge_type(merge, authors_branch1, authors_branch2):
+		merge_type = "branch"
+
+	else:
+		merge_type = "workspace"
 
 	attributes = {}
 
@@ -240,6 +260,8 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['time_max_total'] = time_max_total
 	attributes['time_min_branch'] = time_min_branch
 	attributes['time_max_branch'] = time_max_branch
+
+	attributes['merge_type'] = merge_type
 
 	return attributes
 
