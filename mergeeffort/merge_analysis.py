@@ -25,6 +25,37 @@ def save_attributes_in_csv(commits_attributes):
 				attribute['commit'] = commit
 				writer.writerow(attribute)
 
+def redo_merge(repo, commit):
+    index = repo.merge_commits(commit.parents[0], commit.parents[1])
+    conflicted_files = len(list(index.conflicts))
+    conflicted_lines = 0
+    # if index.conflicts else 0
+    conflict = False
+    if len(list(index.conflicts)) > 0:
+        conflict = True
+
+    diff = repo.diff(commit, commit.parents[0])
+    for d in diff:
+        diff_full = d.patch.split("\n")
+
+        inicio = False
+        for line in diff_full:
+            if "=======" in line:
+                inicio = True
+            elif ">>>>>>> " in line:
+                inicio = False
+            elif inicio:
+                conflicted_lines += 1
+
+    print(conflicted_lines)
+
+    line = {}
+
+    line["commit_hash"] = commit.hex
+    line["conflict"] = conflict
+    line["conflicted_files"] = conflicted_files
+    return line
+
 def get_merge_type(merge, authors_branch1, authors_branch2):
 	merge_branch = False
 	if('merge' in merge.message.lower() and 'branch' in merge.message.lower()):
@@ -257,6 +288,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['time_max_branch'] = time_max_branch
 
 	attributes['merge_type'] = merge_type
+
 
 	return attributes
 
