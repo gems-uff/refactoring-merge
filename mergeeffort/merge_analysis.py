@@ -203,29 +203,10 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	time_total = calculate_total_time(base_version, merge)
 
-	if(commits_branch1):
-		first_commit_b1_branch = commits_branch1[0]
-		last_commit_b1_branch = commits_branch1[-1]
-		last_commit_b1_total = commits_branch1[-1]
-	else:
-		first_commit_b1_branch = commits_branch2[0]
-		last_commit_b1_branch = commits_branch2[-1]
-		last_commit_b1_total = base_version
-
-	if(commits_branch2):
-		first_commit_b2_branch = commits_branch2[0]
-		last_commit_b2_branch = commits_branch2[-1]
-		last_commit_b2_total = commits_branch2[-1]
-	else:
-		first_commit_b2_branch = commits_branch1[0]
-		last_commit_b2_branch = commits_branch1[-1]
-		last_commit_b2_total = base_version
-
-	
-	time_max_total = calculate_max_total_time(base_version, last_commit_b1_total, last_commit_b2_total)
-	time_min_total = calculate_min_total_time(base_version, last_commit_b1_total, last_commit_b2_total)
-	time_min_branch = calculate_min_branch_time(first_commit_b1_branch, first_commit_b2_branch, last_commit_b2_branch, last_commit_b2_branch)
-	time_max_branch =  calculate_max_branch_time(first_commit_b1_branch, first_commit_b2_branch, last_commit_b2_branch, last_commit_b2_branch)
+	time_max_total = calculate_max_total_time(base_version, commits_branch1[-1], commits_branch2[-1])
+	time_min_total = calculate_min_total_time(base_version, commits_branch1[-1], commits_branch2[-1])
+	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
+	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
 	if get_merge_type(merge, authors_branch1, authors_branch2):
 		merge_type = "branch"
@@ -333,36 +314,47 @@ def calculate_additional_effort(parents_actions, merge_actions):
 def analyse(commits, repo, normalized=False, collect=False):
 	commits_metrics = {}
 	
+	without_base_version = 0
+	no_ff = 0
+
 	try:
 		for commit in commits:
 			if (len(commit.parents)==2):
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
 				base = repo.merge_base(parent1.hex, parent2.hex)
-				if(base): 
-					base_version = repo.get(base)
-					
-					diff_base_final = repo.diff(base_version, commit, context_lines=0)
-					diff_base_parent1 = repo.diff(base_version, parent1, context_lines=0)
-					diff_base_parent2 = repo.diff(base_version, parent2, context_lines=0)
-					
-					merge_actions = get_actions(diff_base_final)
-					parent1_actions = get_actions(diff_base_parent1)
-					parent2_actions = get_actions(diff_base_parent2)
+				if(parent1.hex != base.hex and parent2.hex != base.hex):
+					if(base): 
+						base_version = repo.get(base)
+						
+						diff_base_final = repo.diff(base_version, commit, context_lines=0)
+						diff_base_parent1 = repo.diff(base_version, parent1, context_lines=0)
+						diff_base_parent2 = repo.diff(base_version, parent2, context_lines=0)
+						
+						merge_actions = get_actions(diff_base_final)
+						parent1_actions = get_actions(diff_base_parent1)
+						parent2_actions = get_actions(diff_base_parent2)
 
-					metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized)
-					if (collect):
-						 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, commit))
-					
-					commits_metrics[commit.hex] = metrics
+						metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized)
+						if (collect):
+							 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, commit))
+						
+						commits_metrics[commit.hex] = metrics
+					else:
+						print(commit.hex + " - this merge doesn't have a base version")
+						without_base_version += 1
 				else:
-					print(commit.hex + " - this merge doesn't have a base version")
+					print(commit.hex + " - this is a no fast-forward merge")
+					no_ff += 1
 	except:
 		print ("Unexpected error")
 		print (traceback.format_exc())
 
 	if(collect):
 		save_attributes_in_csv(commits_metrics)
+
+	print("Merges without base version: "+ str(without_base_version))
+	print("No fast forward merges: "+ str(no_ff))
 	return commits_metrics	
 
 def delete_repo_folder(folder):
