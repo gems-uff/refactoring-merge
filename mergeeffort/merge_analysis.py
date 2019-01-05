@@ -26,35 +26,38 @@ def save_attributes_in_csv(commits_attributes):
 				writer.writerow(attribute)
 
 def redo_merge(repo, commit):
-    index = repo.merge_commits(commit.parents[0], commit.parents[1])
-    conflicted_files = len(list(index.conflicts))
-    conflicted_lines = 0
-    # if index.conflicts else 0
-    conflict = False
-    if len(list(index.conflicts)) > 0:
-        conflict = True
+	index = repo.merge_commits(commit.parents[0], commit.parents[1])
+	conflicted = False
+	conflicted_files = 0
+	if(index.conflicts):
+		conflicted_files = len(list(index.conflicts))
 
-    diff = repo.diff(commit, commit.parents[0])
-    for d in diff:
-        diff_full = d.patch.split("\n")
+		#conflicted_lines = 0
+		# if index.conflicts else 0
+		
+		#if len(list(index.conflicts)) > 0:
+		conflicted = True
 
-        inicio = False
-        for line in diff_full:
-            if "=======" in line:
-                inicio = True
-            elif ">>>>>>> " in line:
-                inicio = False
-            elif inicio:
-                conflicted_lines += 1
+		"""diff = repo.diff(commit, commit.parents[0])
+		for d in diff:
+			diff_full = d.patch.split("\n")
 
-    print(conflicted_lines)
+			inicio = False
+			for line in diff_full:
+				if "=======" in line:
+					inicio = True
+				elif ">>>>>>> " in line:
+					inicio = False
+				elif inicio:
+					conflicted_lines += 1
 
-    line = {}
+		#print(conflicted_lines)"""
 
-    line["commit_hash"] = commit.hex
-    line["conflict"] = conflict
-    line["conflicted_files"] = conflicted_files
-    return line
+	conflict = {}
+
+	conflict["has_conflict"] = conflicted
+	conflict["files"] = conflicted_files
+	return conflict
 
 def get_merge_type(merge, authors_branch1, authors_branch2):
 	merge_branch = False
@@ -288,6 +291,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['time_max_branch'] = time_max_branch
 
 	attributes['merge_type'] = merge_type
+
+	attributes['has_conflict'] = redo_merge(repo, merge)['has_conflict']
+	attributes['conflict_files'] = redo_merge(repo, merge)['files']
 
 
 	return attributes
