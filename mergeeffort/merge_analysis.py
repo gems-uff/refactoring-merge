@@ -10,6 +10,10 @@ import argparse
 import time
 import traceback
 import csv
+import subprocess
+
+current_working_directory = os.getcwd()
+REPO_PATH = current_working_directory + "/build/" + str(time.time())
 
 def save_attributes_in_csv(commits_attributes):
 	attributes = []
@@ -58,6 +62,38 @@ def redo_merge(repo, commit):
 	conflict["has_conflict"] = conflicted
 	conflict["files"] = conflicted_files
 	return conflict
+
+def developer_attributes():
+	os.chdir(REPO_PATH)
+	output = subprocess.check_output(["git shortlog -s -n --all"], stderr=subprocess.STDOUT,shell=True)
+
+	developers_commits = output.decode("utf-8").split('\n')
+
+	devs_commits = {}
+	for i in developers_commits:
+		if(i is not ''):
+			commits = i.split('\t')[0]
+			dev = i.split('\t')[-1]
+			devs_commits[dev] = int(commits)
+
+	print(devs_commits)
+
+	output = subprocess.check_output(["git shortlog -s -n --all --no-merges"], stderr=subprocess.STDOUT,shell=True)
+	developers_no_merge_commits = output.decode("utf-8").split('\n')
+
+	devs_no_merge_commits = {}
+	for i in developers_no_merge_commits:
+		if(i is not ''):
+			commits = i.split('\t')[0]
+			dev = i.split('\t')[-1]
+			devs_no_merge_commits[dev] =  int(commits)
+	print(devs_no_merge_commits)
+
+	devs_merge_commits = {}
+	for dev, commits in devs_commits.items():
+		devs_merge_commits[dev] = commits - devs_no_merge_commits[dev]
+
+	print(devs_merge_commits)
 
 def get_merge_type(merge, authors_branch1, authors_branch2):
 	merge_branch = False
@@ -276,7 +312,6 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['has_conflict'] = redo_merge(repo, merge)['has_conflict']
 	attributes['conflict_files'] = redo_merge(repo, merge)['files']
 
-
 	return attributes
 
 def get_actions(diff_a_b):
@@ -290,9 +325,9 @@ def get_actions(diff_a_b):
 
 def clone(url):
 	repo_url = url
-	current_working_directory = os.getcwd()
-	repo_path = current_working_directory + "/build/" + str(time.time())
-	repo = clone_repository(repo_url, repo_path) 
+	#current_working_directory = os.getcwd()
+	#repo_path = current_working_directory + "/build/" + str(time.time())
+	repo = clone_repository(repo_url, REPO_PATH) 
 
 	return repo
 
@@ -316,6 +351,8 @@ def analyse(commits, repo, normalized=False, collect=False):
 	
 	without_base_version = 0
 	no_ff = 0
+
+	developer_attributes()
 
 	try:
 		for commit in commits:
@@ -395,7 +432,9 @@ def main():
 		repo = clone(args.url) 
 
 	elif args.local:
+		global REPO_PATH
 		repo = Repository(args.local)
+		REPO_PATH = args.local
 
 	commits = []
 	if args.commit:
