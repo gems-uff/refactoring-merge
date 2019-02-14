@@ -50,8 +50,8 @@ def save_attributes_in_csv(repo_attributes):
 				attribute['full_name'] = repo
 				writer.writerow(attribute)
 
-
-g = Github("416c86b069cd5fc0fc66ee6ae92baaa1b4f96e27")
+#add token
+g = Github("")
 
 
 #query = 'topic:cmake language:cpp'
@@ -82,5 +82,5 @@ for repo in results:
 
 
 	#print(repo.merges_url)
-#save_attributes_in_csv(repos)
+save_attributes_in_csv(repos)
 print(repos)
