@@ -351,6 +351,7 @@ def calculate_additional_effort(parents_actions, merge_actions):
 
 def analyse(commits, repo, normalized=False, collect=False):
 	commits_metrics = {}
+	merge_commits_count = 0
 	
 	without_base_version = 0
 	no_ff = 0
@@ -360,6 +361,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 	try:
 		for commit in commits:
 			if (len(commit.parents)==2):
+				merge_commits_count+=1
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
 				base = repo.merge_base(parent1.hex, parent2.hex)
@@ -375,7 +377,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 						parent1_actions = get_actions(diff_base_parent1)
 						parent2_actions = get_actions(diff_base_parent2)
 
-						metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized)
+						metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized, merge_commits_count)
 						if (collect):
 							 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, commit))
 						
@@ -400,7 +402,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 def delete_repo_folder(folder):
 		shutil.rmtree(folder)
 
-def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized):	
+def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized, merge_commits_count):	
 	metrics = {}
 	
 	parents_actions = parent1_actions + parent2_actions 
@@ -417,6 +419,8 @@ def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalize
 		metrics['rework'] = calculate_rework(parent1_actions, parent2_actions)
 		metrics['wasted']  = calculate_wasted_effort(parents_actions, merge_actions)
 		metrics['extra'] = calculate_additional_effort(parents_actions, merge_actions)
+
+	metrics['merge_commits_count'] = merge_commits_count 
 		
 	return metrics
 
