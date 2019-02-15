@@ -156,8 +156,8 @@ def committers_in_commits(commits):
 def commits_between_commits(c0,cN, repo):
 	commits = []
 
-	for commit in repo.walk(cN.id, GIT_SORT_TOPOLOGICAL ):
-		if(commit.hex == c0.hex):
+	for commit in repo.walk(cN.id, GIT_SORT_TOPOLOGICAL):
+		if(c0 and commit.hex == c0.hex):
 			break
 		else:
 			commits.append(commit)
@@ -311,6 +311,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	attributes['has_conflict'] = redo_merge(repo, merge)['has_conflict']
 	attributes['conflict_files'] = redo_merge(repo, merge)['files']
+
+	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
+
 
 	return attributes
 
