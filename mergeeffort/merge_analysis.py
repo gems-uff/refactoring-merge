@@ -22,7 +22,7 @@ def save_attributes_in_csv(commits_attributes):
 		for attr in list(commits_attributes.values())[0]:
 			attributes.append(attr)
 
-		with open('project.csv', 'w', newline='') as csvfile:
+		with open('mergeeffortprojectsattributes.csv', 'w', newline='') as csvfile:
 			writer = csv.DictWriter(csvfile, fieldnames=attributes)
 			writer.writeheader()
 			for commit, attribute in commits_attributes.items():
@@ -63,37 +63,42 @@ def redo_merge(repo, commit):
 	conflict["files"] = conflicted_files
 	return conflict
 
-def developer_attributes():
+def get_number_of_commits(git_command):
+	output = subprocess.check_output([git_command], stderr=subprocess.STDOUT,shell=True)
+	
+	developer_commits = output.decode("utf-8").replace('\n', '')
+	if(developer_commits):
+		return developer_commits.split('\t')[0]
+	return 0
+
+
+def developer_attributes(merge):
 	os.chdir(REPO_PATH)
-	output = subprocess.check_output(["git shortlog -s -n --all"], stderr=subprocess.STDOUT,shell=True)
 
-	developers_commits = output.decode("utf-8").split('\n')
+	developer_attributes = {}
 
-	devs_commits = {}
-	for i in developers_commits:
-		if(i is not ''):
-			commits = i.split('\t')[0]
-			dev = i.split('\t')[-1]
-			devs_commits[dev] = int(commits)
+	merge_time = datetime.fromtimestamp(merge.commit_time)
+	six_months_ago_merge = merge_time - timedelta(days = 1*365/12)
 
-	print(devs_commits)
+	command_total_commits = "git shortlog -s -n --author " + merge.author.name + " --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	developer_attributes['commits_in_window_of_time'] = get_number_of_commits(command_total_commits)
 
-	output = subprocess.check_output(["git shortlog -s -n --all --no-merges"], stderr=subprocess.STDOUT,shell=True)
-	developers_no_merge_commits = output.decode("utf-8").split('\n')
+	command_total_commits_hex = "git shortlog -s -n --author " + merge.author.name + " " + merge.hex
+	developer_attributes['commits_until_merge'] = get_number_of_commits(command_total_commits_hex)
+	
 
-	devs_no_merge_commits = {}
-	for i in developers_no_merge_commits:
-		if(i is not ''):
-			commits = i.split('\t')[0]
-			dev = i.split('\t')[-1]
-			devs_no_merge_commits[dev] =  int(commits)
-	print(devs_no_merge_commits)
+	command_commits_no_merge = "git shortlog -s -n --no-merges --author " + merge.author.name + " --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	developer_attributes['no_merges_in_window_of_time'] = get_number_of_commits(command_commits_no_merge)
 
-	devs_merge_commits = {}
-	for dev, commits in devs_commits.items():
-		devs_merge_commits[dev] = commits - devs_no_merge_commits[dev]
+	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author " + merge.author.name + " " + merge.hex
+	developer_attributes['no_merges_until_merge'] = get_number_of_commits(command_commits_no_merge_hex)
+	
 
-	print(devs_merge_commits)
+	developer_attributes['merges_in_window_of_time'] = int(developer_attributes['commits_in_window_of_time']) - int(developer_attributes['no_merges_in_window_of_time'])
+	developer_attributes['merges_until_merge'] = int(developer_attributes['commits_until_merge']) - int(developer_attributes['no_merges_until_merge'])
+
+
+	return(developer_attributes)
 
 def get_merge_type(merge, authors_branch1, authors_branch2):
 	merge_branch = False
@@ -313,6 +318,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['conflict_files'] = redo_merge(repo, merge)['files']
 
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
+	#attributes['developer_attributes']
+	developer_attributes(merge)
+
 
 
 	return attributes
@@ -356,7 +364,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 	without_base_version = 0
 	no_ff = 0
 
-	developer_attributes()
+	#developer_attributes()
 
 	try:
 		for commit in commits:
