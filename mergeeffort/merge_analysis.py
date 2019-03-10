@@ -97,7 +97,6 @@ def developer_attributes(merge):
 	developer_attributes['merges_in_window_of_time'] = int(developer_attributes['commits_in_window_of_time']) - int(developer_attributes['no_merges_in_window_of_time'])
 	developer_attributes['merges_until_merge'] = int(developer_attributes['commits_until_merge']) - int(developer_attributes['no_merges_until_merge'])
 
-
 	return(developer_attributes)
 
 def get_merge_type(merge, authors_branch1, authors_branch2):
@@ -249,6 +248,8 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
+	developer = developer_attributes(merge)
+
 	if get_merge_type(merge, authors_branch1, authors_branch2):
 		merge_type = "branch"
 
@@ -318,10 +319,15 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['conflict_files'] = redo_merge(repo, merge)['files']
 
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
-	#attributes['developer_attributes']
-	developer_attributes(merge)
 
 
+
+	attributes['developer_commits_in_window_of_time'] = developer['commits_in_window_of_time']
+	attributes['developer_commits_until_merge'] = developer['commits_until_merge']
+	attributes['developer_no_merges_in_window_of_time'] = developer['no_merges_in_window_of_time']
+	attributes['developer_no_merges_until_merge'] = developer['no_merges_until_merge']
+	attributes['developer_merges_in_window_of_time'] = developer['merges_in_window_of_time']
+	attributes['developer_merges_until_merge'] = developer['merges_until_merge']
 
 	return attributes
 
