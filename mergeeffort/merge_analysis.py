@@ -29,39 +29,89 @@ def save_attributes_in_csv(commits_attributes):
 				attribute['commit'] = commit
 				writer.writerow(attribute)
 
-def redo_merge(repo, commit):
-	index = repo.merge_commits(commit.parents[0], commit.parents[1])
-	conflicted = False
-	conflicted_files = 0
-	if(index.conflicts):
-		conflicted_files = len(list(index.conflicts))
 
-		#conflicted_lines = 0
-		# if index.conflicts else 0
-		
-		#if len(list(index.conflicts)) > 0:
-		conflicted = True
+def git_checkout(path, hash):
+    #Executando 'git checkout HASH', para mudar para o commit 'parent1'
+    p = subprocess.Popen(["git", "checkout", hash], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    p.kill
+    if err:
+        return not err.decode().startswith("error:")
 
-		"""diff = repo.diff(commit, commit.parents[0])
-		for d in diff:
-			diff_full = d.patch.split("\n")
+def git_reset(path):
+    #Executando 'git reset', para remover eventuais conflitos restantes
+    p = subprocess.Popen(["git", "reset", "--hard"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    p.kill
+    if out:
+        return out.decode().startswith("HEAD is now")
 
-			inicio = False
-			for line in diff_full:
-				if "=======" in line:
-					inicio = True
-				elif ">>>>>>> " in line:
-					inicio = False
-				elif inicio:
-					conflicted_lines += 1
+def git_merge_nocommit(path, hash):
+    #Executando 'git merge --nocommit HASH', para gerar os conflitos
+    p = subprocess.Popen(["git", "merge", "--no-commit", hash], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    p.kill
+    if out:
+        for line in out.decode().split("\n"):
+            if line.startswith("CONFLICT "):
+                return True
 
-		#print(conflicted_lines)"""
+        return False
+    elif err:
+        return err.decode()
 
-	conflict = {}
+def git_diff(path):
+    #Executando o comando 'git diff' para obter o conteúdo modificado
+    p = subprocess.Popen(["git", "diff"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    p.kill
+    if out and len(out.decode(errors='ignore')) > 0:
+        chunks = 0
+        ln = out.decode(errors='ignore').replace("+", "").replace(" ", "").split("\n")#Removendo os caracteres '+' e ' ' para facilitar
 
-	conflict["has_conflict"] = conflicted
-	conflict["files"] = conflicted_files
-	return conflict
+        if ln is not None:
+            #Percorrendo todas as linhas do 'diff'
+            #Caso a linha inicie com o marcador '<<<<<<<', significa que um chunk foi encontrado
+            for line in ln:
+                if line.startswith("<<<<<<<"):
+                    chunks += 1
+
+        return chunks
+    elif err:
+        return err.decode()
+    else:
+        return None
+
+
+#Refaz o merge e coleta os dados
+def redo_merge(repo, path, commit):
+    index = repo.merge_commits(commit.parents[0], commit.parents[1])
+
+    conflict = False
+    conflicted_files = 0
+    chunks = 0
+
+    if index.conflicts is not None and len(list(index.conflicts)) > 0:
+
+        #Caso tenha conflito, serão executados os comandos: 'git checkout', 'git merge' e 'git diff'
+        conflict = True
+        conflicted_files = len(list(index.conflicts))
+
+        #Chamada dos comandos git
+        git_checkout(path, commit.parents[0].hex)
+        git_merge_nocommit(path, commit.parents[1].hex)
+        chunks = git_diff(path)
+
+        #Proteção para caso o valor retornado não seja numérico
+        if not str(chunks).isdigit():
+            chunks = 0
+
+    line = dict()
+    line["commit"] = commit.hex
+    line["conflict"] = conflict
+    line["conflito_chunks"] = chunks
+    line["conflito_arqs"] = conflicted_files
+    return line
 
 def get_number_of_commits(git_command):
 	output = subprocess.check_output([git_command], stderr=subprocess.STDOUT,shell=True)
@@ -315,8 +365,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	attributes['merge_type'] = merge_type
 
-	attributes['has_conflict'] = redo_merge(repo, merge)['has_conflict']
-	attributes['conflict_files'] = redo_merge(repo, merge)['files']
+	#attributes['has_conflict'] = redo_merge(repo, merge)['has_conflict']
+	#attributes['conflict_files'] = redo_merge(repo, merge)['files']
+
 
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
 
