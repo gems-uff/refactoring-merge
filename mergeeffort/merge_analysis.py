@@ -14,6 +14,7 @@ import subprocess
 
 current_working_directory = os.getcwd()
 REPO_PATH = current_working_directory + "/build/" + str(time.time())
+ERROR = False
 
 def save_attributes_in_csv(commits_attributes):
 	attributes = []
@@ -31,94 +32,96 @@ def save_attributes_in_csv(commits_attributes):
 
 
 def git_checkout(path, hash):
-    #Executando 'git checkout HASH', para mudar para o commit 'parent1'
-    p = subprocess.Popen(["git", "checkout", hash], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    p.kill
-    if err:
-        return not err.decode().startswith("error:")
+	#Executando 'git checkout HASH', para mudar para o commit 'parent1'
+	p = subprocess.Popen(["git", "checkout", hash], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out, err = p.communicate()
+	p.kill
+	if err:
+		return not err.decode().startswith("error:")
 
 def git_reset(path):
-    #Executando 'git reset', para remover eventuais conflitos restantes
-    p = subprocess.Popen(["git", "reset", "--hard"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    p.kill
-    if out:
-        return out.decode().startswith("HEAD is now")
+	#Executando 'git reset', para remover eventuais conflitos restantes
+	p = subprocess.Popen(["git", "reset", "--hard"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out, err = p.communicate()
+	p.kill
+	if out:
+		return out.decode().startswith("HEAD is now")
 
 def git_merge_nocommit(path, hash):
-    #Executando 'git merge --nocommit HASH', para gerar os conflitos
-    p = subprocess.Popen(["git", "merge", "--no-commit", hash], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    p.kill
-    if out:
-        for line in out.decode().split("\n"):
-            if line.startswith("CONFLICT "):
-                return True
+	#Executando 'git merge --nocommit HASH', para gerar os conflitos
+	p = subprocess.Popen(["git", "merge", "--no-commit", hash], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out, err = p.communicate()
+	p.kill
+	if out:
+		for line in out.decode().split("\n"):
+			if line.startswith("CONFLICT "):
+				return True
 
-        return False
-    elif err:
-        return err.decode()
+		return False
+	elif err:
+		return err.decode()
 
 def git_diff(path):
-    #Executando o comando 'git diff' para obter o conteúdo modificado
-    p = subprocess.Popen(["git", "diff"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    p.kill
-    if out and len(out.decode(errors='ignore')) > 0:
-        chunks = 0
-        ln = out.decode(errors='ignore').replace("+", "").replace(" ", "").split("\n")#Removendo os caracteres '+' e ' ' para facilitar
+	#Executando o comando 'git diff' para obter o conteúdo modificado
+	p = subprocess.Popen(["git", "diff"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out, err = p.communicate()
+	p.kill
+	if out and len(out.decode(errors='ignore')) > 0:
+		chunks = 0
+		ln = out.decode(errors='ignore').replace("+", "").replace(" ", "").split("\n")#Removendo os caracteres '+' e ' ' para facilitar
 
-        if ln is not None:
-            #Percorrendo todas as linhas do 'diff'
-            #Caso a linha inicie com o marcador '<<<<<<<', significa que um chunk foi encontrado
-            for line in ln:
-                if line.startswith("<<<<<<<"):
-                    chunks += 1
+		if ln is not None:
+			#Percorrendo todas as linhas do 'diff'
+			#Caso a linha inicie com o marcador '<<<<<<<', significa que um chunk foi encontrado
+			for line in ln:
+				if line.startswith("<<<<<<<"):
+					chunks += 1
 
-        return chunks
-    elif err:
-        return err.decode()
-    else:
-        return None
+		return chunks
+	elif err:
+		return err.decode()
+	else:
+		return None
 
 
 #Refaz o merge e coleta os dados
-def redo_merge(repo, path, commit):
-    index = repo.merge_commits(commit.parents[0], commit.parents[1])
+def redo_merge(repo, commit):
+	path = repo.workdir
+	index = repo.merge_commits(commit.parents[0], commit.parents[1])
 
-    conflict = False
-    conflicted_files = 0
-    chunks = 0
+	conflict = False
+	conflicted_files = 0
+	chunks = 0
 
-    if index.conflicts is not None and len(list(index.conflicts)) > 0:
+	if index.conflicts is not None and len(list(index.conflicts)) > 0:
 
-        #Caso tenha conflito, serão executados os comandos: 'git checkout', 'git merge' e 'git diff'
-        conflict = True
-        conflicted_files = len(list(index.conflicts))
+		#Caso tenha conflito, serão executados os comandos: 'git checkout', 'git merge' e 'git diff'
+		conflict = True
+		conflicted_files = len(list(index.conflicts))
 
-        #Chamada dos comandos git
-        git_checkout(path, commit.parents[0].hex)
-        git_merge_nocommit(path, commit.parents[1].hex)
-        chunks = git_diff(path)
+		#Chamada dos comandos git
+		git_checkout(path, commit.parents[0].hex)
+		git_merge_nocommit(path, commit.parents[1].hex)
+		chunks = git_diff(path)
 
-        #Proteção para caso o valor retornado não seja numérico
-        if not str(chunks).isdigit():
-            chunks = 0
+		#Proteção para caso o valor retornado não seja numérico
+		if not str(chunks).isdigit():
+			chunks = 0
 
-    line = dict()
-    line["commit"] = commit.hex
-    line["conflict"] = conflict
-    line["conflito_chunks"] = chunks
-    line["conflito_arqs"] = conflicted_files
-    return line
+	line = dict()
+	#line["commit"] = commit.hex
+	line["conflict"] = conflict
+	line["conflict_chunks"] = chunks
+	line["conflict_files"] = conflicted_files
+
+	return line
 
 def get_number_of_commits(git_command):
 	output = subprocess.check_output([git_command], stderr=subprocess.STDOUT,shell=True)
 	
 	developer_commits = output.decode("utf-8").replace('\n', '')
 	if(developer_commits):
-		return developer_commits.split('\t')[0]
+		return int(developer_commits.split('\t')[0])
 	return 0
 
 
@@ -300,6 +303,8 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	developer = developer_attributes(merge)
 
+	conflict_attributes = redo_merge(repo,merge)
+
 	if get_merge_type(merge, authors_branch1, authors_branch2):
 		merge_type = "branch"
 
@@ -365,12 +370,13 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	attributes['merge_type'] = merge_type
 
-	#attributes['has_conflict'] = redo_merge(repo, merge)['has_conflict']
-	#attributes['conflict_files'] = redo_merge(repo, merge)['files']
 
+
+	attributes['has_conflict'] = conflict_attributes['conflict']
+	attributes['conflict_files'] = conflict_attributes['conflict_files']
+	attributes['conflict_chunks'] = conflict_attributes['conflict_chunks']
 
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
-
 
 
 	attributes['developer_commits_in_window_of_time'] = developer['commits_in_window_of_time']
@@ -415,6 +421,7 @@ def calculate_additional_effort(parents_actions, merge_actions):
 
 
 def analyse(commits, repo, normalized=False, collect=False):
+	global ERROR
 	commits_metrics = {}
 	merge_commits_count = 0
 	
@@ -456,6 +463,8 @@ def analyse(commits, repo, normalized=False, collect=False):
 	except:
 		print ("Unexpected error")
 		print (traceback.format_exc())
+		ERROR = True
+
 
 	if(collect):
 		save_attributes_in_csv(commits_metrics)
@@ -500,6 +509,8 @@ def main():
 	parser.add_argument("--collect",action='store_true', help="collect attributes")
 	args = parser.parse_args()
 
+	global ERROR
+
 	if args.url:
 		repo = clone(args.url) 
 
@@ -519,6 +530,8 @@ def main():
 	commits_metrics = analyse(commits, repo, args.normalized, args.collect)
 	print(commits_metrics)
 	print("Total of merge commits: " + str(len(commits_metrics)))
+	if(ERROR):
+		print("Completed with error!")
 	if args.url:
 		delete_repo_folder(repo.workdir)
 
