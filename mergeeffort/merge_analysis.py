@@ -1,3 +1,5 @@
+import logging
+
 from datetime import datetime
 from datetime import timedelta
 startTime = datetime.now()
@@ -11,6 +13,10 @@ import time
 import traceback
 import csv
 import subprocess
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 current_working_directory = os.getcwd()
 REPO_PATH = current_working_directory + "/build/" + str(time.time())
@@ -111,7 +117,14 @@ def redo_merge(repo, commit):
 	line = dict()
 	#line["commit"] = commit.hex
 	line["conflict"] = conflict
+	
+
 	line["conflict_chunks"] = chunks
+	if(chunks < conflicted_files):
+		print(commit.hex)
+		print(chunks)
+		print(conflicted_files)
+
 	line["conflict_files"] = conflicted_files
 
 	return line
@@ -303,7 +316,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	developer = developer_attributes(merge)
 
-	conflict_attributes = redo_merge(repo,merge)
+	#conflict_attributes = redo_merge(repo,merge)
 
 	if get_merge_type(merge, authors_branch1, authors_branch2):
 		merge_type = "branch"
@@ -372,9 +385,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 
 
-	attributes['has_conflict'] = conflict_attributes['conflict']
-	attributes['conflict_files'] = conflict_attributes['conflict_files']
-	attributes['conflict_chunks'] = conflict_attributes['conflict_chunks']
+	#attributes['has_conflict'] = conflict_attributes['conflict']
+	#attributes['conflict_files'] = conflict_attributes['conflict_files']
+	#attributes['conflict_chunks'] = conflict_attributes['conflict_chunks']
 
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
 
@@ -455,22 +468,24 @@ def analyse(commits, repo, normalized=False, collect=False):
 						
 						commits_metrics[commit.hex] = metrics
 					else:
-						print(commit.hex + " - this merge doesn't have a base version")
+						logger.info(commit.hex + " - this merge doesn't have a base version")
 						without_base_version += 1
 				else:
-					print(commit.hex + " - this is a no fast-forward merge")
+					logger.info(commit.hex + " - this is a no fast-forward merge")
 					no_ff += 1
 	except:
-		print ("Unexpected error")
-		print (traceback.format_exc())
+		logger.error ("Unexpected error in commit: " + str(commit.hex))
+		logger.error (traceback.format_exc())
+
 		ERROR = True
 
 
 	if(collect):
 		save_attributes_in_csv(commits_metrics)
 
-	print("Merges without base version: "+ str(without_base_version))
-	print("No fast forward merges: "+ str(no_ff))
+	logger.info("Total of merge commits: " + str(merge_commits_count))
+	logger.info("Merges without base version: "+ str(without_base_version))
+	logger.info("No fast forward merges: "+ str(no_ff))
 	return commits_metrics	
 
 def delete_repo_folder(folder):
@@ -529,13 +544,13 @@ def main():
 
 	commits_metrics = analyse(commits, repo, args.normalized, args.collect)
 	print(commits_metrics)
-	print("Total of merge commits: " + str(len(commits_metrics)))
+	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
 	if(ERROR):
-		print("Completed with error!")
+		logger.error("Completed with error!")
 	if args.url:
 		delete_repo_folder(repo.workdir)
 
-	print(datetime.now() - startTime)
+	logger.info(datetime.now() - startTime)
 
 	
 if __name__ == '__main__':
