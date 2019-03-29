@@ -11,9 +11,10 @@ import time
 import traceback
 import csv
 import subprocess
+import ntpath
 
 def filter_repos_and_clone():
-	with open('/Users/tayanemoura/Documents/git/merge-effort-mining/aux/selectedprojects.csv') as csv_file:
+	with open('/Users/tayanemoura/Documents/git/merge-effort-mining/aux/projects_list.csv') as csv_file:
 
 		csv_reader = csv.reader(csv_file, delimiter=',')
 		line_count = 0
@@ -26,8 +27,8 @@ def filter_repos_and_clone():
 					print(f'\t{row[0]} {row[1]} {row[5]} ')
 					line_count += 1
 					url = row[1]
-					clone(url)
-					time.sleep(60)
+					#clone(url)
+					#time.sleep(60)
 
 		print(f'Processed {line_count} lines.')
 
@@ -42,8 +43,11 @@ def write_csv(row):
 
 def clone(path):
 
+	backup_path = ntpath.basename(path)
 
-	git_command = "git clone " + path + ".git"
+	git_command = "git clone backup/felipecrp/" + backup_path
+
+	print(git_command)
 
 	output = " "
 
