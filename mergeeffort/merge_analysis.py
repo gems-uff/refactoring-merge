@@ -316,7 +316,8 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	developer = developer_attributes(merge)
 
-	#conflict_attributes = redo_merge(repo,merge)
+	conflict_attributes = redo_merge(repo,merge)
+	git_reset(repo.workdir)
 
 	if get_merge_type(merge, authors_branch1, authors_branch2):
 		merge_type = "branch"
