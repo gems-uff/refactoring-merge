@@ -445,14 +445,15 @@ def analyse(commits, repo, normalized=False, collect=False):
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
 				base = repo.merge_base(parent1.hex, parent2.hex)
-				if(parent1.hex != base.hex and parent2.hex != base.hex):
-					if(base): 
-						base_version = repo.get(base)
+				if(base):
+					if(parent1.hex != base.hex and parent2.hex != base.hex):
 						
+						base_version = repo.get(base)
+							
 						diff_base_final = repo.diff(base_version, commit, context_lines=0)
 						diff_base_parent1 = repo.diff(base_version, parent1, context_lines=0)
 						diff_base_parent2 = repo.diff(base_version, parent2, context_lines=0)
-						
+							
 						merge_actions = get_actions(diff_base_final)
 						parent1_actions = get_actions(diff_base_parent1)
 						parent2_actions = get_actions(diff_base_parent2)
@@ -460,14 +461,15 @@ def analyse(commits, repo, normalized=False, collect=False):
 						metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized, merge_commits_count)
 						if (collect):
 							 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, commit))
-						
+							
 						commits_metrics[commit.hex] = metrics
+
 					else:
-						logger.info(commit.hex + " - this merge doesn't have a base version")
-						without_base_version += 1
+						logger.info(commit.hex + " - this is a no fast-forward merge")
+						no_ff += 1
 				else:
-					logger.info(commit.hex + " - this is a no fast-forward merge")
-					no_ff += 1
+					logger.info(commit.hex + " - this merge doesn't have a base version")
+					without_base_version += 1
 	except:
 		logger.error ("Unexpected error in commit: " + str(commit.hex))
 		logger.error (traceback.format_exc())
