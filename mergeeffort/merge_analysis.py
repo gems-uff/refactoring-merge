@@ -508,21 +508,6 @@ def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalize
 		
 	return metrics
 
-
-def get_all_commits(commits):
-	""" Gets all reachable merge commits from a set of commits """
-	visited = set()
-	merges = set()
-	while commits:
-		commit = commits.pop()
-		if commit.id not in visited:
-			visited.add(commit.id)
-			commits.update(commit.parents)
-
-			if len(commit.parents) == 2:
-				merges.add(commit.id)
-	return merges
-
 def merge_commits(commits):
 	""" Gets all reachable merge commits from a set of commits """
 	visited = set()
