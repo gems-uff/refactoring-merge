@@ -117,15 +117,10 @@ def redo_merge(repo, commit):
 	line = dict()
 	#line["commit"] = commit.hex
 	line["conflict"] = conflict
-	
-
 	line["conflict_chunks"] = chunks
-	if(chunks < conflicted_files):
-		print(commit.hex)
-		print(chunks)
-		print(conflicted_files)
-
 	line["conflict_files"] = conflicted_files
+
+	git_reset(repo.workdir)
 
 	return line
 
@@ -317,7 +312,6 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	developer = developer_attributes(merge)
 
 	conflict_attributes = redo_merge(repo,merge)
-	git_reset(repo.workdir)
 
 	if get_merge_type(merge, authors_branch1, authors_branch2):
 		merge_type = "branch"
@@ -487,12 +481,12 @@ def analyse(commits, repo, normalized=False, collect=False):
 	logger.info("Total of merge commits: " + str(merge_commits_count))
 	logger.info("Merges without base version: "+ str(without_base_version))
 	logger.info("No fast forward merges: "+ str(no_ff))
-	return commits_metrics	
+	return commits_metrics  
 
 def delete_repo_folder(folder):
 		shutil.rmtree(folder)
 
-def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized, merge_commits_count):	
+def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalized, merge_commits_count):    
 	metrics = {}
 	
 	parents_actions = parent1_actions + parent2_actions 
@@ -513,6 +507,36 @@ def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalize
 	metrics['merge_commits_count'] = merge_commits_count 
 		
 	return metrics
+
+
+def get_all_commits(commits):
+	""" Gets all reachable merge commits from a set of commits """
+	visited = set()
+	merges = set()
+	while commits:
+		commit = commits.pop()
+		if commit.id not in visited:
+			visited.add(commit.id)
+			commits.update(commit.parents)
+
+			if len(commit.parents) == 2:
+				merges.add(commit.id)
+	return merges
+
+def merge_commits(commits):
+	""" Gets all reachable merge commits from a set of commits """
+	visited = set()
+	merges = set()
+
+	while commits:
+		commit = commits.pop()
+		if commit.id not in visited:
+			visited.add(commit.id)
+			commits.update(commit.parents)
+			if len(commit.parents) == 2:
+				merges.add(commit)
+
+	return merges
 
 			
 def main():
@@ -540,8 +564,9 @@ def main():
 		for commit in args.commit:
 			commits.append(repo.get(commit))
 
+
 	else:
-		commits = repo.walk(repo.head.target, GIT_SORT_TIME | GIT_SORT_REVERSE)
+		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
 
 	commits_metrics = analyse(commits, repo, args.normalized, args.collect)
 	print(commits_metrics)
@@ -555,5 +580,5 @@ def main():
 
 	
 if __name__ == '__main__':
-	main()	
+	main()  
 
