@@ -14,9 +14,26 @@ import traceback
 import csv
 import subprocess
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+
+fh = logging.FileHandler(r'merge_analysis.log')
+
+
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(levelname)s:%(name)s : %(message)s')
+fh.setFormatter(formatter)
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
+
+logger.addHandler(fh)
 
 current_working_directory = os.getcwd()
 REPO_PATH = current_working_directory + "/build/" + str(time.time())
@@ -462,7 +479,9 @@ def analyse(commits, repo, normalized=False, collect=False):
 						if (collect):
 							 metrics.update(collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, commit))
 							
+						metrics['project'] = repo.workdir
 						commits_metrics[commit.hex] = metrics
+
 
 					else:
 						logger.info(commit.hex + " - this is a no fast-forward merge")
@@ -555,6 +574,7 @@ def main():
 	else:
 		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
 
+	logger.info("Starting project" + repo.workdir)
 	commits_metrics = analyse(commits, repo, args.normalized, args.collect)
 	print(commits_metrics)
 	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
@@ -564,6 +584,7 @@ def main():
 		delete_repo_folder(repo.workdir)
 
 	logger.info(datetime.now() - startTime)
+	logger.info("Finished project" + repo.workdir)
 
 	
 if __name__ == '__main__':
