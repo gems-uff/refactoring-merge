@@ -23,7 +23,6 @@ ch.setLevel(logging.INFO)
 
 fh = logging.FileHandler(r'merge_analysis.log')
 
-
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(levelname)s:%(name)s : %(message)s')
 fh.setFormatter(formatter)
@@ -40,15 +39,19 @@ REPO_PATH = current_working_directory + "/build/" + str(time.time())
 ERROR = False
 
 def save_attributes_in_csv(commits_attributes):
+	filename = '/Users/tayanemoura/Documents/git/merge-effort-mining/mergeeffort/mergeeffortprojectsattributes.csv'
+	file_exists = os.path.isfile(filename)
+
 	attributes = []
 	if(commits_attributes):
 		attributes.append('commit')
 		for attr in list(commits_attributes.values())[0]:
 			attributes.append(attr)
 
-		with open('mergeeffortprojectsattributes.csv', 'w', newline='') as csvfile:
+		with open(filename, 'a', newline='') as csvfile:
 			writer = csv.DictWriter(csvfile, fieldnames=attributes)
-			writer.writeheader()
+			if(not file_exists):
+				writer.writeheader()
 			for commit, attribute in commits_attributes.items():
 				attribute['commit'] = commit
 				writer.writerow(attribute)
