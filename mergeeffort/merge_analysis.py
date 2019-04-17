@@ -549,13 +549,25 @@ def merge_commits(commits):
 	return merges
 	
 
-def init_analysis(commits, repo, normalized, collect, url):
+def init_analysis( repo_path, normalized, collect, commits=None, url=None):
 	global ERROR
+
+	repo = Repository(repo_path)
+	commits = []
+
+	if not commits:
+		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
+	# in case commits were passed in the arguments
+	else:
+		for commit in commits:
+			commits.append(repo.get(commit))
+
 
 	logger.info("Starting project" + repo.workdir)
 	commits_metrics = analyse(commits, repo, normalized, collect)
 	print(commits_metrics)
 	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
+	
 	if(ERROR):
 		logger.error("Completed with error!")
 	if url:
@@ -578,23 +590,12 @@ def main():
 	
 	if args.url:
 		repo_aux = clone(args.url) 
-		#sem essa linha da erro depoois na hora de pegar os branches, porque?? 
-		repo = Repository(repo_aux.workdir)
+		repo_path = repo_aux.workdir
 
 	elif args.local:
-		repo = Repository(args.local)
-
-	commits = []
-	if args.commit:
-		for commit in args.commit:
-			commits.append(repo.get(commit))
-
-	else:
-		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
-
-	init_analysis(commits, repo, args.normalized, args.collect, args.url)
-
-
+		repo_path = args.local
+		
+	init_analysis(repo_path, args.normalized, args.collect, args.commit, args.url)
 
 	
 if __name__ == '__main__':
