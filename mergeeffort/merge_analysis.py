@@ -34,12 +34,12 @@ logger.addHandler(ch)
 
 logger.addHandler(fh)
 
-current_working_directory = os.getcwd()
-REPO_PATH = current_working_directory + "/build/" + str(time.time())
+#current_working_directory = os.getcwd()
+#REPO_PATH = current_working_directory + "/build/" + str(time.time())
 ERROR = False
 
 def save_attributes_in_csv(commits_attributes):
-	filename = '/Users/tayanemoura/Documents/git/merge-effort-mining/mergeeffort/mergeeffortprojectsattributes.csv'
+	filename = '/Users/tayanemoura/Documents/git/merge-effort-mining/aux/attributes/old/mergeeffortprojectsattributesNEW.csv'
 	file_exists = os.path.isfile(filename)
 
 	attributes = []
@@ -88,7 +88,7 @@ def git_merge_nocommit(path, hash):
 		return err.decode()
 
 def git_diff(path):
-	#Executando o comando 'git diff' para obter o conteúdo modificado
+	#Executando o comando 'git diff' para obter o conteudo modificado
 	p = subprocess.Popen(["git", "diff"], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	out, err = p.communicate()
 	p.kill
@@ -121,7 +121,7 @@ def redo_merge(repo, commit):
 
 	if index.conflicts is not None and len(list(index.conflicts)) > 0:
 
-		#Caso tenha conflito, serão executados os comandos: 'git checkout', 'git merge' e 'git diff'
+		#Caso tenha conflito, serao executados os comandos: 'git checkout', 'git merge' e 'git diff'
 		conflict = True
 		conflicted_files = len(list(index.conflicts))
 
@@ -130,9 +130,10 @@ def redo_merge(repo, commit):
 		git_merge_nocommit(path, commit.parents[1].hex)
 		chunks = git_diff(path)
 
-		#Proteção para caso o valor retornado não seja numérico
+		#Protecao para caso o valor retornado nao seja numerico
 		if not str(chunks).isdigit():
 			chunks = 0
+		git_reset(repo.workdir)
 
 	line = dict()
 	#line["commit"] = commit.hex
@@ -140,7 +141,7 @@ def redo_merge(repo, commit):
 	line["conflict_chunks"] = chunks
 	line["conflict_files"] = conflicted_files
 
-	git_reset(repo.workdir)
+	
 
 	return line
 
@@ -153,8 +154,8 @@ def get_number_of_commits(git_command):
 	return 0
 
 
-def developer_attributes(merge):
-	os.chdir(REPO_PATH)
+def developer_attributes(merge, repo):
+	os.chdir(repo.workdir)
 
 	developer_attributes = {}
 
@@ -329,7 +330,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	time_min_branch = calculate_min_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
-	developer = developer_attributes(merge)
+	developer = developer_attributes(merge, repo)
 
 	conflict_attributes = redo_merge(repo,merge)
 
@@ -426,10 +427,9 @@ def get_actions(diff_a_b):
 	return actions
 
 def clone(url):
-	repo_url = url
-	#current_working_directory = os.getcwd()
-	#repo_path = current_working_directory + "/build/" + str(time.time())
-	repo = clone_repository(repo_url, REPO_PATH) 
+	current_working_directory = os.getcwd()
+	repo_path = current_working_directory + "/build/" + str(time.time())
+	repo = clone_repository(url, repo_path) 
 
 	return repo
 
@@ -499,7 +499,8 @@ def analyse(commits, repo, normalized=False, collect=False):
 		ERROR = True
 
 
-	if(collect):
+	# so salvar quando nao tiver erro
+	if(collect and not ERROR):
 		save_attributes_in_csv(commits_metrics)
 
 	logger.info("Total of merge commits: " + str(merge_commits_count))
@@ -546,7 +547,6 @@ def merge_commits(commits):
 				merges.add(commit)
 
 	return merges
-
 			
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis')
@@ -564,15 +564,12 @@ def main():
 		repo = clone(args.url) 
 
 	elif args.local:
-		global REPO_PATH
 		repo = Repository(args.local)
-		REPO_PATH = args.local
 
 	commits = []
 	if args.commit:
 		for commit in args.commit:
 			commits.append(repo.get(commit))
-
 
 	else:
 		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
