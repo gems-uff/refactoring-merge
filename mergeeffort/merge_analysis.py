@@ -547,7 +547,24 @@ def merge_commits(commits):
 				merges.add(commit)
 
 	return merges
-			
+	
+
+def init_analysis(commits, repo, normalized, collect, url):
+	global ERROR
+
+	logger.info("Starting project" + repo.workdir)
+	commits_metrics = analyse(commits, repo, normalized, collect)
+	print(commits_metrics)
+	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
+	if(ERROR):
+		logger.error("Completed with error!")
+	if url:
+		delete_repo_folder(repo.workdir)
+
+	logger.info(datetime.now() - startTime)
+	logger.info("Finished project" + repo.workdir)
+
+
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis')
 	group = parser.add_mutually_exclusive_group(required=True)
@@ -558,10 +575,11 @@ def main():
 	parser.add_argument("--collect",action='store_true', help="collect attributes")
 	args = parser.parse_args()
 
-	global ERROR
-
+	
 	if args.url:
-		repo = clone(args.url) 
+		repo_aux = clone(args.url) 
+		#sem essa linha da erro depoois na hora de pegar os branches, porque?? 
+		repo = Repository(repo_aux.workdir)
 
 	elif args.local:
 		repo = Repository(args.local)
@@ -574,17 +592,9 @@ def main():
 	else:
 		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
 
-	logger.info("Starting project" + repo.workdir)
-	commits_metrics = analyse(commits, repo, args.normalized, args.collect)
-	print(commits_metrics)
-	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
-	if(ERROR):
-		logger.error("Completed with error!")
-	if args.url:
-		delete_repo_folder(repo.workdir)
+	init_analysis(commits, repo, args.normalized, args.collect, args.url)
 
-	logger.info(datetime.now() - startTime)
-	logger.info("Finished project" + repo.workdir)
+
 
 	
 if __name__ == '__main__':
