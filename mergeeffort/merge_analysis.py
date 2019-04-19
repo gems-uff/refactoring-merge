@@ -35,7 +35,6 @@ logger.addHandler(fh)
 
 #current_working_directory = os.getcwd()
 #REPO_PATH = current_working_directory + "/build/" + str(time.time())
-ERROR = False
 
 def save_attributes_in_csv(commits_attributes, filename):
 	file_exists = os.path.isfile(filename)
@@ -447,7 +446,7 @@ def calculate_additional_effort(parents_actions, merge_actions):
 
 
 def analyze(commits, repo, output_file, normalized=False, collect=False):
-	global ERROR
+	error = False
 	commits_metrics = {}
 	merge_commits_count = 0
 	
@@ -492,18 +491,22 @@ def analyze(commits, repo, output_file, normalized=False, collect=False):
 	except:
 		logger.error ("Unexpected error in commit: " + str(commit.hex))
 		logger.error (traceback.format_exc())
-
-		ERROR = True
+		error = True
 
 
 	# so salvar quando nao tiver erro
-	if(collect and not ERROR):
+	if(collect and not error):
 		save_attributes_in_csv(commits_metrics, output_file)
 
 	logger.info("Total of merge commits: " + str(merge_commits_count))
 	logger.info("Merges without base version: "+ str(without_base_version))
 	logger.info("No fast forward merges: "+ str(no_ff))
-	return commits_metrics  
+	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
+
+	if error:
+		logger.error("Finished with error!")
+
+	return commits_metrics
 
 def delete_repo_folder(folder):
 		shutil.rmtree(folder)
@@ -547,27 +550,20 @@ def merge_commits(commits):
 	
 
 def init_analysis(repo_path, output_file, normalized, collect, commit_ids=[], url=None):
-	global ERROR
-
 	start_time = datetime.now()
 	repo = Repository(repo_path)
+
+	logger.info("Starting project" + repo.workdir)
 
 	commits = []
 	if not commit_ids:
 		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
-	# in case commits were passed in the arguments
-	else:
+	else:  # in case commits were passed in the arguments
 		for id in commit_ids:
 			commits.append(repo.get(id))
 
+	analyze(commits, repo, output_file, normalized, collect)
 
-	logger.info("Starting project" + repo.workdir)
-	commits_metrics = analyze(commits, repo, output_file, normalized, collect)
-	print(commits_metrics)
-	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
-	
-	if(ERROR):
-		logger.error("Completed with error!")
 	if url:
 		delete_repo_folder(repo.workdir)
 
@@ -584,7 +580,6 @@ def main():
 	parser.add_argument("--commit", nargs='+', help="list of commits to analyze. Default: all merge commits")
 	parser.add_argument("--output", default='output.csv', help="output file name. Default: output.csv")
 	args = parser.parse_args()
-
 	
 	if args.url:
 		repo_aux = clone(args.url) 
@@ -595,7 +590,7 @@ def main():
 		
 	init_analysis(repo_path, args.output, args.normalized, args.collect, args.commit, args.url)
 
-	
+
 if __name__ == '__main__':
 	main()  
 
