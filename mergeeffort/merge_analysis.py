@@ -489,8 +489,8 @@ def analyze(commits, repo, output_file, normalized=False, collect=False):
 				else:
 					without_base_version += 1
 	except:
-		logger.error ("Unexpected error in commit: " + str(commit.hex))
-		logger.error (traceback.format_exc())
+		print()
+		logger.exception("Unexpected error in commit " + str(commit.hex))
 		error = True
 
 
@@ -498,13 +498,16 @@ def analyze(commits, repo, output_file, normalized=False, collect=False):
 	if(collect and not error):
 		save_attributes_in_csv(commits_metrics, output_file)
 
+	if not error:
+		print()
+
 	logger.info("Total of merge commits: " + str(merge_commits_count))
 	logger.info("Merges without base version: "+ str(without_base_version))
 	logger.info("No fast forward merges: "+ str(no_ff))
 	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
 
 	if error:
-		logger.error("Finished with error!")
+		logger.error(f'Project {repo} finished with error!')
 
 	return commits_metrics
 
