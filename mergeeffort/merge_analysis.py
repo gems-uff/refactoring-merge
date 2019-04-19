@@ -2,7 +2,6 @@ import logging
 
 from datetime import datetime
 from datetime import timedelta
-startTime = datetime.now()
 from collections import Counter
 
 from pygit2 import *
@@ -550,6 +549,7 @@ def merge_commits(commits):
 def init_analysis(repo_path, output_file, normalized, collect, commit_ids=[], url=None):
 	global ERROR
 
+	start_time = datetime.now()
 	repo = Repository(repo_path)
 
 	commits = []
@@ -572,7 +572,7 @@ def init_analysis(repo_path, output_file, normalized, collect, commit_ids=[], ur
 		delete_repo_folder(repo.workdir)
 
 	logger.info("Finished project " + repo.workdir)
-	logger.info('Elapsed time:' + str(datetime.now() - startTime))
+	logger.info('Elapsed time:' + str(datetime.now() - start_time))
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis')
