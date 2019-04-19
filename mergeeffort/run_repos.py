@@ -1,6 +1,7 @@
 import csv
 import merge_analysis
 import sys
+import argparse
 
 def select_repos(input_file):
 	repos = []
@@ -17,15 +18,15 @@ def select_repos(input_file):
 	return repos
 			
 def main():
-	if len(sys.argv) != 3:
-		print('Syntax: python3 run_repos.py <input file> <output file>')
-	else:
-		input_file = sys.argv[1]
-		output_file = sys.argv[2]
-		selected_repos = select_repos(input_file)
-		for repo in selected_repos:
-			print(repo)
-			merge_analysis.init_analysis(repo, output_file, False, True)
-	
+	parser = argparse.ArgumentParser(description='Merge effort analysis over multiple projects')
+	parser.add_argument("input", help="input CSV file containing the path and the number of merges of each repository")
+	parser.add_argument("output", help="output CSV file to be generated, containing the collected metrics")
+	args = parser.parse_args()
+
+	selected_repos = select_repos(args.input)
+	for repo in selected_repos:
+		print(repo)
+		merge_analysis.init_analysis(repo, args.output, False, True)
+
 if __name__ == '__main__':
 	main()
