@@ -159,17 +159,17 @@ def developer_attributes(merge, repo):
 	merge_time = datetime.fromtimestamp(merge.commit_time)
 	six_months_ago_merge = merge_time - timedelta(days = 1*365/12)
 
-	command_total_commits = "git shortlog -s -n --author=\"" + merge.author.name + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	command_total_commits = "git shortlog -s -n --author=\"" + merge.author.name.replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
 	developer_attributes['commits_in_window_of_time'] = get_number_of_commits(command_total_commits)
 
-	command_total_commits_hex = "git shortlog -s -n --author=\"" + merge.author.name +"\" " + merge.hex
+	command_total_commits_hex = "git shortlog -s -n --author=\"" + merge.author.name.replace('"','\\"') +"\" " + merge.hex
 	developer_attributes['commits_until_merge'] = get_number_of_commits(command_total_commits_hex)
 	
 
-	command_commits_no_merge = "git shortlog -s -n --no-merges --author=\"" + merge.author.name + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	command_commits_no_merge = "git shortlog -s -n --no-merges --author=\"" + merge.author.name.replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
 	developer_attributes['no_merges_in_window_of_time'] = get_number_of_commits(command_commits_no_merge)
 
-	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author=\"" + merge.author.name +"\" " + merge.hex
+	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author=\"" + merge.author.name.replace('"','\\"') +"\" " + merge.hex
 	developer_attributes['no_merges_until_merge'] = get_number_of_commits(command_commits_no_merge_hex)
 	
 
