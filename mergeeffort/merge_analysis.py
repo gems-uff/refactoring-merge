@@ -38,8 +38,7 @@ logger.addHandler(fh)
 #REPO_PATH = current_working_directory + "/build/" + str(time.time())
 ERROR = False
 
-def save_attributes_in_csv(commits_attributes):
-	filename = '/Users/tayanemoura/Documents/git/merge-effort-mining/aux/attributes/old/mergeeffortprojectsattributesNEW.csv'
+def save_attributes_in_csv(commits_attributes, filename):
 	file_exists = os.path.isfile(filename)
 
 	attributes = []
@@ -448,7 +447,7 @@ def calculate_additional_effort(parents_actions, merge_actions):
 	return (sum(additional_actions.values()))
 
 
-def analyse(commits, repo, normalized=False, collect=False):
+def analyze(commits, repo, output_file, normalized=False, collect=False):
 	global ERROR
 	commits_metrics = {}
 	merge_commits_count = 0
@@ -461,6 +460,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 	try:
 		for commit in commits:
 			if (len(commit.parents)==2):
+				print('.', end='', flush=True)
 				merge_commits_count+=1
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
@@ -487,10 +487,8 @@ def analyse(commits, repo, normalized=False, collect=False):
 
 
 					else:
-						logger.info(commit.hex + " - this is a no fast-forward merge")
 						no_ff += 1
 				else:
-					logger.info(commit.hex + " - this merge doesn't have a base version")
 					without_base_version += 1
 	except:
 		logger.error ("Unexpected error in commit: " + str(commit.hex))
@@ -501,7 +499,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 
 	# so salvar quando nao tiver erro
 	if(collect and not ERROR):
-		save_attributes_in_csv(commits_metrics)
+		save_attributes_in_csv(commits_metrics, output_file)
 
 	logger.info("Total of merge commits: " + str(merge_commits_count))
 	logger.info("Merges without base version: "+ str(without_base_version))
@@ -549,22 +547,22 @@ def merge_commits(commits):
 	return merges
 	
 
-def init_analysis( repo_path, normalized, collect, commits=None, url=None):
+def init_analysis(repo_path, output_file, normalized, collect, commit_ids=[], url=None):
 	global ERROR
 
 	repo = Repository(repo_path)
-	commits = []
 
-	if not commits:
+	commits = []
+	if not commit_ids:
 		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
 	# in case commits were passed in the arguments
 	else:
-		for commit in commits:
-			commits.append(repo.get(commit))
+		for id in commit_ids:
+			commits.append(repo.get(id))
 
 
 	logger.info("Starting project" + repo.workdir)
-	commits_metrics = analyse(commits, repo, normalized, collect)
+	commits_metrics = analyze(commits, repo, output_file, normalized, collect)
 	print(commits_metrics)
 	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
 	
@@ -573,18 +571,18 @@ def init_analysis( repo_path, normalized, collect, commits=None, url=None):
 	if url:
 		delete_repo_folder(repo.workdir)
 
-	logger.info(datetime.now() - startTime)
-	logger.info("Finished project" + repo.workdir)
-
+	logger.info("Finished project " + repo.workdir)
+	logger.info('Elapsed time:' + str(datetime.now() - startTime))
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis')
 	group = parser.add_mutually_exclusive_group(required=True)
 	group.add_argument("--url", help="set an url for a git repository")
 	group.add_argument("--local", help="set the path of a local git repository")
-	parser.add_argument("--commit", nargs='+', help="set the commit (or a list of commits separated by comma) to analyse. Default: all merge commits")
 	parser.add_argument("--normalized",action='store_true', help="show metrics normalized")
 	parser.add_argument("--collect",action='store_true', help="collect attributes")
+	parser.add_argument("--commit", nargs='+', help="list of commits to analyze. Default: all merge commits")
+	parser.add_argument("--output", default='output.csv', help="output file name. Default: output.csv")
 	args = parser.parse_args()
 
 	
@@ -595,7 +593,7 @@ def main():
 	elif args.local:
 		repo_path = args.local
 		
-	init_analysis(repo_path, args.normalized, args.collect, args.commit, args.url)
+	init_analysis(repo_path, args.output, args.normalized, args.collect, args.commit, args.url)
 
 	
 if __name__ == '__main__':
