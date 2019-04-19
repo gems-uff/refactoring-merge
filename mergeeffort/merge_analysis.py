@@ -36,6 +36,17 @@ logger.addHandler(fh)
 #current_working_directory = os.getcwd()
 #REPO_PATH = current_working_directory + "/build/" + str(time.time())
 
+
+def name(person):
+	"""Tries different ways to decode the person name."""
+	try:
+		return person.name
+	except UnicodeDecodeError:
+		try:
+			return person.raw_name.decode('latin1')
+		except UnicodeDecodeError:
+			return person.raw_name.decode('utf-8', 'ignore')
+
 def save_attributes_in_csv(commits_attributes, filename):
 	file_exists = os.path.isfile(filename)
 
@@ -159,17 +170,17 @@ def developer_attributes(merge, repo):
 	merge_time = datetime.fromtimestamp(merge.commit_time)
 	six_months_ago_merge = merge_time - timedelta(days = 1*365/12)
 
-	command_total_commits = "git shortlog -s -n --author=\"" + merge.author.name.replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	command_total_commits = "git shortlog -s -n --author=\"" + name(merge.author).replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
 	developer_attributes['commits_in_window_of_time'] = get_number_of_commits(command_total_commits)
 
-	command_total_commits_hex = "git shortlog -s -n --author=\"" + merge.author.name.replace('"','\\"') +"\" " + merge.hex
+	command_total_commits_hex = "git shortlog -s -n --author=\"" + name(merge.author).replace('"','\\"') +"\" " + merge.hex
 	developer_attributes['commits_until_merge'] = get_number_of_commits(command_total_commits_hex)
 	
 
-	command_commits_no_merge = "git shortlog -s -n --no-merges --author=\"" + merge.author.name.replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	command_commits_no_merge = "git shortlog -s -n --no-merges --author=\"" + name(merge.author).replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
 	developer_attributes['no_merges_in_window_of_time'] = get_number_of_commits(command_commits_no_merge)
 
-	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author=\"" + merge.author.name.replace('"','\\"') +"\" " + merge.hex
+	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author=\"" + name(merge.author).replace('"','\\"') +"\" " + merge.hex
 	developer_attributes['no_merges_until_merge'] = get_number_of_commits(command_commits_no_merge_hex)
 	
 
@@ -226,13 +237,14 @@ def calculate_total_time(base, merge):
 def authors_in_commits(commits):
 	authors = set()
 	for commit in commits:
-		authors.add(commit.author.name)
+		authors.add(name(commit.author))
+
 	return authors
 
 def committers_in_commits(commits):
 	committers = set()
 	for commit in commits:
-		committers.add(commit.committer.name)
+		committers.add(name(commit.committer))
 
 	return committers
 
