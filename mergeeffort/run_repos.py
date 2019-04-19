@@ -10,8 +10,7 @@ def select_repos(input_file):
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
-            # if (int(row[1]) > 500 and int(row[1]) < 28000):
-            if int(row[1]) < 500: # test in small repos
+            if 500 < int(row[1]) < 28000:
                 line_count += 1
                 repos.append(row[0])
 
