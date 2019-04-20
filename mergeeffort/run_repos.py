@@ -4,13 +4,13 @@ import argparse
 import os
 import subprocess
 
-def select_repos(input_file):
+def select_repos(input_file, min_merges, max_merges):
     repos = []
     with open(input_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
-            if 500 < int(row[1]) < 28000:
+            if min_merges <= int(row[1]) <= max_merges:
                 line_count += 1
                 repos.append(row[0])
 
@@ -33,11 +33,13 @@ def main():
     parser.add_argument("--processes", type=int, default=os.cpu_count(), help="number of processes to run in parallel. Default: number of cpus")
     parser.add_argument("--output-prefix", default="output-", help="output prefix of the CSV file to be generated, containing the collected metrics. Default: 'output-'")
     parser.add_argument("--log-prefix", default="log-", help="log file prefix. Default: 'log-'")
+    parser.add_argument("--min-merges", type=int, default=500, help="the minimum number of merges to allow a project to be analized. Default: 500")
+    parser.add_argument("--max-merges", type=int, default=28000, help="the maximum number of merges to allow a project to be analized. Default: 28000")
     parser.add_argument("input", help="input CSV file containing the path and the number of merges of each repository")
 
     args = parser.parse_args()
 
-    selected_repos = select_repos(args.input)
+    selected_repos = select_repos(args.input, args.min_merges, args.max_merges)
 
     pool = Pool(processes=args.processes, maxtasksperchild=1)
     for i, repo in enumerate(selected_repos):
