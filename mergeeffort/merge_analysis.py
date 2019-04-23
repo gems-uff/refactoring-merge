@@ -2,7 +2,6 @@ import logging
 
 from datetime import datetime
 from datetime import timedelta
-startTime = datetime.now()
 from collections import Counter
 
 from pygit2 import *
@@ -36,10 +35,19 @@ logger.addHandler(fh)
 
 #current_working_directory = os.getcwd()
 #REPO_PATH = current_working_directory + "/build/" + str(time.time())
-ERROR = False
 
-def save_attributes_in_csv(commits_attributes):
-	filename = '/Users/tayanemoura/Documents/git/merge-effort-mining/aux/attributes/old/mergeeffortprojectsattributesNEW.csv'
+
+def name(person):
+	"""Tries different ways to decode the person name."""
+	try:
+		return person.name
+	except UnicodeDecodeError:
+		try:
+			return person.raw_name.decode('latin1')
+		except UnicodeDecodeError:
+			return person.raw_name.decode('utf-8', 'ignore')
+
+def save_attributes_in_csv(commits_attributes, filename):
 	file_exists = os.path.isfile(filename)
 
 	attributes = []
@@ -162,17 +170,17 @@ def developer_attributes(merge, repo):
 	merge_time = datetime.fromtimestamp(merge.commit_time)
 	six_months_ago_merge = merge_time - timedelta(days = 1*365/12)
 
-	command_total_commits = "git shortlog -s -n --author=\"" + merge.author.name + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	command_total_commits = "git shortlog -s -n --author=\"" + name(merge.author).replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
 	developer_attributes['commits_in_window_of_time'] = get_number_of_commits(command_total_commits)
 
-	command_total_commits_hex = "git shortlog -s -n --author=\"" + merge.author.name +"\" " + merge.hex
+	command_total_commits_hex = "git shortlog -s -n --author=\"" + name(merge.author).replace('"','\\"') +"\" " + merge.hex
 	developer_attributes['commits_until_merge'] = get_number_of_commits(command_total_commits_hex)
 	
 
-	command_commits_no_merge = "git shortlog -s -n --no-merges --author=\"" + merge.author.name + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
+	command_commits_no_merge = "git shortlog -s -n --no-merges --author=\"" + name(merge.author).replace('"','\\"') + "\" --since=\"" + str(six_months_ago_merge) + "\"" + " --until=\"" + str(merge_time) +"\""
 	developer_attributes['no_merges_in_window_of_time'] = get_number_of_commits(command_commits_no_merge)
 
-	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author=\"" + merge.author.name +"\" " + merge.hex
+	command_commits_no_merge_hex = "git shortlog -s -n --no-merges --author=\"" + name(merge.author).replace('"','\\"') +"\" " + merge.hex
 	developer_attributes['no_merges_until_merge'] = get_number_of_commits(command_commits_no_merge_hex)
 	
 
@@ -229,13 +237,14 @@ def calculate_total_time(base, merge):
 def authors_in_commits(commits):
 	authors = set()
 	for commit in commits:
-		authors.add(commit.author.name)
+		authors.add(name(commit.author))
+
 	return authors
 
 def committers_in_commits(commits):
 	committers = set()
 	for commit in commits:
-		committers.add(commit.committer.name)
+		committers.add(name(commit.committer))
 
 	return committers
 
@@ -448,8 +457,8 @@ def calculate_additional_effort(parents_actions, merge_actions):
 	return (sum(additional_actions.values()))
 
 
-def analyse(commits, repo, normalized=False, collect=False):
-	global ERROR
+def analyze(commits, repo, output_file, normalized=False, collect=False):
+	error = False
 	commits_metrics = {}
 	merge_commits_count = 0
 	
@@ -461,6 +470,7 @@ def analyse(commits, repo, normalized=False, collect=False):
 	try:
 		for commit in commits:
 			if (len(commit.parents)==2):
+				print('.', end='', flush=True)
 				merge_commits_count+=1
 				parent1 = commit.parents[0]
 				parent2 = commit.parents[1]
@@ -487,26 +497,31 @@ def analyse(commits, repo, normalized=False, collect=False):
 
 
 					else:
-						logger.info(commit.hex + " - this is a no fast-forward merge")
 						no_ff += 1
 				else:
-					logger.info(commit.hex + " - this merge doesn't have a base version")
 					without_base_version += 1
 	except:
-		logger.error ("Unexpected error in commit: " + str(commit.hex))
-		logger.error (traceback.format_exc())
-
-		ERROR = True
+		print()
+		logger.exception("Unexpected error in commit " + str(commit.hex))
+		error = True
 
 
 	# so salvar quando nao tiver erro
-	if(collect and not ERROR):
-		save_attributes_in_csv(commits_metrics)
+	if(collect and not error):
+		save_attributes_in_csv(commits_metrics, output_file)
+
+	if not error:
+		print()
 
 	logger.info("Total of merge commits: " + str(merge_commits_count))
 	logger.info("Merges without base version: "+ str(without_base_version))
 	logger.info("No fast forward merges: "+ str(no_ff))
-	return commits_metrics  
+	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
+
+	if error:
+		logger.error(f'Project {repo} finished with error!')
+
+	return commits_metrics
 
 def delete_repo_folder(folder):
 		shutil.rmtree(folder)
@@ -549,44 +564,37 @@ def merge_commits(commits):
 	return merges
 	
 
-def init_analysis( repo_path, normalized, collect, commits=None, url=None):
-	global ERROR
-
+def init_analysis(repo_path, output_file, normalized, collect, commit_ids=[], url=None):
+	start_time = datetime.now()
 	repo = Repository(repo_path)
-	commits = []
-
-	if not commits:
-		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
-	# in case commits were passed in the arguments
-	else:
-		for commit in commits:
-			commits.append(repo.get(commit))
-
 
 	logger.info("Starting project" + repo.workdir)
-	commits_metrics = analyse(commits, repo, normalized, collect)
-	print(commits_metrics)
-	logger.info("Total of merge commits analyzed: " + str(len(commits_metrics)))
-	
-	if(ERROR):
-		logger.error("Completed with error!")
+
+	commits = []
+	if not commit_ids:
+		commits = list(merge_commits({repo.branches[branch_name].peel() for branch_name in repo.branches}))
+	else:  # in case commits were passed in the arguments
+		for id in commit_ids:
+			commits.append(repo.get(id))
+
+	analyze(commits, repo, output_file, normalized, collect)
+
 	if url:
 		delete_repo_folder(repo.workdir)
 
-	logger.info(datetime.now() - startTime)
-	logger.info("Finished project" + repo.workdir)
-
+	logger.info("Finished project " + repo.workdir)
+	logger.info('Elapsed time:' + str(datetime.now() - start_time))
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis')
 	group = parser.add_mutually_exclusive_group(required=True)
 	group.add_argument("--url", help="set an url for a git repository")
 	group.add_argument("--local", help="set the path of a local git repository")
-	parser.add_argument("--commit", nargs='+', help="set the commit (or a list of commits separated by comma) to analyse. Default: all merge commits")
 	parser.add_argument("--normalized",action='store_true', help="show metrics normalized")
 	parser.add_argument("--collect",action='store_true', help="collect attributes")
+	parser.add_argument("--commit", nargs='+', help="list of commits to analyze. Default: all merge commits")
+	parser.add_argument("--output", default='output.csv', help="output file name. Default: output.csv")
 	args = parser.parse_args()
-
 	
 	if args.url:
 		repo_aux = clone(args.url) 
@@ -595,9 +603,9 @@ def main():
 	elif args.local:
 		repo_path = args.local
 		
-	init_analysis(repo_path, args.normalized, args.collect, args.commit, args.url)
+	init_analysis(repo_path, args.output, args.normalized, args.collect, args.commit, args.url)
 
-	
+
 if __name__ == '__main__':
 	main()  
 
