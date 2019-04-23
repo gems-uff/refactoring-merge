@@ -35,6 +35,32 @@ import csv
 from github import Github
 #g = Github("username","password")
 
+def repo_interval(repos, query):
+	print(query)
+	results = g.search_repositories(query, sort='stars')
+
+	for repo in results:
+		#print(repo.full_name)
+		repo_metrics = {}
+		r = g.get_repo(repo.full_name)
+
+		repo_metrics['html_url'] = repo.html_url
+		repo_metrics['stars'] = repo.stargazers_count
+		repo_metrics['description'] = repo.description
+		repo_metrics['language'] = repo.language
+		repo_metrics['total_commits'] = r.get_commits().totalCount
+		repo_metrics['fork'] = repo.fork
+
+		#Quando há muitos contribuidores o código quebra pois o github retorna um 403 
+		try:
+			repo_metrics['total_contributors'] = r.get_contributors().totalCount
+		except:
+			repo_metrics['total_contributors'] = -1
+		
+		repos[repo.full_name] = repo_metrics
+
+
+		#print(repo.merges_url)
 
 def save_attributes_in_csv(repo_attributes):
 	attributes = []
@@ -51,36 +77,21 @@ def save_attributes_in_csv(repo_attributes):
 				writer.writerow(attribute)
 
 #add token
-g = Github("")
+g = Github("b7b48d49bd1d2cb2dadfef420e297cef63c664fa")
 
 
 #query = 'topic:cmake language:cpp'
 
-query = 'stars:>10000'
-
-results = g.search_repositories(query, sort='stars')
-
 repos = {}
-
-for repo in results:
-	repo_metrics = {}
-	r = g.get_repo(repo.full_name)
-
-	repo_metrics['html_url'] = repo.html_url
-	repo_metrics['stars'] = repo.stargazers_count
-	repo_metrics['description'] = repo.description
-	repo_metrics['language'] = repo.language
-	repo_metrics['total_commits'] = r.get_commits().totalCount
-
-	#Quando há muitos contribuidores o código quebra pois o github retorna um 403 
-	try:
-		repo_metrics['total_contributors'] = r.get_contributors().totalCount
-	except:
-		repo_metrics['total_contributors'] = -1
-	
-	repos[repo.full_name] = repo_metrics
+query = 'stars:10000..15000'
+repo_interval(repos, query)
+query = 'stars:15000..20000'
+repo_interval(repos, query)
+query = 'stars:>20000'
+repo_interval(repos, query)
 
 
-	#print(repo.merges_url)
+
 save_attributes_in_csv(repos)
 print(repos)
+print(len(repos))
