@@ -25,5 +25,5 @@ def test_additional():
 def test_metrics():
 	repo = merge_analysis.clone("https://github.com/tayanemoura/teste_merge_2.git")
 	commits = [repo.get("6438a3fd88c250aab1e523e5017ba2b147fe9fe7")]
-	assert(merge_analysis.analyse(commits, repo) == {'6438a3fd88c250aab1e523e5017ba2b147fe9fe7': {'branch1': 4, 'branch2': 3, 'merge': 11, 'rework': 1, 'wasted': 5, 'merge_effort': 9}})
+	assert(merge_analysis.analyze(commits, repo) == {'6438a3fd88c250aab1e523e5017ba2b147fe9fe7': {'branch1': 4, 'branch2': 3, 'merge': 11, 'rework': 1, 'wasted': 5, 'merge_effort': 9}})
 	merge_analysis.delete_repo_folder(repo.workdir)

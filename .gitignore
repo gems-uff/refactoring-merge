@@ -12,3 +12,5 @@ dist
 
 /tests/build
 /mergeeffort/build
+*.log
+.idea/workspace.xml
