@@ -19,7 +19,7 @@ def total_merges(repo):
 	os.chdir(repo)
 
 	print(os.getcwd())
-	git_command = "git rev-list --min-parents=2 --max-parents=2 --count HEAD"
+	git_command = "git rev-list --min-parents=2 --max-parents=2 --count --all"
 
 	print(git_command)
 
