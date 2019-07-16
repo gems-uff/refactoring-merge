@@ -410,9 +410,9 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 
 
-	#attributes['has_conflict'] = conflict_attributes['conflict']
-	#attributes['conflict_files'] = conflict_attributes['conflict_files']
-	#attributes['conflict_chunks'] = conflict_attributes['conflict_chunks']
+	attributes['has_conflict'] = conflict_attributes['conflict']
+	attributes['conflict_files'] = conflict_attributes['conflict_files']
+	attributes['conflict_chunks'] = conflict_attributes['conflict_chunks']
 
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
 
