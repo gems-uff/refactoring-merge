@@ -14,3 +14,5 @@ dist
 /mergeeffort/build
 *.log
 .idea/workspace.xml
+result/output.arff
+result/output.csv
