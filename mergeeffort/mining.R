@@ -1,6 +1,6 @@
 library(arules)
 
-project <- read.csv("~/Documents/git/merge-effort-mining/result/output_consolidado.csv")
+project <- read.csv("~/Documents/git/merge-effort-mining/result/output_final.csv")
 
 #count zeros in each column
 #res <- colSums(project==0)
@@ -16,6 +16,7 @@ project$time_max_total_x <- NULL
 project$time_min_branch_x <- NULL
 project$time_min_total_x <- NULL
 project$time_total_x <- NULL
+project$X < NULL
 
 head(project)
 
@@ -152,7 +153,10 @@ write.csv(projectDisc, "~/Documents/git/merge-effort-mining/result/project_discr
 
 #project_discretized <- read.csv("~/Documents/studying R/project_discretized.csv")  
 
-rules <- apriori(projectDisc, parameter = list(supp=0.1, conf=0.4, target = "rules", maxtime=0,maxlen=2), appearance = list(rhs=c("wasted=nenhum", "wasted=pouco","wasted=muito","wasted=médio","rework=nenhum", "rework=pouco","rework=muito","rework=médio", "extra=nenhum", "extra=pouco","extra=muito","extra=médio")))
+#rules <- apriori(projectDisc, parameter = list(supp=0.001, conf=0.01, target = "rules", maxtime=0,maxlen=2), appearance = list(rhs=c("wasted=nenhum", "wasted=pouco","wasted=muito","wasted=médio","rework=nenhum", "rework=pouco","rework=muito","rework=médio", "extra=nenhum", "extra=pouco","extra=muito","extra=médio")))
+rules <- apriori(projectDisc, parameter = list(supp=0.001, conf=0.001, target = "rules", maxtime=0,maxlen=2), appearance = list(rhs=c( "wasted=pouco","wasted=muito","wasted=médio", "rework=pouco","rework=muito","rework=médio",  "extra=pouco","extra=muito","extra=médio")))
+
+
 #inspect(rules)
 
 
@@ -162,7 +166,7 @@ rulesWasted <- sort(subset(rules, subset = rhs %pin% "wasted="), by="lift")
 inspect(rulesWasted)
 
 write(rulesWasted,
-      file = "~/Documents/git/merge-effort-mining/result/rules_wasted.csv",
+      file = "~/Documents/git/merge-effort-mining/result/rules_wasted_sup001_conf_001.csv",
       sep = ",",
       quote = TRUE,
       row.names = FALSE)
@@ -172,7 +176,7 @@ rulesRework <- sort(subset(rules, subset = rhs %pin% "rework="), by="lift")
 inspect(rulesRework)
 
 write(rulesRework,
-      file = "~/Documents/git/merge-effort-mining/result/rules_rework.csv",
+      file = "~/Documents/git/merge-effort-mining/result/rules_rework_sup001_conf_001.csv",
       sep = ",",
       quote = TRUE,
       row.names = FALSE)
@@ -182,14 +186,16 @@ rulesExtra <- sort(subset(rules, subset = rhs %pin% "extra="), by="lift")
 inspect(rulesExtra)
 
 write(rulesExtra,
-      file = "~/Documents/git/merge-effort-mining/result/rules_extra.csv",
+      file = "~/Documents/git/merge-effort-mining/result/rules_extra2_sup001_conf_001.csv",
       sep = ",",
       quote = TRUE,
       row.names = FALSE)
 
 
-#rulesLessThanOneLift <- sort(subset(rules, subset = rhs %pin% "wasted=" & lift<1), by="lift", decreasing= FALSE) 
-#inspect(rulesLessThanOneLift)
+
+#rules <- apriori(projectDisc, parameter = list(supp=0.001, conf=0.1, target = "rules", maxtime=0,maxlen=2), appearance = list(rhs=c("wasted=nenhum", "wasted=pouco","wasted=muito","wasted=médio")))
+#rulesTest <- sort(subset(rules, subset = rhs %pin% "wasted="), by="lift") 
+#inspect(rulesTest)
 
 
 #write(rulesLessThanOneLift,
@@ -204,8 +210,9 @@ write(rulesExtra,
 #inspect(rules_subset[!is.redundant(rules_subset)], by ="lift")
 
 #olhando algumas distribuicoes..
-table(projectDisc$time_total_y)
-plot(projectDisc$time_total_y)
+table(projectDisc$wasted)
+plot(projectDisc$rework)
+
 
 
 
