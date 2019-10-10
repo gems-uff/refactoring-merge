@@ -310,7 +310,7 @@ def files_attributes(diff_a_b):
 
 
 def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, parent1, parent2, repo, merge):
-	'''
+	
 	files_branch1 = files_attributes(diff_base_parent1)
 	files_branch2 = files_attributes(diff_base_parent2)
 
@@ -322,15 +322,15 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	changed_lines_branch1 = lines_branch1['add'].union(lines_branch1['rm'])
 	changed_lines_branch2 = lines_branch2['add'].union(lines_branch2['rm'])
-'''
+
 	commits_branch1 = commits_between_commits(base_version, parent1, repo)
 	commits_branch2 = commits_between_commits(base_version, parent2, repo)
 
-	#authors_branch1 = authors_in_commits(commits_branch1)
-	#authors_branch2 = authors_in_commits(commits_branch2)
+	authors_branch1 = authors_in_commits(commits_branch1)
+	authors_branch2 = authors_in_commits(commits_branch2)
 
-	#committers_branch1 = committers_in_commits(commits_branch1)
-	#committers_branch2 = committers_in_commits(commits_branch2)
+	committers_branch1 = committers_in_commits(commits_branch1)
+	committers_branch2 = committers_in_commits(commits_branch2)
 
 
 	time_total = calculate_total_time(base_version, merge)
@@ -341,18 +341,18 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	time_max_branch =  calculate_max_branch_time(commits_branch1[0], commits_branch2[0], commits_branch1[-1], commits_branch2[-1])
 
 
-	#developer = developer_attributes(merge, repo)
+	developer = developer_attributes(merge, repo)
 
 	conflict_attributes = redo_merge(repo,merge)
 
-	#if get_merge_type(merge, authors_branch1, authors_branch2):
-	#   merge_type = "branch"
+	if get_merge_type(merge, authors_branch1, authors_branch2):
+	   merge_type = "branch"
 
-	#else:
-	#   merge_type = "workspace"
+	else:
+	   merge_type = "workspace"
 
 	attributes = {}
-	'''
+	
 	attributes['files_edited_b1'] = len(files_branch1['edited'])
 	attributes['files_edited_b2'] = len(files_branch2['edited'])
 	attributes['files_edited_intersection'] = len(files_branch1['edited'].intersection(files_branch2['edited']))
@@ -401,7 +401,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['committers_b2'] = len(committers_branch2)
 	attributes['committers_intersection'] = len(committers_branch1.intersection(committers_branch2))
 	attributes['committers_union'] = len(committers_branch1.union(committers_branch2))
-	'''
+	
 	attributes['time_total'] = time_total
 	attributes['time_min_total'] = time_min_total
 	attributes['time_max_total'] = time_max_total
@@ -419,7 +419,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['conflict_files'] = conflict_attributes['conflict_files']
 	attributes['conflict_chunks'] = conflict_attributes['conflict_chunks']
 
-	'''
+	
 	attributes['merge_type'] = merge_type
 	attributes['project_commits'] = len(commits_between_commits(None, merge, repo))
 
@@ -430,7 +430,7 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['developer_no_merges_until_merge'] = developer['no_merges_until_merge']
 	attributes['developer_merges_in_window_of_time'] = developer['merges_in_window_of_time']
 	attributes['developer_merges_until_merge'] = developer['merges_until_merge']
-	'''
+	
 	return attributes
 
 def get_actions(diff_a_b):
@@ -538,7 +538,7 @@ def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalize
 	
 	parents_actions = parent1_actions + parent2_actions 
 
-	'''
+	
 	if(normalized):
 		metrics['rework'] = calculate_rework(parent1_actions, parent2_actions)/sum(parents_actions.values())
 		metrics['wasted']  = calculate_wasted_effort(parents_actions, merge_actions)/sum(parents_actions.values())
@@ -554,7 +554,7 @@ def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalize
 
 
 	metrics['merge_commits_count'] = merge_commits_count 
-	'''
+	
 	return metrics
 
 def merge_commits(commits):
