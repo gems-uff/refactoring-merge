@@ -66,7 +66,7 @@ def get_quantity(attribute):
 	'conflict_chunks': 4, \
 	'conflict_files': 4, \
 	'has_conflict': 2, \
-	'merge_type': 2, \
+	'merge_type': 1, \
 	'gap': 2, \
 	'X': 0}  
 
@@ -78,6 +78,10 @@ class Rule:
 		self.rhs = rhs
 		self.lift = lift
 
+def zeros_instead_of_none(rhs_list):
+	rhs_list = [0 if v is None else v for v in rhs_list]
+
+	return rhs_list
  
 def get_right_hand_side(rhs_value, attribute_values, quantity):
 	if(quantity == 6):
@@ -88,12 +92,24 @@ def get_right_hand_side(rhs_value, attribute_values, quantity):
 		get_positions = {'nenhum':0, 'pouco':1, 'médio':2, 'muito':3}
 	elif(quantity == 3):
 		get_positions = {'pouco':0, 'médio':1, 'muito':2}
-	#elif(quantity == 8):
-	#"nenhum", "até um minuto", "até meia hora","até uma hora","até um dia", "até uma semana", "até um mes", "mais de um mes"
+	elif(quantity == 8):
+		get_positions = {"nenhum":0, "atéumminuto":1, "atémeiahora":2,"atéumahora":3,"atéumdia":4, "atéumasemana":5, "atéummes":6, "maisdeummes":7}
+	
+	elif(quantity == 15):
+		get_positions = {"gap-maisdeummes" :0,"gap - até um mes":1,"gap - até uma semana":2,"gap - até um dia":3, "gap - até uma hora":4,"gap - até meia hora":5,"até um minuto":6, "nenhum":7, "até um minuto":8, "até meia hora":9,"até uma hora":10,"até um dia":11, "até uma semana":12, "até um mes":13, "mais de um mes":14}
+
+	elif(quantity == 1):
+		get_positions = {'workspace':0, 'branch':1}
+	elif(quantity == 2):
+		get_positions = {'True':0, 'False':1}
 	else:
 		print("Não implementado")
 
-	rhs = [None] * quantity
+	rhs = []
+	if(quantity != 1):
+		rhs = [None] * quantity
+	else:
+		rhs = [None] * 2
 	for rule in attribute_values:
 		if(rule.rhs ==  rhs_value):
 			rhs[get_positions[rule.lhs]] = rule.lift
@@ -144,24 +160,32 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
 		graph_values = ['little','some', 'medium', 'many', 'too much']
 	elif(quantity == 6):
 		graph_values = ['none','little','some', 'medium', 'many', 'too much']
+	elif(quantity == 8):
+		graph_values = ['none','< 1 min','< 1/2 hour', '< 1 hour', '< 1 day', '< 1 week', '< 1 month', '> 1 month']
+	#			get_positions = {"nenhum":0, "atéumminuto":1, "atémeiahora":2,"atéumahora":3,"atéumdia":4, "atéumasemana":5, "atéummes":6, "maisdeummes":7}
+	elif(quantity == 1):
+		graph_values = ['workspace', 'branch']
+	elif(quantity == 2):
+		graph_values = ['True', 'False']
 
 	plt.xticks([r + barWidth for r in range(len(rhs_nenhum))], graph_values)
-	 
+	
+	plt.tight_layout()
 	# Create legend & Show graphic
 	plt.legend()
+
 	#plt.show()
 	plt.savefig('graphs/' +attribute+'.png')
 	plt.clf()
 	plt.close()
 
 
+
+
 def check_lists(rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito):
 	if(None in rhs_nenhum or None in rhs_pouco or None in rhs_medio or None in rhs_muito):
 		return False
 	return True
-
-
-
 
 
 data = pd.read_csv("~/Documents/git/merge-effort-mining/result/rules_extra_sup00001_conf_00001_nenhum.csv") 
@@ -216,7 +240,7 @@ for attribute in atributes_values:
 
 		#conflict_chunks example
 
-	if(quantity in range(3,7)):
+	if(quantity in range(1,9)):
 
 		rhs_nenhum = get_right_hand_side('nenhum', atributes_values[attribute], quantity)
 		print(rhs_nenhum)
@@ -227,12 +251,24 @@ for attribute in atributes_values:
 		rhs_muito = get_right_hand_side('muito', atributes_values[attribute], quantity)
 		print(rhs_muito)
 
+		has_none_values = True
 		if check_lists(rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito):
-			generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quantity)
-			
+			has_none_values = False
+			#generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quantity, has_none)
+			pass
 		else:
 			attribute_none_values.append(attribute)
 			#print(attribute + ' has none values')
+			rhs_nenhum = zeros_instead_of_none(rhs_nenhum)
+			#print(rhs_nenhum)
+			rhs_pouco = zeros_instead_of_none(rhs_pouco)
+			#print(rhs_pouco)
+			rhs_medio = zeros_instead_of_none(rhs_medio)
+			#print(rhs_medio)
+			rhs_muito = zeros_instead_of_none(rhs_muito)
+			#print(rhs_muito)
+		generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quantity)
+			
 	else:
 		attributes_not_in_range.append(attribute)
 		#print('else: ' + attribute)
