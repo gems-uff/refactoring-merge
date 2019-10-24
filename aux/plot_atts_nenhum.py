@@ -133,6 +133,12 @@ def get_rule(row):
 
 	return Rule(lhs_value, rhs_value, row['lift'])
 
+def print_y(bars):
+	for rect in bars:
+		height = rect.get_height()
+		if(height !=  0):
+			plt.text(rect.get_x() + rect.get_width()/2.0, height, '%.1f' % height, ha='center', va='bottom')
+
 
 def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quantity):
 	# set width of bar
@@ -144,12 +150,23 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
 	r2 = [x + barWidth for x in r1]
 	r3 = [x + barWidth for x in r2]
 	 
+	#TODO: Generalizar essa parte
 	# Make the plot
-	plt.bar(r0, rhs_nenhum, color='#708090', width=barWidth, edgecolor='white', label='none')
-	plt.bar(r1, rhs_pouco, color='#DCDCDC', width=barWidth, edgecolor='white', label='low')
-	plt.bar(r2, rhs_medio, color='#C0C0C0', width=barWidth, edgecolor='white', label='medium')
-	plt.bar(r3, rhs_muito, color='#808080', width=barWidth, edgecolor='white', label='high')
+	bars = plt.bar(r0, rhs_nenhum, color='#708090', width=barWidth, edgecolor='white', label='none')
+	print_y(bars)
 	 
+
+	bars = plt.bar(r1, rhs_pouco, color='#DCDCDC', width=barWidth, edgecolor='white', label='low')
+	print_y(bars)
+
+	bars = plt.bar(r2, rhs_medio, color='#C0C0C0', width=barWidth, edgecolor='white', label='medium')
+	print_y(bars)
+
+
+	bars = plt.bar(r3, rhs_muito, color='#808080', width=barWidth, edgecolor='white', label='high')
+	print_y(bars)
+	
+	
 	# Add xticks on the middle of the group bars
 	plt.xlabel(attribute, fontweight='bold')
 	if(quantity == 3):
@@ -173,6 +190,9 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
 	plt.tight_layout()
 	# Create legend & Show graphic
 	plt.legend()
+
+
+  
 
 	#plt.show()
 	plt.savefig('graphs/' +attribute+'.png')
