@@ -96,12 +96,12 @@ def get_right_hand_side(rhs_value, attribute_values, quantity):
 		get_positions = {"nenhum":0, "atéumminuto":1, "atémeiahora":2,"atéumahora":3,"atéumdia":4, "atéumasemana":5, "atéummes":6, "maisdeummes":7}
 	
 	elif(quantity == 15):
-		get_positions = {"gap-maisdeummes" :0,"gap - até um mes":1,"gap - até uma semana":2,"gap - até um dia":3, "gap - até uma hora":4,"gap - até meia hora":5,"até um minuto":6, "nenhum":7, "até um minuto":8, "até meia hora":9,"até uma hora":10,"até um dia":11, "até uma semana":12, "até um mes":13, "mais de um mes":14}
+		get_positions = {"gap-maisdeummes" :0,"gap-atéummes":1,"gap-atéumasemana":2,"gap-atéumdia":3, "gap-atéumahora":4,"gap-atémeiahora":5,"atéumminuto":6, "nenhum":7, "atéumminuto":8, "atémeiahora":9,"atéumahora":10,"atéumdia":11, "atéumasemana":12, "atéummes":13, "maisdeummes":14}
 
 	elif(quantity == 1):
 		get_positions = {'workspace':0, 'branch':1}
 	elif(quantity == 2):
-		get_positions = {'True':0, 'False':1}
+		get_positions = {'True':0  , 'False':1}
 	else:
 		print("Não implementado")
 
@@ -141,6 +141,11 @@ def print_y(bars):
 
 
 def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quantity):
+	if(quantity >= 6 and quantity <15):
+		plt.figure(figsize=(10,5))
+
+	elif(quantity == 15):
+		plt.figure(figsize=(18, 8))
 	# set width of bar
 	barWidth = 0.20
 	 
@@ -149,8 +154,11 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
 	r1 = [x + barWidth for x in r0]
 	r2 = [x + barWidth for x in r1]
 	r3 = [x + barWidth for x in r2]
+	print(r0)
+	print(r1)
+	print(r2)
+	print(r3)
 	 
-	#TODO: Generalizar essa parte
 	# Make the plot
 	bars = plt.bar(r0, rhs_nenhum, color='#708090', width=barWidth, edgecolor='white', label='none')
 	print_y(bars)
@@ -165,10 +173,11 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
 
 	bars = plt.bar(r3, rhs_muito, color='#808080', width=barWidth, edgecolor='white', label='high')
 	print_y(bars)
-	
+
 	
 	# Add xticks on the middle of the group bars
-	plt.xlabel(attribute, fontweight='bold')
+	plt.xlabel(attribute.replace("_", " "), fontweight='bold')
+	plt.ylabel("Lift", fontweight='bold')
 	if(quantity == 3):
 		graph_values = ['some', 'medium', 'many']
 	elif(quantity == 4):
@@ -180,6 +189,10 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
 	elif(quantity == 8):
 		graph_values = ['none','< 1 min','< 1/2 hour', '< 1 hour', '< 1 day', '< 1 week', '< 1 month', '> 1 month']
 	#			get_positions = {"nenhum":0, "atéumminuto":1, "atémeiahora":2,"atéumahora":3,"atéumdia":4, "atéumasemana":5, "atéummes":6, "maisdeummes":7}
+	elif(quantity == 15):
+		graph_values = ['- >month','- < 1 month','- < 1 week', '- < 1 day', '- <1 hour', '- < 1/2 hour', '< 1 min','none','< 1 min','< 1/2 hour', '< 1 hour', '< 1 day', '< 1 week', '< 1 month', '> 1 month']
+		#get_positions = {"gap-maisdeummes" :0,"gap-atéummes":1,"gap-atéumasemana":2,"gap-atéumdia":3, "gap-atéumahora":4,"gap-atémeiahora":5,"atéumminuto":6, "nenhum":7, "atéumminuto":8, "atémeiahora":9,"atéumahora":10,"atéumdia":11, "atéumasemana":12, "atéummes":13, "maisdeummes":14}
+
 	elif(quantity == 1):
 		graph_values = ['workspace', 'branch']
 	elif(quantity == 2):
@@ -195,7 +208,8 @@ def generate_graph(attribute, rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito, quant
   
 
 	#plt.show()
-	plt.savefig('graphs/' +attribute+'.png')
+	#plt.savefig('graphs/extra/' +attribute+'.svg', dpi=500)
+	plt.savefig('graphs/extra/' +attribute+'.png')
 	plt.clf()
 	plt.close()
 
@@ -208,7 +222,7 @@ def check_lists(rhs_nenhum, rhs_pouco, rhs_medio, rhs_muito):
 	return True
 
 
-data = pd.read_csv("~/Documents/git/merge-effort-mining/result/rules_extra_sup00001_conf_00001_nenhum.csv") 
+data = pd.read_csv("~/Documents/git/merge-effort-mining/result/rules_extra_sup00001_conf_0_nenhum.csv") 
 
 #print(data.head())
 
@@ -260,7 +274,7 @@ for attribute in atributes_values:
 
 		#conflict_chunks example
 
-	if(quantity in range(1,9)):
+	if(quantity in range(1,16)):
 
 		rhs_nenhum = get_right_hand_side('nenhum', atributes_values[attribute], quantity)
 		print(rhs_nenhum)
