@@ -265,16 +265,16 @@ def get_total_changed_lines(lines_attributes):
 def lines_attributes(diff_a_b):
 	lines_attributes = {}
 
-	add_lines = set()
-	rm_lines = set()
+	add_lines = Counter()
+	rm_lines = Counter()
 	for d in diff_a_b:
 		file_name = d.delta.new_file.path
 		for h in d.hunks:
 			for l in h.lines:
 				if l.origin == "+":
-					add_lines.add(file_name + l.content)
+					add_lines.update(file_name + l.content)
 				else: 
-					rm_lines.add(file_name + l.content)
+					rm_lines.update(file_name + l.content)
 	lines_attributes['add'] = add_lines
 	lines_attributes['rm'] = rm_lines
 
@@ -320,8 +320,8 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	lines_branch1 = lines_attributes(diff_base_parent1)
 	lines_branch2 = lines_attributes(diff_base_parent2)
 
-	changed_lines_branch1 = lines_branch1['add'].union(lines_branch1['rm'])
-	changed_lines_branch2 = lines_branch2['add'].union(lines_branch2['rm'])
+	changed_lines_branch1 = lines_branch1['add'] + lines_branch1['rm']
+	changed_lines_branch2 = lines_branch2['add'] + lines_branch2['rm']
 
 	commits_branch1 = commits_between_commits(base_version, parent1, repo)
 	commits_branch2 = commits_between_commits(base_version, parent2, repo)
@@ -375,18 +375,18 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 
 	attributes['lines_add_b1'] = len(lines_branch1['add'])
 	attributes['lines_add_b2'] = len(lines_branch2['add'])
-	attributes['lines_add_intersection'] = len(lines_branch1['add'].intersection(lines_branch2['add']))
-	attributes['lines_add_union']= len(lines_branch1['add'].union(lines_branch2['add']))
+	attributes['lines_add_intersection'] = len(lines_branch1['add'] & lines_branch2['add'])
+	attributes['lines_add_union']= len(lines_branch1['add'] + lines_branch2['add'])
 
 	attributes['lines_rm_b1'] = len(lines_branch1['rm'])
 	attributes['lines_rm_b2'] = len(lines_branch2['rm'])
-	attributes['lines_rm_intersection'] = len(lines_branch1['rm'].intersection(lines_branch2['rm']))
-	attributes['lines_rm_union'] = len(lines_branch1['rm'].union(lines_branch2['rm']))
+	attributes['lines_rm_intersection'] = len(lines_branch1['rm'] & lines_branch2['rm'])
+	attributes['lines_rm_union'] = len(lines_branch1['rm'] + lines_branch2['rm'])
 
 	attributes['lines_changed_b1'] = len(changed_lines_branch1)
 	attributes['lines_changed_b2'] = len(changed_lines_branch2)
-	attributes['lines_changed_intersection'] = len(changed_lines_branch1.intersection(changed_lines_branch2))
-	attributes['lines_changed_union'] = len(changed_lines_branch1.union(changed_lines_branch2))
+	attributes['lines_changed_intersection'] = len(changed_lines_branch1 & changed_lines_branch2)
+	attributes['lines_changed_union'] = len(changed_lines_branch1 + changed_lines_branch2)
 
 	attributes['commits_b1'] = len(commits_branch1)
 	attributes['commits_b2'] = len(commits_branch2)
