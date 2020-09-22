@@ -272,9 +272,9 @@ def lines_attributes(diff_a_b):
 		for h in d.hunks:
 			for l in h.lines:
 				if l.origin == "+":
-					add_lines.update(file_name + l.content)
+					add_lines.update([file_name + l.content])
 				else: 
-					rm_lines.update(file_name + l.content)
+					rm_lines.update([file_name + l.content])
 	lines_attributes['add'] = add_lines
 	lines_attributes['rm'] = rm_lines
 
@@ -373,20 +373,20 @@ def collect_attributes(diff_base_parent1, diff_base_parent2, base_version, paren
 	attributes['files_changed_intersection'] = len(changed_files_branch1.intersection(changed_files_branch2))
 	attributes['files_changed_union'] = len(changed_files_branch1.union(changed_files_branch2))
 
-	attributes['lines_add_b1'] = len(lines_branch1['add'])
-	attributes['lines_add_b2'] = len(lines_branch2['add'])
-	attributes['lines_add_intersection'] = len(lines_branch1['add'] & lines_branch2['add'])
-	attributes['lines_add_union']= len(lines_branch1['add'] + lines_branch2['add'])
+	attributes['lines_add_b1'] = sum(lines_branch1['add'].values()) 
+	attributes['lines_add_b2'] = sum(lines_branch2['add'].values())
+	attributes['lines_add_intersection'] = sum((lines_branch1['add'] & lines_branch2['add']).values())
+	attributes['lines_add_union']= sum((lines_branch1['add'] + lines_branch2['add']).values())
 
-	attributes['lines_rm_b1'] = len(lines_branch1['rm'])
-	attributes['lines_rm_b2'] = len(lines_branch2['rm'])
-	attributes['lines_rm_intersection'] = len(lines_branch1['rm'] & lines_branch2['rm'])
-	attributes['lines_rm_union'] = len(lines_branch1['rm'] + lines_branch2['rm'])
+	attributes['lines_rm_b1'] = sum(lines_branch1['rm'].values()) 
+	attributes['lines_rm_b2'] = sum(lines_branch2['rm'].values())
+	attributes['lines_rm_intersection'] = sum((lines_branch1['rm'] & lines_branch2['rm']).values())
+	attributes['lines_rm_union'] = sum((lines_branch1['rm'] + lines_branch2['rm']).values())
 
-	attributes['lines_changed_b1'] = len(changed_lines_branch1)
-	attributes['lines_changed_b2'] = len(changed_lines_branch2)
-	attributes['lines_changed_intersection'] = len(changed_lines_branch1 & changed_lines_branch2)
-	attributes['lines_changed_union'] = len(changed_lines_branch1 + changed_lines_branch2)
+	attributes['lines_changed_b1'] = sum(changed_lines_branch1.values())
+	attributes['lines_changed_b2'] = sum(changed_lines_branch2.values())
+	attributes['lines_changed_intersection'] = sum((changed_lines_branch1 & changed_lines_branch2).values())
+	attributes['lines_changed_union'] = sum((changed_lines_branch1 + changed_lines_branch2).values())
 
 	attributes['commits_b1'] = len(commits_branch1)
 	attributes['commits_b2'] = len(commits_branch2)
@@ -545,9 +545,9 @@ def calculate_metrics(merge_actions, parent1_actions, parent2_actions, normalize
 		metrics['extra'] =calculate_additional_effort(parents_actions, merge_actions)/sum(merge_actions.values())
 
 	else:
-		metrics['branch1'] = len(parent1_actions)
-		metrics['branch2'] = len(parent2_actions)
-		metrics['merge'] = len(merge_actions)
+		metrics['branch1'] = sum(parent1_actions.values())
+		metrics['branch2'] = sum(parent2_actions.values())
+		metrics['merge'] = sum(merge_actions.values())
 		metrics['rework'] = calculate_rework(parent1_actions, parent2_actions)
 		metrics['wasted']  = calculate_wasted_effort(parents_actions, merge_actions)
 		metrics['extra'] = calculate_additional_effort(parents_actions, merge_actions)
