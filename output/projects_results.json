@@ -1,0 +1,222 @@
+[
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/mockito/",
+        "dateTimeExecution": "2021-04-28 14:08:27.109928",
+        "elapsedTime": "4:51:40.404904",
+        "qtyCommits": 5675,
+        "qtyMergeCommits": 500,
+        "qtyRefactorings": 13250,
+        "qtyCommitsWithRefactoring": 1613,
+        "qtyMergeCommitsInvolvingRefactoring": 266,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/dropwizard/",
+        "dateTimeExecution": "2021-04-28 20:25:19.288160",
+        "elapsedTime": "5:11:23.599902",
+        "qtyCommits": 7129,
+        "qtyMergeCommits": 1127,
+        "qtyRefactorings": 14933,
+        "qtyCommitsWithRefactoring": 1279,
+        "qtyMergeCommitsInvolvingRefactoring": 435,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/RxJava/",
+        "dateTimeExecution": "2021-04-29 20:08:08.053799",
+        "elapsedTime": "10:53:53.622046",
+        "qtyCommits": 7208,
+        "qtyMergeCommits": 1566,
+        "qtyRefactorings": 55173,
+        "qtyCommitsWithRefactoring": 2236,
+        "qtyMergeCommitsInvolvingRefactoring": 939,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/Arduino/",
+        "dateTimeExecution": "2021-04-30 05:18:48.648322",
+        "elapsedTime": "8:51:31.571090",
+        "qtyCommits": 7402,
+        "qtyMergeCommits": 819,
+        "qtyRefactorings": 6226,
+        "qtyCommitsWithRefactoring": 882,
+        "qtyMergeCommitsInvolvingRefactoring": 296,
+        "qtyRefMinerTimeout": 3
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/antlr4/",
+        "dateTimeExecution": "2021-05-01 01:35:44.355198",
+        "elapsedTime": "14:13:03.052727",
+        "qtyCommits": 7969,
+        "qtyMergeCommits": 1652,
+        "qtyRefactorings": 44124,
+        "qtyCommitsWithRefactoring": 1504,
+        "qtyMergeCommitsInvolvingRefactoring": 582,
+        "qtyRefMinerTimeout": 7
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/redisson/",
+        "dateTimeExecution": "2021-05-01 10:01:39.540227",
+        "elapsedTime": "8:13:07.053817",
+        "qtyCommits": 6522,
+        "qtyMergeCommits": 1050,
+        "qtyRefactorings": 27168,
+        "qtyCommitsWithRefactoring": 1797,
+        "qtyMergeCommitsInvolvingRefactoring": 679,
+        "qtyRefMinerTimeout": 2
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/skywalking/",
+        "dateTimeExecution": "2021-05-01 21:57:16.493549",
+        "elapsedTime": "11:54:46.896604",
+        "qtyCommits": 6550,
+        "qtyMergeCommits": 1000,
+        "qtyRefactorings": 36383,
+        "qtyCommitsWithRefactoring": 2009,
+        "qtyMergeCommitsInvolvingRefactoring": 576,
+        "qtyRefMinerTimeout": 8
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/druid/",
+        "dateTimeExecution": "2021-05-02 12:55:20.968182",
+        "elapsedTime": "14:12:41.770789",
+        "qtyCommits": 6420,
+        "qtyMergeCommits": 1491,
+        "qtyRefactorings": 32844,
+        "qtyCommitsWithRefactoring": 1969,
+        "qtyMergeCommitsInvolvingRefactoring": 912,
+        "qtyRefMinerTimeout": 9
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/ExoPlayer/",
+        "dateTimeExecution": "2021-05-03 10:33:37.051084",
+        "elapsedTime": "21:35:23.185112",
+        "qtyCommits": 11757,
+        "qtyMergeCommits": 597,
+        "qtyRefactorings": 72134,
+        "qtyCommitsWithRefactoring": 5311,
+        "qtyMergeCommitsInvolvingRefactoring": 497,
+        "qtyRefMinerTimeout": 14
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/guava/",
+        "dateTimeExecution": "2021-05-03 18:43:43.234899",
+        "elapsedTime": "7:44:56.645136",
+        "qtyCommits": 7150,
+        "qtyMergeCommits": 15,
+        "qtyRefactorings": 53794,
+        "qtyCommitsWithRefactoring": 2270,
+        "qtyMergeCommitsInvolvingRefactoring": 12,
+        "qtyRefMinerTimeout": 1
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/zaproxy/",
+        "dateTimeExecution": "2021-05-04 03:47:49.113594",
+        "elapsedTime": "7:36:23.916885",
+        "qtyCommits": 7874,
+        "qtyMergeCommits": 2299,
+        "qtyRefactorings": 20596,
+        "qtyCommitsWithRefactoring": 2070,
+        "qtyMergeCommitsInvolvingRefactoring": 917,
+        "qtyRefMinerTimeout": 2
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/realm-java/",
+        "dateTimeExecution": "2021-05-05 09:48:29.493692",
+        "elapsedTime": "1 day, 0:25:49.161757",
+        "qtyCommits": 10410,
+        "qtyMergeCommits": 3441,
+        "qtyRefactorings": 56272,
+        "qtyCommitsWithRefactoring": 3128,
+        "qtyMergeCommitsInvolvingRefactoring": 2110,
+        "qtyRefMinerTimeout": 6
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/che/",
+        "dateTimeExecution": "2021-05-06 03:45:38.561420",
+        "elapsedTime": "17:48:56.520771",
+        "qtyCommits": 9389,
+        "qtyMergeCommits": 1238,
+        "qtyRefactorings": 48985,
+        "qtyCommitsWithRefactoring": 2990,
+        "qtyMergeCommitsInvolvingRefactoring": 757,
+        "qtyRefMinerTimeout": 12
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/gocd/",
+        "dateTimeExecution": "2021-05-08 00:33:30.981819",
+        "elapsedTime": "15:20:43.532622",
+        "qtyCommits": 12609,
+        "qtyMergeCommits": 2437,
+        "qtyRefactorings": 45799,
+        "qtyCommitsWithRefactoring": 2897,
+        "qtyMergeCommitsInvolvingRefactoring": 1086,
+        "qtyRefMinerTimeout": 4
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/Activiti/",
+        "dateTimeExecution": "2021-05-08 16:16:32.043746",
+        "elapsedTime": "14:30:58.436464",
+        "qtyCommits": 11051,
+        "qtyMergeCommits": 1917,
+        "qtyRefactorings": 53520,
+        "qtyCommitsWithRefactoring": 2846,
+        "qtyMergeCommitsInvolvingRefactoring": 938,
+        "qtyRefMinerTimeout": 5
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/druid/",
+        "dateTimeExecution": "2021-05-09 15:44:20.836361",
+        "elapsedTime": "17:21:17.089964",
+        "qtyCommits": 12291,
+        "qtyMergeCommits": 2176,
+        "qtyRefactorings": 67632,
+        "qtyCommitsWithRefactoring": 4463,
+        "qtyMergeCommitsInvolvingRefactoring": 1427,
+        "qtyRefMinerTimeout": 4
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/netty/",
+        "dateTimeExecution": "2021-05-10 14:48:05.868274",
+        "elapsedTime": "16:42:43.155705",
+        "qtyCommits": 17120,
+        "qtyMergeCommits": 309,
+        "qtyRefactorings": 67623,
+        "qtyCommitsWithRefactoring": 5941,
+        "qtyMergeCommitsInvolvingRefactoring": 180,
+        "qtyRefMinerTimeout": 1
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/flink/",
+        "dateTimeExecution": "2021-05-12 15:27:37.463002",
+        "elapsedTime": "1 day, 23:59:30.142565",
+        "qtyCommits": 35123,
+        "qtyMergeCommits": 653,
+        "qtyRefactorings": 203476,
+        "qtyCommitsWithRefactoring": 13278,
+        "qtyMergeCommitsInvolvingRefactoring": 576,
+        "qtyRefMinerTimeout": 19
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/processing/",
+        "dateTimeExecution": "2021-05-13 10:35:16.197505",
+        "elapsedTime": "17:03:03.522659",
+        "qtyCommits": 13230,
+        "qtyMergeCommits": 1133,
+        "qtyRefactorings": 29713,
+        "qtyCommitsWithRefactoring": 3267,
+        "qtyMergeCommitsInvolvingRefactoring": 617,
+        "qtyRefMinerTimeout": 6
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/libgdx/",
+        "dateTimeExecution": "2021-05-16 16:59:52.791962",
+        "elapsedTime": "1 day, 5:38:34.930275",
+        "qtyCommits": 14666,
+        "qtyMergeCommits": 2677,
+        "qtyRefactorings": 46779,
+        "qtyCommitsWithRefactoring": 3603,
+        "qtyMergeCommitsInvolvingRefactoring": 1615,
+        "qtyRefMinerTimeout": 12
+    }
+]
