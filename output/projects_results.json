@@ -218,5 +218,193 @@
         "qtyCommitsWithRefactoring": 3603,
         "qtyMergeCommitsInvolvingRefactoring": 1615,
         "qtyRefMinerTimeout": 12
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/pinpoint/",
+        "dateTimeExecution": "2021-09-07 05:14:11.726173",
+        "elapsedTime": "14:43:41.333978",
+        "qtyCommits": 12729,
+        "qtyMergeCommits": 1968,
+        "qtyRefactorings": 72268,
+        "qtyCommitsWithRefactoring": 4228,
+        "qtyMergeCommitsInvolvingRefactoring": 1110,
+        "qtyRefMinerTimeout": 1
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/incubator-druid/",
+        "dateTimeExecution": "2021-09-08 11:00:14.873001",
+        "elapsedTime": "17:55:15.399704",
+        "qtyCommits": 12528,
+        "qtyMergeCommits": 2176,
+        "qtyRefactorings": 68937,
+        "qtyCommitsWithRefactoring": 4544,
+        "qtyMergeCommitsInvolvingRefactoring": 1427,
+        "qtyRefMinerTimeout": 3
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/cas/",
+        "dateTimeExecution": "2021-09-10 14:27:02.213189",
+        "elapsedTime": "2 days, 3:04:11.763662",
+        "qtyCommits": 36729,
+        "qtyMergeCommits": 5302,
+        "qtyRefactorings": 284862,
+        "qtyCommitsWithRefactoring": 12709,
+        "qtyMergeCommitsInvolvingRefactoring": 3657,
+        "qtyRefMinerTimeout": 6
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/dbeaver/",
+        "dateTimeExecution": "2021-09-14 10:29:26.576352",
+        "elapsedTime": "1 day, 23:31:25.829551",
+        "qtyCommits": 39051,
+        "qtyMergeCommits": 4553,
+        "qtyRefactorings": 120785,
+        "qtyCommitsWithRefactoring": 13127,
+        "qtyMergeCommitsInvolvingRefactoring": 2981,
+        "qtyRefMinerTimeout": 4
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/closure-compiler/",
+        "dateTimeExecution": "2021-09-15 21:41:07.637641",
+        "elapsedTime": "20:46:22.003355",
+        "qtyCommits": 17558,
+        "qtyMergeCommits": 389,
+        "qtyRefactorings": 70595,
+        "qtyCommitsWithRefactoring": 5664,
+        "qtyMergeCommitsInvolvingRefactoring": 261,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/incubator-shardingsphere/",
+        "dateTimeExecution": "2021-09-20 19:02:12.212962",
+        "elapsedTime": "1 day, 21:39:02.766214",
+        "qtyCommits": 30108,
+        "qtyMergeCommits": 2763,
+        "qtyRefactorings": 191659,
+        "qtyCommitsWithRefactoring": 12072,
+        "qtyMergeCommitsInvolvingRefactoring": 2046,
+        "qtyRefMinerTimeout": 13
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/jenkins/",
+        "dateTimeExecution": "2021-09-25 17:57:09.958610",
+        "elapsedTime": "2 days, 22:23:31.899330",
+        "qtyCommits": 31689,
+        "qtyMergeCommits": 4944,
+        "qtyRefactorings": 73091,
+        "qtyCommitsWithRefactoring": 6110,
+        "qtyMergeCommitsInvolvingRefactoring": 2938,
+        "qtyRefMinerTimeout": 11
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2021-09-29 10:09:13.494954",
+        "elapsedTime": "0:04:06.296708",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26,
+        "qtyRefactorings": 147,
+        "qtyCommitsWithRefactoring": 48,
+        "qtyMergeCommitsInvolvingRefactoring": 23,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2021-09-29 10:36:12.252619",
+        "elapsedTime": "0:02:52.592728",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26,
+        "qtyRefactorings": 147,
+        "qtyCommitsWithRefactoring": 48,
+        "qtyMergeCommitsInvolvingRefactoring": 23,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/spring-framework/",
+        "dateTimeExecution": "2021-10-03 01:56:54.825401",
+        "elapsedTime": "2 days, 15:45:56.009881",
+        "qtyCommits": 27775,
+        "qtyMergeCommits": 1257,
+        "qtyRefactorings": 165335,
+        "qtyCommitsWithRefactoring": 10479,
+        "qtyMergeCommitsInvolvingRefactoring": 419,
+        "qtyRefMinerTimeout": 21
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2021-10-18 09:36:44.916164",
+        "elapsedTime": "0:03:13.159235",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26,
+        "qtyRefactorings": 147,
+        "qtyCommitsWithRefactoring": 48,
+        "qtyMergeCommitsInvolvingRefactoring": 23,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/spring-boot/",
+        "dateTimeExecution": "2021-10-19 13:23:01.635106",
+        "elapsedTime": "1 day, 3:13:41.144341",
+        "qtyCommits": 34114,
+        "qtyMergeCommits": 10393,
+        "qtyRefactorings": 83180,
+        "qtyCommitsWithRefactoring": 8664,
+        "qtyMergeCommitsInvolvingRefactoring": 3894,
+        "qtyRefMinerTimeout": 0
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2021-10-24 16:29:28.764529",
+        "elapsedTime": "0:01:47.298990",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/graal/",
+        "dateTimeExecution": "2021-10-26 06:32:37.020002",
+        "elapsedTime": "21:30:02.137200",
+        "qtyCommits": 62266,
+        "qtyMergeCommits": 13277
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/hadoop/",
+        "dateTimeExecution": "2021-11-04 13:47:08.749576",
+        "elapsedTime": "20:56:48.645188",
+        "qtyCommits": 66394,
+        "qtyMergeCommits": 663
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/hadoop/",
+        "dateTimeExecution": "2021-11-04 15:26:55.651911",
+        "elapsedTime": "0:04:13.038106",
+        "qtyCommits": 66394,
+        "qtyMergeCommits": 663
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2021-11-05 11:55:06.984066",
+        "elapsedTime": "0:07:50.090678",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/neo4j/",
+        "dateTimeExecution": "2021-11-09 09:00:23.709044",
+        "elapsedTime": "1 day, 22:56:33.862143",
+        "qtyCommits": 74990,
+        "qtyMergeCommits": 15363
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/elasticsearch/",
+        "dateTimeExecution": "2021-11-23 11:20:08.280332",
+        "elapsedTime": "1 day, 2:37:55.250175",
+        "qtyCommits": 119543,
+        "qtyMergeCommits": 5123
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriosEO1/intellij-community/",
+        "dateTimeExecution": "2022-01-16 15:58:27.909017",
+        "elapsedTime": "1 day, 14:17:16.019367",
+        "qtyCommits": 407156,
+        "qtyMergeCommits": 13447
     }
 ]

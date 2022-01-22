@@ -39,7 +39,7 @@ logger.addHandler(ch)
 logger.addHandler(fh)
 
 refMiner_exec = "/mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner"
-REFMINER_TIMEOUT = 1200 # 20 min
+REFMINER_TIMEOUT = 300 # 5 min
 
 def read_json(arq_json):	
 	my_file = Path(arq_json)
@@ -123,7 +123,7 @@ def analyze_merge_effort(merge_commit, base, repo):
 	return metrics
 
 def get_refactoring_commit(path_repository,commit_sha1):		
-	
+	""" /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner -c /mnt/c/Users/aoliv/RepositoriosEO1/spring-boot/ 8364840cd5a0cf7c838085378a275f350a682046 -json teste1.json"""
 	commit = []	
 	try:
 		subprocess.run([refMiner_exec, "-c", path_repository, str(commit_sha1), "-json", "ref_miner_temp.json"],
@@ -172,18 +172,35 @@ def get_commit_by_seq(connection_bd, commit_seq):
 		commit = cursor.fetchone()
 	return commit['sha1']
 
+	
 def find_project_in_db(connection_bd, path_workdir):	
 	with connection_bd.cursor() as cursor:
 		cursor.execute("SELECT id FROM project where project.path_workdir = %s", path_workdir)
 		row = cursor.fetchone()	
-	return row
+	if row:
+		return row['id']	
+	else:
+		return False
+	
+
+def has_refactorings_by_sha1(connection_bd,commit_sha1):		
+	with connection_bd.cursor() as cursor:
+		cursor.execute("SELECT c.id FROM commit c, refactoring r where c.id = r.id_commit and c.sha1=%s",commit_sha1)
+		rows = cursor.fetchall()		
+	if rows:		
+		return rows[0]['id']
+	else:
+		return False
 
 def get_db_commit_seq_by_sha1(connection_bd, sha1):		
 	if sha1 not in cache_commit.keys():		
 		with connection_bd.cursor() as cursor:
 			cursor.execute("SELECT id FROM commit where sha1=%s", sha1)
 			row = cursor.fetchone()
-		return row['id']
+		if row:
+			return row['id']
+		else:
+			return False
 	else:		
 		return cache_commit[sha1] #commit in cache (It's not nececessary read from database)
 
@@ -279,31 +296,35 @@ def save_merge_branches(repo, connection_bd, merge_commit, merge_commit_seq):
 	cache_merge[str(merge_commit.id)] = list_commit_seq_branch1	
 	(cache_merge[str(merge_commit.id)]).extend(list_commit_seq_branch2)
 
-def save_merge_commit(repo, connection_bd, commit, commit_seq):	
+def save_merge_commit(repo, connection_bd, commit, commit_seq,merge_effort):	
 	has_base_version = True
-	metrics = {}
-	is_fast_forward_merge = True
+	metrics = {}	
 	base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)
-	if (base_commit):		
-		# is fast forward commit?
-		ff_commit = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
-		is_fast_forward_merge = False if ff_commit else True
+	merge_effort_calculated = True
+	# is fast forward commit?
+	ff_commit = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
+	is_fast_forward_merge = False if ff_commit else True
+	
+	if base_commit and merge_effort:				
 		time_ini_me = datetime.now()
 		logger.info("Starting Merge Effort process")
 		metrics = analyze_merge_effort(commit, base_commit, repo)
 		logger.info('End Merge Effort process:' + str(datetime.now() - time_ini_me))
 	else:		
-		has_base_version = False
+		if not base_commit:
+			has_base_version = False
 		metrics = {'extra':0, 'wasted':0, 'rework':0, 'branch1_actions':0, 'branch2_actions':0, 'merge_actions':0}
+		merge_effort_calculated = False
 
 	with connection_bd.cursor() as cursor:
-			sql = "INSERT INTO merge_commit (id, has_base_version, common_ancestor, parent1, parent2, is_fast_forward_merge, extra_effort, wasted_effort, rework_effort, branch1_actions, branch2_actions, merge_actions, id_commit) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+			sql = "INSERT INTO merge_commit (id, has_base_version, common_ancestor, parent1, parent2, is_fast_forward_merge, merge_effort_calculated, extra_effort, wasted_effort, rework_effort, branch1_actions, branch2_actions, merge_actions, id_commit) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 			cursor.execute(sql, (	None,
 									str(has_base_version),
 									str(base_commit),
 									str(commit.parents[0].id),			
 									str(commit.parents[1].id),
 									str(is_fast_forward_merge),
+									str(merge_effort_calculated),
 									metrics['extra'],
 									metrics['wasted'],
 									metrics['rework'],
@@ -334,8 +355,8 @@ def save_commit(connection_bd, commit, project_seq):
 	return commit_seq
 
 def save_project(repo, connection_bd):		
-	projectFound = find_project_in_db(connection_bd, repo.workdir)
-	if(not projectFound):
+	projec_id = find_project_in_db(connection_bd, repo.workdir)
+	if(not projec_id):
 		vetDir = str(repo.workdir).split('/')
 		project_name = vetDir[len(vetDir)-2]
 		with connection_bd.cursor() as cursor:
@@ -344,25 +365,40 @@ def save_project(repo, connection_bd):
 			project_seq = connection_bd.insert_id()
 		return project_seq
 	else:		
-		raise TypeError("Project " + repo.workdir + " have already processed")
+		return projec_id
+		#raise TypeError("Project " + repo.workdir + " have already processed")
 
 def set_refminer_timeout_in_commit(connection_bd, sha1):
 	with connection_bd.cursor() as cursor:
 			sql = "UPDATE commit SET refminer_timeout = 'True' where sha1=%s"			
 			cursor.execute(sql, sha1)
 			
-def merge_analysis(connection_bd, repo, merge_list):	
+def merge_analysis(connection_bd, repo, merge_list, merge_effort):	
 	qtd = len(merge_list)	
-	for commit in merge_list:		
-		print(f"QTD: {qtd} - Commit_time: {str(datetime.fromtimestamp(commit.commit_time))}")
-		qtd -=1
-		cache_merge[str(commit.id)] = [] # prepare cache of merge commits branches		
-		save_merge_commit(repo, connection_bd, commit, cache_commit[str(commit.id)])		
-		time_ini_mb = datetime.now()
-		logger.info("Starting Merge Branch save process")
-		save_merge_branches(repo, connection_bd, commit, cache_commit[str(commit.id)])
-		logger.info('End Merge Branch save process:' + str(datetime.now() - time_ini_mb))
+	for commit in merge_list:
 
+		base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)
+		"""TODO: ESSE IF FOI COLOCADO PARA OTIMIZAR, POIS NÃO EXECUTAR O MERGE EFFORT E MERGE BRANCH DE 
+		COMMITS DE MERGE MARCADOS COMO --NO-FF.
+		OUTRA OTIMIZAÇÃO É USAR PANDAS E NÃO CHAMAR O REFMINER PARA TODOS OS COMMITS. PRIMEIRO MONTAR O BRANCH
+		EM MEMÓRIA E DEPOIS SÓ CHAMAR ESSE O REF MINER E ESSE TRECHO DE MERGE EFFORT
+		"""
+		if base_commit:		
+			# is fast forward commit?
+			valid_commit_merge = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
+			if valid_commit_merge:	
+				print(f"QTD: {qtd} - Commit_time: {str(datetime.fromtimestamp(commit.commit_time))}")
+				qtd -=1
+				cache_merge[str(commit.id)] = [] # prepare cache of merge commits branches		
+				save_merge_commit(repo, connection_bd, commit, cache_commit[str(commit.id)],merge_effort)		
+				time_ini_mb = datetime.now()
+				logger.info("Starting Merge Branch save process")
+				save_merge_branches(repo, connection_bd, commit, cache_commit[str(commit.id)])
+				logger.info('End Merge Branch save process:' + str(datetime.now() - time_ini_mb))
+			else:
+				print(f"Commit: {commit.id} inválido - no-ff")
+		else:
+			print(f"Commit: {commit.id} inválido - has no base version")
 cache_merge = {}
 cache_commit = {}
 cache_refactoring = set()
@@ -379,7 +415,22 @@ def get_qty_merge_commits_involving_refactoring():
 			qty +=1
 	return qty
 
-def mining_repository(repo):	
+def set_id_commits_processed(connection_bd,path_project):
+	with connection_bd.cursor() as cursor:
+		cursor.execute("select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.path_workdir = %s",path_project)
+		rows = cursor.fetchall()	
+		print(len(rows))	
+		for row in rows:
+			cache_commit[str(row['sha1'])] = row['id']
+
+def set_id_commits_with_refactoring(connection_bd,path_project):
+	with connection_bd.cursor() as cursor:
+		cursor.execute("select c.id, count(*) from commit c, project p, refactoring r where c.id_project = p.id and r.id_commit = c.id and p.path_workdir =%s group by c.id",path_project)
+		rows = cursor.fetchall()				
+		for row in rows:
+			cache_refactoring.add(str(row['id']))
+
+def mining_repository(repo,merge_effort,path_repository):	
 	connection_bd = open_connection_db()
 	start_time = datetime.now()
 	end_time = datetime.now()
@@ -388,31 +439,61 @@ def mining_repository(repo):
 	qty_refactorings = 0
 	qty_commits_with_refactoring = 0
 	qty_refminer_timeout = 0
+	qty_refactoring_commit = 0
 	commit_visited = set()	
+	set_id_commits_processed(connection_bd,path_repository)
+	logger.info("Commits already processed = " + str(len(cache_commit)))
+
+	
+	if(len(cache_commit)>0):
+		set_id_commits_with_refactoring(connection_bd,path_repository)	
+	logger.info("Commits with refactoring already processed = " + str(len(cache_refactoring)))
+	#print(cache_refactoring)
+	
 	try:
 		project_seq = save_project(repo, connection_bd)
-		merge_list = []	
+		print(project_seq)		
+		merge_list = []
+
 		for branch_name in repo.branches:
 			for commit in repo.walk(repo.branches[branch_name].peel().id, pygit2.GIT_SORT_REVERSE):				
 				if str(commit.id) not in commit_visited:					
-					commit_visited.add(str(commit.id))
-					commit_seq = save_commit(connection_bd, commit, project_seq)
-					cache_commit[str(commit.id)] = commit_seq #put commit db_sequence in cache					
-					
-					(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq)
-					qty_refactorings += qty_refactoring_commit
-					if qty_refactoring_commit > 0: 
-						qty_commits_with_refactoring +=1
-					if(refminer_timeout):
-						set_refminer_timeout_in_commit(connection_bd, str(commit.id))
-						qty_refminer_timeout += 1					
+					commit_visited.add(str(commit.id))					
+					#commit_seq = get_db_commit_seq_by_sha1(connection_bd, str(commit.id))					
+					commit_processed = str(commit.id) in cache_commit.keys()
+									
+
+					if not commit_processed: #commit not saved in database
+						#logger.info("## Commit " + str(commit.id) + " was not processed")
+						commit_seq = save_commit(connection_bd, commit, project_seq)
+						cache_commit[str(commit.id)] = commit_seq #put commit db_sequence in cache
+						(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq)
+						#logger.info("## Saving refactoring " + str(commit.id) + " Refacs=" + str(qty_refactoring_commit))
+						if(refminer_timeout):
+							set_refminer_timeout_in_commit(connection_bd, str(commit.id))
+							qty_refminer_timeout += 1					
+					#else:
+						#logger.info("## Commit " + str(commit.id) + " have been already processed")
+					#	id_commit_with_refac = has_refactorings_by_sha1(connection_bd,str(commit.id))
+					#	if id_commit_with_refac:
+							#logger.info("There are refactorings in commit " + str(commit.id) + " - commit_id=" + str(id_commit_with_refac))							
+					#		cache_refactoring.add(id_commit_with_refac)
+						#else:
+						#	logger.info("There aren't refactoring in commit " + str(commit.id))				
+										
+					#qty_refactorings += qty_refactoring_commit
+					#if qty_refactoring_commit > 0: 
+					#	qty_commits_with_refactoring +=1
 
 					if len(commit.parents) == 2:
-						logger.info("Merge Commit = " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)))
+						if not commit_processed:
+							logger.info("Merge Commit = " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)))
 						merge_list.append(commit)
 						qty_merge_commits +=1
+					
+					connection_bd.commit()
 	
-		merge_analysis(connection_bd, repo, merge_list)
+		merge_analysis(connection_bd, repo, merge_list, merge_effort)
 		connection_bd.commit()
 
 		end_time = datetime.now() - start_time
@@ -422,20 +503,20 @@ def mining_repository(repo):
 						'elapsedTime': str(end_time),						
 						'qtyCommits':len(commit_visited),
 						'qtyMergeCommits':qty_merge_commits,
-						'qtyRefactorings':qty_refactorings,
-						'qtyCommitsWithRefactoring':qty_commits_with_refactoring,
-						'qtyMergeCommitsInvolvingRefactoring': get_qty_merge_commits_involving_refactoring(),
-						'qtyRefMinerTimeout': qty_refminer_timeout
+						#'qtyRefactorings':qty_refactorings,
+						#'qtyCommitsWithRefactoring':qty_commits_with_refactoring,
+						#'qtyMergeCommitsInvolvingRefactoring': get_qty_merge_commits_involving_refactoring(),
+						#'qtyRefMinerTimeout': qty_refminer_timeout
 					   }	
 		save_json_project_results(project_data)		
 	except TypeError as err:
-		logger.info("Error: " + str(err))
+		logger.info("Type Error: " + str(err))
 		connection_bd.rollback()
 	except pymysql.Error as mySqlErr:
-		logger.info("Error: " + str(mySqlErr))
+		logger.info("Data base Error: " + str(mySqlErr))
 		connection_bd.rollback()
 	except Exception as ex:
-		logger.info("Error: " + str(ex))
+		logger.info("General Error: " + str(ex))
 		connection_bd.rollback()
 	finally:				
 		connection_bd.close()
@@ -443,17 +524,19 @@ def mining_repository(repo):
 		logger.info('Elapsed time:' + str(end_time))
 		
 
-def init_analysis(path_repository):		
+def init_analysis(path_repository,merge_effort=False):		
+	print(merge_effort)
 	repo_path = pygit2.discover_repository(path_repository)
 	repo = pygit2.Repository(repo_path)
-	mining_repository(repo)	
+	mining_repository(repo,merge_effort,path_repository)
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis - Refactoring')
 	group = parser.add_mutually_exclusive_group(required=True)
 	group.add_argument("--repo_path", help="set a path for a local git repository")
+	group.add_argument("--merge_effort", action='store_true', help="boolean to compute or not the merge effort")
 	args = parser.parse_args()	
-	init_analysis(args.repo_path)
+	init_analysis(args.repo_path,args.merge_effort)
 
 if __name__ == '__main__':
 	main()
