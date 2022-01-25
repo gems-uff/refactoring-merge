@@ -129,8 +129,10 @@ def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository
 	metrics = {}
 	commit = repo.get(merge_commit)	
 	base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)		
-	if base_commit:						
-		metrics = analyze_merge_effort(commit, base_commit, repo)
+	if base_commit:			
+		metrics = analyze_merge_effort(commit, base_commit, repo)		
+		if not metrics: #apenas uma proteção - o commit db53e5f7fe634aa0db9a012b2125782d76d66d63 do projeto intelliJ-community não retornou métricas. Avaliar
+			metrics = {'extra':0, 'wasted':0, 'rework':0, 'branch1_actions':0, 'branch2_actions':0, 'merge_actions':0}				
 
 	else:		
 		metrics = {'extra':0, 'wasted':0, 'rework':0, 'branch1_actions':0, 'branch2_actions':0, 'merge_actions':0}
@@ -167,31 +169,7 @@ def calculate_merge_effort(path_repository):
 		start_time = datetime.now()
 		end_time = datetime.now()
 		repo_path = pygit2.discover_repository(path_repository)
-		repo = pygit2.Repository(repo_path)
-		#### TEMP TIRAR ####
-		"""merge_commit_list = []
-		with connection_bd.cursor() as cursor:
-			cursor.execute("SELECT c.sha1 FROM project p, commit c, merge_commit m where p.id = c.id_project and m.is_fast_forward_merge='True' and c.id = m.id_commit and p.path_workdir=%s",path_repository)
-			rows = cursor.fetchall()		
-			for row in rows:
-				merge_commit_list.append(row['sha1'])
-		
-		print(len(merge_commit_list))
-
-		for c in merge_commit_list:
-			commit_merge = repo.get(c)	
-			base_commit = repo.merge_base(commit_merge.parents[0].hex, commit_merge.parents[1].hex)
-			ff_commit = commit_merge.parents[0].hex != base_commit.hex and commit_merge.parents[1].hex != base_commit.hex
-			is_fast_forward_merge = False if ff_commit else True
-			print(c)
-			with connection_bd.cursor() as cursor:							
-				sql = "UPDATE merge_commit SET is_fast_forward_merge=%s WHERE id_commit = (SELECT id from commit WHERE sha1=%s)"
-				cursor.execute(sql,(str(is_fast_forward_merge),c))
-			connection_bd.commit()		
-
-		###################"""
-
-
+		repo = pygit2.Repository(repo_path)		
 		logger.info("Starting project" + repo.workdir)
 		list_merge_unprocessed_effort = get_unprocessed_merge_effort_commits(connection_bd,path_repository)
 		logger.info("Number of merge commit unprocessed: " + str(len(list_merge_unprocessed_effort)))

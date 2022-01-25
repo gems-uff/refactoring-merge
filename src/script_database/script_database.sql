@@ -1,5 +1,6 @@
-db53e5f7fe634aa0db9a012b2125782d76d66d63
-update merge_commit set merge_effort_calculated='True' where id_commit = 1301894;
+# Esse merge dá problema no Intellij-community para calcular merge effort. Parar para inevstigar
+            db53e5f7fe634aa0db9a012b2125782d76d66d63
+            update merge_commit set merge_effort_calculated='True' where id_commit = 1301894;
 
 
 # mysql -h localhost -u root -p
@@ -7,6 +8,8 @@ update merge_commit set merge_effort_calculated='True' where id_commit = 1301894
 
 # backup do bd
 mysqldump -u root -p refactoring_merge > refactoring_merge.sql
+
+
 # restaurar BD - backup do bd
 drop database banco_teste_backup
 mysql -u root -p banco_teste_backup < refactoring_merge.sql 
