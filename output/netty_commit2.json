@@ -1,0 +1,396 @@
+{
+"commits": [
+{
+	"repository": "http://www.github.com/netty/netty",
+	"sha1": "7879126afadbb5c76c34149d4c9d63b3cebe46e1",
+	"url": "http://www.github.com/netty/netty/7879126afadbb5c76c34149d4c9d63b3cebe46e1",
+	"refactorings": [{
+	"type": "Change Method Access Modifier",
+	"description": "Change Method Access Modifier public to protected in method protected doBind(local SocketAddress) : void from class io.netty.channel.uring.AbstractIOUringChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 737,
+		"endLine": 744,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "public doBind(local SocketAddress) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 740,
+		"endLine": 747,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed access modifier",
+		"codeElement": "protected doBind(local SocketAddress) : void"
+}]
+},
+{
+	"type": "Inline Method",
+	"description": "Inline Method private doWriteMultiple(in ChannelOutboundBuffer) : void inlined to private scheduleWrite(in ChannelOutboundBuffer) : void in class io.netty.channel.uring.AbstractIOUringChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 299,
+		"endLine": 311,
+		"startColumn": 6,
+		"endColumn": 7,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "inlined method declaration",
+		"codeElement": "private doWriteMultiple(in ChannelOutboundBuffer) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 306,
+		"endLine": 306,
+		"startColumn": 14,
+		"endColumn": 41,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "inlined code from inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 309,
+		"endLine": 309,
+		"startColumn": 14,
+		"endColumn": 52,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "inlined code from inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 277,
+		"endLine": 297,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "target method declaration before inline",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 293,
+		"endLine": 293,
+		"startColumn": 13,
+		"endColumn": 32,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "inlined method invocation",
+		"codeElement": "doWriteMultiple(in)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 300,
+		"endLine": 300,
+		"startColumn": 10,
+		"endColumn": 82,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 302,
+		"endLine": 302,
+		"startColumn": 14,
+		"endColumn": 46,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 303,
+		"endLine": 303,
+		"startColumn": 14,
+		"endColumn": 51,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 304,
+		"endLine": 305,
+		"startColumn": 14,
+		"endColumn": 85,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 301,
+		"endLine": 310,
+		"startColumn": 10,
+		"endColumn": 11,
+		"codeElementType": "TRY_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 307,
+		"endLine": 310,
+		"startColumn": 32,
+		"endColumn": 11,
+		"codeElementType": "CATCH_CLAUSE",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 269,
+		"endLine": 294,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "target method declaration after inline",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 293,
+		"endLine": 293,
+		"startColumn": 9,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "inlined code in target method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 281,
+		"endLine": 281,
+		"startColumn": 9,
+		"endColumn": 35,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "inlined code in target method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Inline Method",
+	"description": "Inline Method protected doWriteSingle(buf ByteBuf) : void inlined to private scheduleWrite(in ChannelOutboundBuffer) : void in class io.netty.channel.uring.AbstractIOUringChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 313,
+		"endLine": 319,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "inlined method declaration",
+		"codeElement": "protected doWriteSingle(buf ByteBuf) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 314,
+		"endLine": 314,
+		"startColumn": 9,
+		"endColumn": 49,
+		"codeElementType": "ASSERT_STATEMENT",
+		"description": "inlined code from inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 277,
+		"endLine": 297,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "target method declaration before inline",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 295,
+		"endLine": 295,
+		"startColumn": 13,
+		"endColumn": 31,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "inlined method invocation",
+		"codeElement": "doWriteSingle(msg)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 315,
+		"endLine": 315,
+		"startColumn": 9,
+		"endColumn": 68,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 316,
+		"endLine": 317,
+		"startColumn": 9,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 318,
+		"endLine": 318,
+		"startColumn": 9,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "deleted statement in inlined method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 269,
+		"endLine": 294,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "target method declaration after inline",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 283,
+		"endLine": 283,
+		"startColumn": 9,
+		"endColumn": 49,
+		"codeElementType": "ASSERT_STATEMENT",
+		"description": "inlined code in target method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Change Variable Type",
+	"description": "Change Variable Type msg : ByteBuf to msg : Object in method private scheduleWrite(in ChannelOutboundBuffer) : void from class io.netty.channel.uring.AbstractIOUringChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 289,
+		"endLine": 289,
+		"startColumn": 17,
+		"endColumn": 45,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "original variable declaration",
+		"codeElement": "msg : ByteBuf"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 277,
+		"endLine": 297,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 281,
+		"endLine": 281,
+		"startColumn": 16,
+		"endColumn": 34,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "changed-type variable declaration",
+		"codeElement": "msg : Object"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 269,
+		"endLine": 294,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed variable type",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method protected removeFromOutboundBuffer(outboundBuffer ChannelOutboundBuffer, bytes int) : void extracted from package writeComplete(res int) : void in class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 583,
+		"endLine": 602,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "package writeComplete(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 586,
+		"endLine": 586,
+		"startColumn": 17,
+		"endColumn": 56,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 602,
+		"endLine": 607,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "protected removeFromOutboundBuffer(outboundBuffer ChannelOutboundBuffer, bytes int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 606,
+		"endLine": 606,
+		"startColumn": 13,
+		"endColumn": 47,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 578,
+		"endLine": 600,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "package writeComplete(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 584,
+		"endLine": 584,
+		"startColumn": 17,
+		"endColumn": 69,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "removeFromOutboundBuffer(channelOutboundBuffer,res)"
+}]
+},
+{
+	"type": "Parameterize Variable",
+	"description": "Parameterize Variable channelOutboundBuffer : ChannelOutboundBuffer to outboundBuffer : ChannelOutboundBuffer in method protected removeFromOutboundBuffer(outboundBuffer ChannelOutboundBuffer, bytes int) : void from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 584,
+		"endLine": 584,
+		"startColumn": 35,
+		"endColumn": 84,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "original variable declaration",
+		"codeElement": "channelOutboundBuffer : ChannelOutboundBuffer"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 583,
+		"endLine": 602,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package writeComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 605,
+		"endLine": 605,
+		"startColumn": 49,
+		"endColumn": 85,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "renamed variable declaration",
+		"codeElement": "outboundBuffer : ChannelOutboundBuffer"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 602,
+		"endLine": 607,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with renamed variable",
+		"codeElement": "protected removeFromOutboundBuffer(outboundBuffer ChannelOutboundBuffer, bytes int) : void"
+}]
+}
+]
+}]
+}

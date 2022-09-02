@@ -1,0 +1,2457 @@
+{
+"commits": [
+{
+	"repository": "http://www.github.com/netty/netty",
+	"sha1": "74ac1ce23b6e1155ec1c1c0d4b4189ce88603995",
+	"url": "http://www.github.com/netty/netty/74ac1ce23b6e1155ec1c1c0d4b4189ce88603995",
+	"refactorings": [{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method private scheduleWrite(in ChannelOutboundBuffer) : int from class io.netty.channel.uring.AbstractIOUringChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 269,
+		"endLine": 269,
+		"startColumn": 13,
+		"endColumn": 17,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 269,
+		"endLine": 294,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 278,
+		"endLine": 278,
+		"startColumn": 13,
+		"endColumn": 16,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 278,
+		"endLine": 304,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "private scheduleWrite(in ChannelOutboundBuffer) : int"
+}]
+},
+{
+	"type": "Change Attribute Type",
+	"description": "Change Attribute Type ioState : int to ioState : byte in class io.netty.channel.uring.AbstractIOUringChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 76,
+		"endLine": 76,
+		"startColumn": 17,
+		"endColumn": 24,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "original attribute declaration",
+		"codeElement": "ioState : int"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 77,
+		"endLine": 77,
+		"startColumn": 18,
+		"endColumn": 25,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "changed-type attribute declaration",
+		"codeElement": "ioState : byte"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected abstract scheduleWriteMultiple(in ChannelOutboundBuffer) : int from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 321,
+		"endLine": 321,
+		"startColumn": 28,
+		"endColumn": 32,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 318,
+		"endLine": 321,
+		"startColumn": 9,
+		"endColumn": 81,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected abstract scheduleWriteMultiple(in ChannelOutboundBuffer) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 332,
+		"endLine": 332,
+		"startColumn": 28,
+		"endColumn": 31,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 328,
+		"endLine": 332,
+		"startColumn": 9,
+		"endColumn": 80,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected abstract scheduleWriteMultiple(in ChannelOutboundBuffer) : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected abstract scheduleWriteSingle(msg Object) : int from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 326,
+		"endLine": 326,
+		"startColumn": 28,
+		"endColumn": 32,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 323,
+		"endLine": 326,
+		"startColumn": 9,
+		"endColumn": 65,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected abstract scheduleWriteSingle(msg Object) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 338,
+		"endLine": 338,
+		"startColumn": 28,
+		"endColumn": 31,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 334,
+		"endLine": 338,
+		"startColumn": 9,
+		"endColumn": 64,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected abstract scheduleWriteSingle(msg Object) : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected abstract scheduleRead0() : int from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 532,
+		"endLine": 532,
+		"startColumn": 28,
+		"endColumn": 32,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 529,
+		"endLine": 532,
+		"startColumn": 9,
+		"endColumn": 49,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected abstract scheduleRead0() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 552,
+		"endLine": 552,
+		"startColumn": 28,
+		"endColumn": 31,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 548,
+		"endLine": 552,
+		"startColumn": 9,
+		"endColumn": 48,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected abstract scheduleRead0() : int"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method package readComplete(res int, data int) : void from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 466,
+		"endLine": 470,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package readComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 478,
+		"endLine": 478,
+		"startColumn": 42,
+		"endColumn": 50,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 478,
+		"endLine": 485,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "package readComplete(res int, data int) : void"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method protected abstract readComplete0(res int, data int, outstandingCompletes int) : void from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 472,
+		"endLine": 475,
+		"startColumn": 9,
+		"endColumn": 56,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected abstract readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 490,
+		"endLine": 490,
+		"startColumn": 56,
+		"endColumn": 64,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 487,
+		"endLine": 490,
+		"startColumn": 9,
+		"endColumn": 92,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected abstract readComplete0(res int, data int, outstandingCompletes int) : void"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter outstandingCompletes : int in method protected abstract readComplete0(res int, data int, outstandingCompletes int) : void from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 472,
+		"endLine": 475,
+		"startColumn": 9,
+		"endColumn": 56,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected abstract readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 490,
+		"endLine": 490,
+		"startColumn": 66,
+		"endColumn": 90,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "outstandingCompletes : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 487,
+		"endLine": 490,
+		"startColumn": 9,
+		"endColumn": 92,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected abstract readComplete0(res int, data int, outstandingCompletes int) : void"
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private scheduleFirstReadIfNeeded() : void extracted from package pollRdHup(res int) : void in class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 477,
+		"endLine": 496,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "package pollRdHup(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 490,
+		"endLine": 490,
+		"startColumn": 21,
+		"endColumn": 41,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 489,
+		"endLine": 491,
+		"startColumn": 54,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 489,
+		"endLine": 491,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 524,
+		"endLine": 528,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private scheduleFirstReadIfNeeded() : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 526,
+		"endLine": 526,
+		"startColumn": 17,
+		"endColumn": 37,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 525,
+		"endLine": 527,
+		"startColumn": 50,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 525,
+		"endLine": 527,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 492,
+		"endLine": 509,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "package pollRdHup(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 504,
+		"endLine": 504,
+		"startColumn": 17,
+		"endColumn": 44,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "scheduleFirstReadIfNeeded()"
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private scheduleFirstReadIfNeeded() : void extracted from package pollIn(res int) : void in class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 498,
+		"endLine": 511,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "package pollIn(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 509,
+		"endLine": 509,
+		"startColumn": 17,
+		"endColumn": 37,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 508,
+		"endLine": 510,
+		"startColumn": 50,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 508,
+		"endLine": 510,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 524,
+		"endLine": 528,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private scheduleFirstReadIfNeeded() : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 526,
+		"endLine": 526,
+		"startColumn": 17,
+		"endColumn": 37,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 525,
+		"endLine": 527,
+		"startColumn": 50,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 525,
+		"endLine": 527,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 511,
+		"endLine": 522,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "package pollIn(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 521,
+		"endLine": 521,
+		"startColumn": 13,
+		"endColumn": 40,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "scheduleFirstReadIfNeeded()"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleRead0() : int from class io.netty.channel.uring.AbstractIOUringServerChannel.UringServerChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 88,
+		"endLine": 88,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 87,
+		"endLine": 95,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleRead0() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 93,
+		"endLine": 93,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 92,
+		"endLine": 101,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleRead0() : int"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.AbstractIOUringServerChannel.UringServerChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 97,
+		"endLine": 130,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 104,
+		"endLine": 104,
+		"startColumn": 47,
+		"endColumn": 55,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 103,
+		"endLine": 137,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter outstanding : int in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.AbstractIOUringServerChannel.UringServerChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 97,
+		"endLine": 130,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 104,
+		"endLine": 104,
+		"startColumn": 57,
+		"endColumn": 72,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "outstanding : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 103,
+		"endLine": 137,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Add Method Annotation",
+	"description": "Add Method Annotation @Override in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.AbstractIOUringServerChannel.UringServerChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 97,
+		"endLine": 130,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 103,
+		"endLine": 103,
+		"startColumn": 9,
+		"endColumn": 18,
+		"codeElementType": "ANNOTATION",
+		"description": "added annotation",
+		"codeElement": "@Override"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringServerChannel.java",
+		"startLine": 103,
+		"endLine": 137,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added annotation",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleWriteMultiple(in ChannelOutboundBuffer) : int from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 214,
+		"endLine": 214,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 213,
+		"endLine": 225,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleWriteMultiple(in ChannelOutboundBuffer) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 214,
+		"endLine": 214,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 213,
+		"endLine": 226,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleWriteMultiple(in ChannelOutboundBuffer) : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleWriteSingle(msg Object) : int from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 228,
+		"endLine": 228,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 227,
+		"endLine": 233,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleWriteSingle(msg Object) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 229,
+		"endLine": 229,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 228,
+		"endLine": 235,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleWriteSingle(msg Object) : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleRead0() : int from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 236,
+		"endLine": 236,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 235,
+		"endLine": 247,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleRead0() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 238,
+		"endLine": 238,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 237,
+		"endLine": 250,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleRead0() : int"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 249,
+		"endLine": 299,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 253,
+		"endLine": 253,
+		"startColumn": 47,
+		"endColumn": 55,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 252,
+		"endLine": 302,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter outstanding : int in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 249,
+		"endLine": 299,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 253,
+		"endLine": 253,
+		"startColumn": 57,
+		"endColumn": 72,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "outstanding : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 252,
+		"endLine": 302,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleRead0() : int from class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 454,
+		"endLine": 454,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 453,
+		"endLine": 479,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleRead0() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 468,
+		"endLine": 468,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 467,
+		"endLine": 494,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleRead0() : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleWriteMultiple(in ChannelOutboundBuffer) : int from class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 502,
+		"endLine": 502,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 501,
+		"endLine": 505,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleWriteMultiple(in ChannelOutboundBuffer) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 573,
+		"endLine": 573,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 572,
+		"endLine": 575,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleWriteMultiple(in ChannelOutboundBuffer) : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method protected scheduleWriteSingle(msg Object) : int from class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 508,
+		"endLine": 508,
+		"startColumn": 19,
+		"endColumn": 23,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 507,
+		"endLine": 538,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleWriteSingle(msg Object) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 578,
+		"endLine": 578,
+		"startColumn": 19,
+		"endColumn": 22,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 577,
+		"endLine": 580,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "protected scheduleWriteSingle(msg Object) : int"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 383,
+		"endLine": 451,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 369,
+		"endLine": 369,
+		"startColumn": 47,
+		"endColumn": 55,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 368,
+		"endLine": 388,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter outstanding : int in method protected readComplete0(res int, data int, outstanding int) : void from class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 383,
+		"endLine": 451,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected readComplete0(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 369,
+		"endLine": 369,
+		"startColumn": 57,
+		"endColumn": 72,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "outstanding : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 368,
+		"endLine": 388,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private readComplete(pipeline ChannelPipeline, allocHandle IOUringRecvByteAllocatorHandle, byteBuf ByteBuf, res int) : void extracted from protected readComplete0(res int) : void in class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 383,
+		"endLine": 451,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "protected readComplete0(res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 399,
+		"endLine": 399,
+		"startColumn": 21,
+		"endColumn": 70,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 400,
+		"endLine": 400,
+		"startColumn": 21,
+		"endColumn": 52,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 402,
+		"endLine": 402,
+		"startColumn": 21,
+		"endColumn": 51,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 406,
+		"endLine": 406,
+		"startColumn": 21,
+		"endColumn": 39,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 407,
+		"endLine": 407,
+		"startColumn": 21,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 409,
+		"endLine": 409,
+		"startColumn": 21,
+		"endColumn": 48,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 410,
+		"endLine": 410,
+		"startColumn": 21,
+		"endColumn": 56,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 411,
+		"endLine": 411,
+		"startColumn": 21,
+		"endColumn": 28,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 430,
+		"endLine": 430,
+		"startColumn": 17,
+		"endColumn": 48,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 432,
+		"endLine": 432,
+		"startColumn": 17,
+		"endColumn": 32,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 435,
+		"endLine": 435,
+		"startColumn": 21,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 438,
+		"endLine": 438,
+		"startColumn": 21,
+		"endColumn": 48,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 439,
+		"endLine": 439,
+		"startColumn": 21,
+		"endColumn": 56,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 448,
+		"endLine": 448,
+		"startColumn": 21,
+		"endColumn": 39,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 388,
+		"endLine": 388,
+		"startColumn": 13,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 397,
+		"endLine": 397,
+		"startColumn": 21,
+		"endColumn": 89,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 398,
+		"endLine": 401,
+		"startColumn": 37,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 401,
+		"endLine": 403,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 398,
+		"endLine": 403,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 394,
+		"endLine": 403,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 404,
+		"endLine": 412,
+		"startColumn": 55,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 404,
+		"endLine": 412,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 433,
+		"endLine": 436,
+		"startColumn": 52,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 436,
+		"endLine": 440,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 433,
+		"endLine": 440,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 447,
+		"endLine": 449,
+		"startColumn": 38,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 447,
+		"endLine": 449,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 446,
+		"endLine": 450,
+		"startColumn": 23,
+		"endColumn": 14,
+		"codeElementType": "FINALLY_BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 390,
+		"endLine": 432,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private readComplete(pipeline ChannelPipeline, allocHandle IOUringRecvByteAllocatorHandle, byteBuf ByteBuf, res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 399,
+		"endLine": 399,
+		"startColumn": 21,
+		"endColumn": 70,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 400,
+		"endLine": 400,
+		"startColumn": 21,
+		"endColumn": 52,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 402,
+		"endLine": 402,
+		"startColumn": 21,
+		"endColumn": 51,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 406,
+		"endLine": 406,
+		"startColumn": 21,
+		"endColumn": 39,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 407,
+		"endLine": 407,
+		"startColumn": 21,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 409,
+		"endLine": 409,
+		"startColumn": 21,
+		"endColumn": 48,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 410,
+		"endLine": 410,
+		"startColumn": 21,
+		"endColumn": 56,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 411,
+		"endLine": 411,
+		"startColumn": 21,
+		"endColumn": 28,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 414,
+		"endLine": 414,
+		"startColumn": 17,
+		"endColumn": 48,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 417,
+		"endLine": 417,
+		"startColumn": 17,
+		"endColumn": 32,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 421,
+		"endLine": 421,
+		"startColumn": 21,
+		"endColumn": 36,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 424,
+		"endLine": 424,
+		"startColumn": 21,
+		"endColumn": 48,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 425,
+		"endLine": 425,
+		"startColumn": 21,
+		"endColumn": 56,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 429,
+		"endLine": 429,
+		"startColumn": 21,
+		"endColumn": 39,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 393,
+		"endLine": 393,
+		"startColumn": 17,
+		"endColumn": 40,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 397,
+		"endLine": 397,
+		"startColumn": 21,
+		"endColumn": 79,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 398,
+		"endLine": 401,
+		"startColumn": 37,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 401,
+		"endLine": 403,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 398,
+		"endLine": 403,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 394,
+		"endLine": 403,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 404,
+		"endLine": 412,
+		"startColumn": 55,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 404,
+		"endLine": 412,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 419,
+		"endLine": 422,
+		"startColumn": 52,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 422,
+		"endLine": 426,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 419,
+		"endLine": 426,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 428,
+		"endLine": 430,
+		"startColumn": 38,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 428,
+		"endLine": 430,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 427,
+		"endLine": 431,
+		"startColumn": 23,
+		"endColumn": 14,
+		"codeElementType": "FINALLY_BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 368,
+		"endLine": 388,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "protected readComplete0(res int, data int, outstanding int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 378,
+		"endLine": 378,
+		"startColumn": 21,
+		"endColumn": 70,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "readComplete(pipeline,allocHandle,byteBuf,res)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 415,
+		"endLine": 416,
+		"startColumn": 17,
+		"endColumn": 71,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 394,
+		"endLine": 398,
+		"startColumn": 30,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 392,
+		"endLine": 431,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "TRY_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private scheduleRecvmsg(byteBuf ByteBuf, numDatagram int, datagramSize int) : int extracted from protected scheduleRead0() : void in class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 453,
+		"endLine": 479,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "protected scheduleRead0() : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 457,
+		"endLine": 457,
+		"startColumn": 13,
+		"endColumn": 72,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 463,
+		"endLine": 463,
+		"startColumn": 13,
+		"endColumn": 58,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 473,
+		"endLine": 473,
+		"startColumn": 17,
+		"endColumn": 63,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 496,
+		"endLine": 513,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private scheduleRecvmsg(byteBuf ByteBuf, numDatagram int, datagramSize int) : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 498,
+		"endLine": 498,
+		"startColumn": 13,
+		"endColumn": 72,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 497,
+		"endLine": 497,
+		"startColumn": 13,
+		"endColumn": 52,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 499,
+		"endLine": 499,
+		"startColumn": 13,
+		"endColumn": 82,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 467,
+		"endLine": 494,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "protected scheduleRead0() : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 485,
+		"endLine": 485,
+		"startColumn": 33,
+		"endColumn": 84,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "scheduleRecvmsg(byteBuf,numDatagram,datagramSize)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 501,
+		"endLine": 501,
+		"startColumn": 17,
+		"endColumn": 91,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 503,
+		"endLine": 503,
+		"startColumn": 13,
+		"endColumn": 23,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 507,
+		"endLine": 507,
+		"startColumn": 21,
+		"endColumn": 27,
+		"codeElementType": "BREAK_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 509,
+		"endLine": 509,
+		"startColumn": 17,
+		"endColumn": 47,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 510,
+		"endLine": 510,
+		"startColumn": 17,
+		"endColumn": 42,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 512,
+		"endLine": 512,
+		"startColumn": 13,
+		"endColumn": 22,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 500,
+		"endLine": 502,
+		"startColumn": 35,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 500,
+		"endLine": 502,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 506,
+		"endLine": 508,
+		"startColumn": 86,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 506,
+		"endLine": 508,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 505,
+		"endLine": 511,
+		"startColumn": 70,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 505,
+		"endLine": 511,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "FOR_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Merge Variable",
+	"description": "Merge Variable [sockaddrAddress : long, addrLen : int] to byteBuf : ByteBuf in method private scheduleRecvmsg(byteBuf ByteBuf, numDatagram int, datagramSize int) : int from class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 472,
+		"endLine": 472,
+		"startColumn": 22,
+		"endColumn": 80,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "merged variable declaration",
+		"codeElement": "sockaddrAddress : long"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 470,
+		"endLine": 470,
+		"startColumn": 21,
+		"endColumn": 40,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "merged variable declaration",
+		"codeElement": "addrLen : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 453,
+		"endLine": 479,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected scheduleRead0() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 496,
+		"endLine": 496,
+		"startColumn": 37,
+		"endColumn": 52,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "new variable declaration",
+		"codeElement": "byteBuf : ByteBuf"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 496,
+		"endLine": 513,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with merged variables",
+		"codeElement": "private scheduleRecvmsg(byteBuf ByteBuf, numDatagram int, datagramSize int) : int"
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private scheduleWrite(msg Object, forceSendmsg boolean) : boolean extracted from protected scheduleWriteSingle(msg Object) : void in class io.netty.channel.uring.IOUringDatagramChannel.IOUringDatagramChannelUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 507,
+		"endLine": 538,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "protected scheduleWriteSingle(msg Object) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 509,
+		"endLine": 509,
+		"startColumn": 13,
+		"endColumn": 32,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 512,
+		"endLine": 514,
+		"startColumn": 17,
+		"endColumn": 77,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 515,
+		"endLine": 515,
+		"startColumn": 17,
+		"endColumn": 43,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 516,
+		"endLine": 516,
+		"startColumn": 17,
+		"endColumn": 54,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 518,
+		"endLine": 518,
+		"startColumn": 17,
+		"endColumn": 38,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 519,
+		"endLine": 519,
+		"startColumn": 17,
+		"endColumn": 38,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 522,
+		"endLine": 522,
+		"startColumn": 13,
+		"endColumn": 55,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 523,
+		"endLine": 523,
+		"startColumn": 13,
+		"endColumn": 72,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 511,
+		"endLine": 517,
+		"startColumn": 51,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 517,
+		"endLine": 520,
+		"startColumn": 20,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 511,
+		"endLine": 520,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 524,
+		"endLine": 537,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 524,
+		"endLine": 527,
+		"startColumn": 40,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 582,
+		"endLine": 608,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private scheduleWrite(msg Object, forceSendmsg boolean) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 583,
+		"endLine": 583,
+		"startColumn": 13,
+		"endColumn": 32,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 586,
+		"endLine": 588,
+		"startColumn": 17,
+		"endColumn": 77,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 589,
+		"endLine": 589,
+		"startColumn": 17,
+		"endColumn": 43,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 590,
+		"endLine": 590,
+		"startColumn": 17,
+		"endColumn": 54,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 592,
+		"endLine": 592,
+		"startColumn": 17,
+		"endColumn": 38,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 593,
+		"endLine": 593,
+		"startColumn": 17,
+		"endColumn": 38,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 596,
+		"endLine": 596,
+		"startColumn": 13,
+		"endColumn": 55,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 597,
+		"endLine": 597,
+		"startColumn": 13,
+		"endColumn": 72,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 585,
+		"endLine": 591,
+		"startColumn": 51,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 591,
+		"endLine": 594,
+		"startColumn": 20,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 585,
+		"endLine": 594,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 598,
+		"endLine": 606,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 599,
+		"endLine": 602,
+		"startColumn": 35,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 577,
+		"endLine": 580,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "protected scheduleWriteSingle(msg Object) : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 579,
+		"endLine": 579,
+		"startColumn": 20,
+		"endColumn": 45,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "scheduleWrite(msg,false)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 584,
+		"endLine": 584,
+		"startColumn": 13,
+		"endColumn": 51,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 600,
+		"endLine": 601,
+		"startColumn": 21,
+		"endColumn": 111,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 603,
+		"endLine": 604,
+		"startColumn": 17,
+		"endColumn": 57,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 605,
+		"endLine": 605,
+		"startColumn": 17,
+		"endColumn": 29,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 607,
+		"endLine": 607,
+		"startColumn": 13,
+		"endColumn": 88,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 599,
+		"endLine": 602,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringDatagramChannel.java",
+		"startLine": 598,
+		"endLine": 606,
+		"startColumn": 40,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method private handleRead(channel AbstractIOUringChannel, res int, data int) : void from class io.netty.channel.uring.IOUringEventLoop",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 262,
+		"endLine": 264,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "private handleRead(channel AbstractIOUringChannel, res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 262,
+		"endLine": 262,
+		"startColumn": 70,
+		"endColumn": 78,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 262,
+		"endLine": 264,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "private handleRead(channel AbstractIOUringChannel, res int, data int) : void"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method private handleWrite(channel AbstractIOUringChannel, res int, data int) : void from class io.netty.channel.uring.IOUringEventLoop",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 266,
+		"endLine": 268,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "private handleWrite(channel AbstractIOUringChannel, res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 266,
+		"endLine": 266,
+		"startColumn": 71,
+		"endColumn": 79,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 266,
+		"endLine": 268,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "private handleWrite(channel AbstractIOUringChannel, res int, data int) : void"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to int in method package write(ipv6 boolean, memory long, address InetSocketAddress) : int from class io.netty.channel.uring.SockaddrIn",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/SockaddrIn.java",
+		"startLine": 32,
+		"endLine": 32,
+		"startColumn": 12,
+		"endColumn": 16,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/SockaddrIn.java",
+		"startLine": 32,
+		"endLine": 38,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package write(ipv6 boolean, memory long, address InetSocketAddress) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/SockaddrIn.java",
+		"startLine": 32,
+		"endLine": 32,
+		"startColumn": 12,
+		"endColumn": 15,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/SockaddrIn.java",
+		"startLine": 32,
+		"endLine": 38,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "package write(ipv6 boolean, memory long, address InetSocketAddress) : int"
+}]
+},
+{
+	"type": "Change Return Type",
+	"description": "Change Return Type void to boolean in method package writeComplete0(res int, data int, outstanding int) : boolean from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 581,
+		"endLine": 581,
+		"startColumn": 15,
+		"endColumn": 19,
+		"codeElementType": "TYPE",
+		"description": "original return type",
+		"codeElement": "void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 578,
+		"endLine": 600,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package writeComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 323,
+		"endLine": 323,
+		"startColumn": 9,
+		"endColumn": 16,
+		"codeElementType": "TYPE",
+		"description": "changed return type",
+		"codeElement": "boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 322,
+		"endLine": 336,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed return type",
+		"codeElement": "package writeComplete0(res int, data int, outstanding int) : boolean"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter data : int in method package writeComplete0(res int, data int, outstanding int) : boolean from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 578,
+		"endLine": 600,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package writeComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 323,
+		"endLine": 323,
+		"startColumn": 41,
+		"endColumn": 49,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "data : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 322,
+		"endLine": 336,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "package writeComplete0(res int, data int, outstanding int) : boolean"
+}]
+},
+{
+	"type": "Add Parameter",
+	"description": "Add Parameter outstanding : int in method package writeComplete0(res int, data int, outstanding int) : boolean from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 578,
+		"endLine": 600,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package writeComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 323,
+		"endLine": 323,
+		"startColumn": 51,
+		"endColumn": 66,
+		"codeElementType": "SINGLE_VARIABLE_DECLARATION",
+		"description": "added parameter",
+		"codeElement": "outstanding : int"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 322,
+		"endLine": 336,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added parameter",
+		"codeElement": "package writeComplete0(res int, data int, outstanding int) : boolean"
+}]
+},
+{
+	"type": "Add Method Annotation",
+	"description": "Add Method Annotation @Override in method package writeComplete0(res int, data int, outstanding int) : boolean from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 578,
+		"endLine": 600,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package writeComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 322,
+		"endLine": 322,
+		"startColumn": 9,
+		"endColumn": 18,
+		"codeElementType": "ANNOTATION",
+		"description": "added annotation",
+		"codeElement": "@Override"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 322,
+		"endLine": 336,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with added annotation",
+		"codeElement": "package writeComplete0(res int, data int, outstanding int) : boolean"
+}]
+},
+{
+	"type": "Push Down Method",
+	"description": "Push Down Method package writeComplete(res int) : void from class io.netty.channel.uring.AbstractIOUringChannel.AbstractUringUnsafe to package writeComplete0(res int, data int, outstanding int) : boolean from class io.netty.channel.uring.AbstractIOUringStreamChannel.IOUringStreamUnsafe",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringChannel.java",
+		"startLine": 578,
+		"endLine": 600,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "package writeComplete(res int) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 322,
+		"endLine": 336,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "pushed down method declaration",
+		"codeElement": "package writeComplete0(res int, data int, outstanding int) : boolean"
+}]
+}
+]
+}]
+}

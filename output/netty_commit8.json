@@ -1,0 +1,678 @@
+{
+"commits": [
+{
+	"repository": "http://www.github.com/netty/netty",
+	"sha1": "1a51ac7e0625c5b90a4f76ba83f99a7edd18e270",
+	"url": "http://www.github.com/netty/netty/1a51ac7e0625c5b90a4f76ba83f99a7edd18e270",
+	"refactorings": [{
+	"type": "Extract Method",
+	"description": "Extract Method private handleRead(fd int, res int) : void extracted from public handle(fd int, res int, flags long, op int, pollMask int) : boolean in class io.netty.channel.uring.IOUringEventLoop",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 173,
+		"endLine": 246,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 181,
+		"endLine": 181,
+		"startColumn": 17,
+		"endColumn": 71,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 185,
+		"endLine": 185,
+		"startColumn": 17,
+		"endColumn": 103,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 182,
+		"endLine": 184,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 206,
+		"endLine": 211,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private handleRead(fd int, res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 207,
+		"endLine": 207,
+		"startColumn": 9,
+		"endColumn": 63,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 209,
+		"endLine": 209,
+		"startColumn": 13,
+		"endColumn": 99,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 208,
+		"endLine": 210,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 171,
+		"endLine": 204,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 175,
+		"endLine": 175,
+		"startColumn": 13,
+		"endColumn": 32,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "handleRead(fd,res)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 208,
+		"endLine": 210,
+		"startColumn": 34,
+		"endColumn": 10,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private handleWrite(fd int, res int) : void extracted from public handle(fd int, res int, flags long, op int, pollMask int) : boolean in class io.netty.channel.uring.IOUringEventLoop",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 173,
+		"endLine": 246,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 191,
+		"endLine": 191,
+		"startColumn": 17,
+		"endColumn": 72,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 195,
+		"endLine": 195,
+		"startColumn": 17,
+		"endColumn": 105,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 192,
+		"endLine": 194,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 213,
+		"endLine": 218,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private handleWrite(fd int, res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 214,
+		"endLine": 214,
+		"startColumn": 9,
+		"endColumn": 64,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 216,
+		"endLine": 216,
+		"startColumn": 13,
+		"endColumn": 101,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 215,
+		"endLine": 217,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 171,
+		"endLine": 204,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 177,
+		"endLine": 177,
+		"startColumn": 13,
+		"endColumn": 33,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "handleWrite(fd,res)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 215,
+		"endLine": 217,
+		"startColumn": 35,
+		"endColumn": 10,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private handlePollAdd(fd int, res int, pollMask int) : void extracted from public handle(fd int, res int, flags long, op int, pollMask int) : boolean in class io.netty.channel.uring.IOUringEventLoop",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 173,
+		"endLine": 246,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 237,
+		"endLine": 237,
+		"startColumn": 17,
+		"endColumn": 67,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 217,
+		"endLine": 217,
+		"startColumn": 25,
+		"endColumn": 102,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 220,
+		"endLine": 220,
+		"startColumn": 25,
+		"endColumn": 101,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 223,
+		"endLine": 223,
+		"startColumn": 25,
+		"endColumn": 104,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 211,
+		"endLine": 225,
+		"startColumn": 24,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 219,
+		"endLine": 221,
+		"startColumn": 64,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 222,
+		"endLine": 224,
+		"startColumn": 67,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 238,
+		"endLine": 240,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 216,
+		"endLine": 218,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 219,
+		"endLine": 221,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 222,
+		"endLine": 224,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 220,
+		"endLine": 233,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private handlePollAdd(fd int, res int, pollMask int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 221,
+		"endLine": 221,
+		"startColumn": 9,
+		"endColumn": 59,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 224,
+		"endLine": 224,
+		"startColumn": 17,
+		"endColumn": 94,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 227,
+		"endLine": 227,
+		"startColumn": 17,
+		"endColumn": 93,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 230,
+		"endLine": 230,
+		"startColumn": 17,
+		"endColumn": 96,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 223,
+		"endLine": 225,
+		"startColumn": 51,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 226,
+		"endLine": 228,
+		"startColumn": 50,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 229,
+		"endLine": 231,
+		"startColumn": 53,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 222,
+		"endLine": 232,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 223,
+		"endLine": 225,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 226,
+		"endLine": 228,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 229,
+		"endLine": 231,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 171,
+		"endLine": 204,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 187,
+		"endLine": 187,
+		"startColumn": 17,
+		"endColumn": 49,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "handlePollAdd(fd,res,pollMask)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 222,
+		"endLine": 232,
+		"startColumn": 30,
+		"endColumn": 10,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Extract Method",
+	"description": "Extract Method private handleConnect(fd int, res int) : void extracted from public handle(fd int, res int, flags long, op int, pollMask int) : boolean in class io.netty.channel.uring.IOUringEventLoop",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 173,
+		"endLine": 246,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 212,
+		"endLine": 212,
+		"startColumn": 21,
+		"endColumn": 71,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 239,
+		"endLine": 239,
+		"startColumn": 21,
+		"endColumn": 106,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 238,
+		"endLine": 240,
+		"startColumn": 38,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 213,
+		"endLine": 215,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 246,
+		"endLine": 251,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private handleConnect(fd int, res int) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 247,
+		"endLine": 247,
+		"startColumn": 9,
+		"endColumn": 59,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 249,
+		"endLine": 249,
+		"startColumn": 13,
+		"endColumn": 98,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 248,
+		"endLine": 250,
+		"startColumn": 30,
+		"endColumn": 10,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 248,
+		"endLine": 250,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 171,
+		"endLine": 204,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "public handle(fd int, res int, flags long, op int, pollMask int) : boolean"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringEventLoop.java",
+		"startLine": 196,
+		"endLine": 196,
+		"startColumn": 13,
+		"endColumn": 35,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "handleConnect(fd,res)"
+}]
+},
+{
+	"type": "Move Attribute",
+	"description": "Move Attribute private SOCK_NONBLOCK : int from class io.netty.channel.uring.IOUringSubmissionQueue to package SOCK_NONBLOCK : int from class io.netty.channel.uring.Native",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 71,
+		"endLine": 71,
+		"startColumn": 30,
+		"endColumn": 50,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "original attribute declaration",
+		"codeElement": "private SOCK_NONBLOCK : int"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/Native.java",
+		"startLine": 65,
+		"endLine": 65,
+		"startColumn": 22,
+		"endColumn": 89,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "moved attribute declaration",
+		"codeElement": "package SOCK_NONBLOCK : int"
+}]
+},
+{
+	"type": "Move Attribute",
+	"description": "Move Attribute private SOCK_CLOEXEC : int from class io.netty.channel.uring.IOUringSubmissionQueue to package SOCK_CLOEXEC : int from class io.netty.channel.uring.Native",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 72,
+		"endLine": 72,
+		"startColumn": 30,
+		"endColumn": 51,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "original attribute declaration",
+		"codeElement": "private SOCK_CLOEXEC : int"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/Native.java",
+		"startLine": 66,
+		"endLine": 66,
+		"startColumn": 22,
+		"endColumn": 87,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "moved attribute declaration",
+		"codeElement": "package SOCK_CLOEXEC : int"
+}]
+},
+{
+	"type": "Change Attribute Access Modifier",
+	"description": "Change Attribute Access Modifier private to package in attribute package SOCK_NONBLOCK : int from class io.netty.channel.uring.Native",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 71,
+		"endLine": 71,
+		"startColumn": 30,
+		"endColumn": 50,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "original attribute declaration",
+		"codeElement": "private SOCK_NONBLOCK : int"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/Native.java",
+		"startLine": 65,
+		"endLine": 65,
+		"startColumn": 22,
+		"endColumn": 89,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "attribute declaration with changed access modifier",
+		"codeElement": "package SOCK_NONBLOCK : int"
+}]
+},
+{
+	"type": "Change Attribute Access Modifier",
+	"description": "Change Attribute Access Modifier private to package in attribute package SOCK_CLOEXEC : int from class io.netty.channel.uring.Native",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 72,
+		"endLine": 72,
+		"startColumn": 30,
+		"endColumn": 51,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "original attribute declaration",
+		"codeElement": "private SOCK_CLOEXEC : int"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/Native.java",
+		"startLine": 66,
+		"endLine": 66,
+		"startColumn": 22,
+		"endColumn": 87,
+		"codeElementType": "FIELD_DECLARATION",
+		"description": "attribute declaration with changed access modifier",
+		"codeElement": "package SOCK_CLOEXEC : int"
+}]
+}
+]
+}]
+}

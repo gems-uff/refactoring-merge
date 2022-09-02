@@ -140,8 +140,8 @@ def join_refactoring_score(refac_type_list, both_branches):
 		del merge_commit['branch1_list']
 		del merge_commit['branch2_list']
 		del merge_commit['commit_seq']
-		del merge_commit['sha1']
-		del merge_commit['project_name']
+		#del merge_commit['sha1']
+		#del merge_commit['project_name']
 		del merge_commit['date_time']
 		del merge_commit['is_ff_merge']
 

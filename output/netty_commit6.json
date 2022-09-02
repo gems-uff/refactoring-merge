@@ -1,0 +1,57 @@
+{
+"commits": [
+{
+	"repository": "http://www.github.com/netty/netty",
+	"sha1": "149402fb55811e37c9a9d9ba9d934e77a3f15830",
+	"url": "http://www.github.com/netty/netty/149402fb55811e37c9a9d9ba9d934e77a3f15830",
+	"refactorings": [{
+	"type": "Change Method Access Modifier",
+	"description": "Change Method Access Modifier public to package in method package IOUringSocketChannelConfig(channel Channel) from class io.netty.channel.uring.IOUringSocketChannelConfig",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSocketChannelConfig.java",
+		"startLine": 41,
+		"endLine": 48,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "public IOUringSocketChannelConfig(channel Channel)"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSocketChannelConfig.java",
+		"startLine": 38,
+		"endLine": 43,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with changed access modifier",
+		"codeElement": "package IOUringSocketChannelConfig(channel Channel)"
+}]
+},
+{
+	"type": "Pull Up Method",
+	"description": "Pull Up Method protected newUnsafe() : AbstractUringUnsafe from class io.netty.channel.uring.IOUringSocketChannel to protected newUnsafe() : AbstractUringUnsafe from class io.netty.channel.uring.AbstractIOUringStreamChannel",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSocketChannel.java",
+		"startLine": 70,
+		"endLine": 73,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "protected newUnsafe() : AbstractUringUnsafe"
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/AbstractIOUringStreamChannel.java",
+		"startLine": 53,
+		"endLine": 56,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "pulled up method declaration",
+		"codeElement": "protected newUnsafe() : AbstractUringUnsafe"
+}]
+}
+]
+}]
+}

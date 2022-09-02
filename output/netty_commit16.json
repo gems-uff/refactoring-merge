@@ -1,0 +1,579 @@
+{
+"commits": [
+{
+	"repository": "http://www.github.com/netty/netty",
+	"sha1": "303baf5c0bea7f5c330290847a8d9eee614f02e1",
+	"url": "http://www.github.com/netty/netty/303baf5c0bea7f5c330290847a8d9eee614f02e1",
+	"refactorings": [{
+	"type": "Extract Method",
+	"description": "Extract Method private handlePotentialUpgrade(ctx ChannelHandlerContext, promise ChannelPromise, httpResponse HttpResponse) : void extracted from public write(ctx ChannelHandlerContext, msg Object, promise ChannelPromise) : void in class io.netty.handler.codec.http.websocketx.extensions.WebSocketServerExtensionHandler",
+	"leftSideLocations": [{
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 104,
+		"endLine": 152,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "public write(ctx ChannelHandlerContext, msg Object, promise ChannelPromise) : void"
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 125,
+		"endLine": 125,
+		"startColumn": 37,
+		"endColumn": 105,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 126,
+		"endLine": 126,
+		"startColumn": 37,
+		"endColumn": 105,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 144,
+		"endLine": 144,
+		"startColumn": 29,
+		"endColumn": 89,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 112,
+		"endLine": 112,
+		"startColumn": 21,
+		"endColumn": 104,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 115,
+		"endLine": 115,
+		"startColumn": 25,
+		"endColumn": 91,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 136,
+		"endLine": 136,
+		"startColumn": 25,
+		"endColumn": 92,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 140,
+		"endLine": 147,
+		"startColumn": 17,
+		"endColumn": 20,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 116,
+		"endLine": 118,
+		"startColumn": 25,
+		"endColumn": 106,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 127,
+		"endLine": 129,
+		"startColumn": 37,
+		"endColumn": 101,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 124,
+		"endLine": 130,
+		"startColumn": 92,
+		"endColumn": 34,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 124,
+		"endLine": 130,
+		"startColumn": 33,
+		"endColumn": 34,
+		"codeElementType": "ENHANCED_FOR_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 123,
+		"endLine": 131,
+		"startColumn": 53,
+		"endColumn": 30,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 123,
+		"endLine": 131,
+		"startColumn": 29,
+		"endColumn": 30,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 120,
+		"endLine": 133,
+		"startColumn": 21,
+		"endColumn": 24,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 111,
+		"endLine": 138,
+		"startColumn": 46,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 122,
+		"endLine": 132,
+		"startColumn": 77,
+		"endColumn": 26,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 143,
+		"endLine": 145,
+		"startColumn": 49,
+		"endColumn": 26,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 143,
+		"endLine": 145,
+		"startColumn": 25,
+		"endColumn": 26,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 142,
+		"endLine": 146,
+		"startColumn": 73,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 114,
+		"endLine": 119,
+		"startColumn": 80,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 114,
+		"endLine": 119,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "ENHANCED_FOR_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 135,
+		"endLine": 137,
+		"startColumn": 46,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 135,
+		"endLine": 137,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 111,
+		"endLine": 138,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 109,
+		"endLine": 148,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 119,
+		"endLine": 164,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private handlePotentialUpgrade(ctx ChannelHandlerContext, promise ChannelPromise, httpResponse HttpResponse) : void"
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 139,
+		"endLine": 139,
+		"startColumn": 33,
+		"endColumn": 101,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 140,
+		"endLine": 140,
+		"startColumn": 33,
+		"endColumn": 101,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 159,
+		"endLine": 159,
+		"startColumn": 25,
+		"endColumn": 85,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 126,
+		"endLine": 126,
+		"startColumn": 17,
+		"endColumn": 100,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 129,
+		"endLine": 129,
+		"startColumn": 21,
+		"endColumn": 87,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 151,
+		"endLine": 151,
+		"startColumn": 21,
+		"endColumn": 88,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 155,
+		"endLine": 162,
+		"startColumn": 13,
+		"endColumn": 16,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 130,
+		"endLine": 132,
+		"startColumn": 21,
+		"endColumn": 53,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 142,
+		"endLine": 144,
+		"startColumn": 33,
+		"endColumn": 92,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 138,
+		"endLine": 145,
+		"startColumn": 88,
+		"endColumn": 30,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 138,
+		"endLine": 145,
+		"startColumn": 29,
+		"endColumn": 30,
+		"codeElementType": "ENHANCED_FOR_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 137,
+		"endLine": 146,
+		"startColumn": 49,
+		"endColumn": 26,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 137,
+		"endLine": 146,
+		"startColumn": 25,
+		"endColumn": 26,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 134,
+		"endLine": 148,
+		"startColumn": 17,
+		"endColumn": 20,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 128,
+		"endLine": 133,
+		"startColumn": 76,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 136,
+		"endLine": 147,
+		"startColumn": 73,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 158,
+		"endLine": 160,
+		"startColumn": 45,
+		"endColumn": 22,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 158,
+		"endLine": 160,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 157,
+		"endLine": 161,
+		"startColumn": 69,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 125,
+		"endLine": 153,
+		"startColumn": 42,
+		"endColumn": 14,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 128,
+		"endLine": 133,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "ENHANCED_FOR_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 150,
+		"endLine": 152,
+		"startColumn": 42,
+		"endColumn": 18,
+		"codeElementType": "BLOCK",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 150,
+		"endLine": 152,
+		"startColumn": 17,
+		"endColumn": 18,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 125,
+		"endLine": 153,
+		"startColumn": 13,
+		"endColumn": 14,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 123,
+		"endLine": 163,
+		"startColumn": 9,
+		"endColumn": 10,
+		"codeElementType": "IF_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 105,
+		"endLine": 117,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "public write(ctx ChannelHandlerContext, msg Object, promise ChannelPromise) : void"
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 112,
+		"endLine": 112,
+		"startColumn": 17,
+		"endColumn": 67,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "handlePotentialUpgrade(ctx,promise,httpResponse)"
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 141,
+		"endLine": 141,
+		"startColumn": 33,
+		"endColumn": 58,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 121,
+		"endLine": 121,
+		"startColumn": 9,
+		"endColumn": 54,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 123,
+		"endLine": 163,
+		"startColumn": 65,
+		"endColumn": 10,
+		"codeElementType": "BLOCK",
+		"description": "added statement in extracted method declaration",
+		"codeElement": null
+}]
+},
+{
+	"type": "Extract Variable",
+	"description": "Extract Variable name : String in method public operationComplete(future ChannelFuture) : void from class io.netty.handler.codec.http.websocketx.extensions.WebSocketServerExtensionHandler.handlePotentialUpgrade.addListener",
+	"leftSideLocations": [{
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 127,
+		"endLine": 129,
+		"startColumn": 37,
+		"endColumn": 101,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "statement with the initializer of the extracted variable",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 121,
+		"endLine": 132,
+		"startColumn": 25,
+		"endColumn": 26,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "public operationComplete(future ChannelFuture) : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 141,
+		"endLine": 141,
+		"startColumn": 40,
+		"endColumn": 57,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted variable declaration",
+		"codeElement": "name : String"
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 142,
+		"endLine": 144,
+		"startColumn": 33,
+		"endColumn": 92,
+		"codeElementType": "EXPRESSION_STATEMENT",
+		"description": "statement with the name of the extracted variable",
+		"codeElement": null
+}, {
+		"filePath": "codec-http/src/main/java/io/netty/handler/codec/http/websocketx/extensions/WebSocketServerExtensionHandler.java",
+		"startLine": 135,
+		"endLine": 147,
+		"startColumn": 21,
+		"endColumn": 22,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "method declaration with extracted variable",
+		"codeElement": "public operationComplete(future ChannelFuture) : void"
+}]
+}
+]
+}]
+}

@@ -1,0 +1,96 @@
+{
+"commits": [
+{
+	"repository": "http://www.github.com/netty/netty",
+	"sha1": "2634e2787a4cf522e5baf4d718748bad0ff34161",
+	"url": "http://www.github.com/netty/netty/2634e2787a4cf522e5baf4d718748bad0ff34161",
+	"refactorings": [{
+	"type": "Extract Method",
+	"description": "Extract Method private convertToUserData(op byte, fd int, pollMask int) : long extracted from private setData(sqe long, op byte, pollMask int, fd int, bufferAddress long, length int, offset long) : void in class io.netty.channel.uring.IOUringSubmissionQueue",
+	"leftSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 109,
+		"endLine": 155,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration before extraction",
+		"codeElement": "private setData(sqe long, op byte, pollMask int, fd int, bufferAddress long, length int, offset long) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 120,
+		"endLine": 120,
+		"startColumn": 9,
+		"endColumn": 75,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 121,
+		"endLine": 121,
+		"startColumn": 9,
+		"endColumn": 61,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code from source method declaration",
+		"codeElement": null
+}],
+	"rightSideLocations": [{
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 288,
+		"endLine": 291,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "extracted method declaration",
+		"codeElement": "private convertToUserData(op byte, fd int, pollMask int) : long"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 289,
+		"endLine": 289,
+		"startColumn": 9,
+		"endColumn": 75,
+		"codeElementType": "VARIABLE_DECLARATION_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 290,
+		"endLine": 290,
+		"startColumn": 9,
+		"endColumn": 55,
+		"codeElementType": "RETURN_STATEMENT",
+		"description": "extracted code to extracted method declaration",
+		"codeElement": null
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 109,
+		"endLine": 159,
+		"startColumn": 5,
+		"endColumn": 6,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "source method declaration after extraction",
+		"codeElement": "private setData(sqe long, op byte, pollMask int, fd int, bufferAddress long, length int, offset long) : void"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 122,
+		"endLine": 122,
+		"startColumn": 34,
+		"endColumn": 102,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "convertToUserData((byte)IOUring.IO_POLL,fd,IOUring.POLLMASK_LINK)"
+}, {
+		"filePath": "transport-native-io_uring/src/main/java/io/netty/channel/uring/IOUringSubmissionQueue.java",
+		"startLine": 126,
+		"endLine": 126,
+		"startColumn": 22,
+		"endColumn": 57,
+		"codeElementType": "METHOD_INVOCATION",
+		"description": "extracted method invocation",
+		"codeElement": "convertToUserData(op,fd,pollMask)"
+}]
+}
+]
+}]
+}

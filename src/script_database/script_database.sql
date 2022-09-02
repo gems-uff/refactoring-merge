@@ -32,6 +32,7 @@ use refactoring_merge;
 #### Listar todas as tuplas
 select * from project;
 select id, sha1, date_time, is_merge_commit, id_project, refminer_timeout from commit;
+select count(*) from commit c, project p where c.refminer_timeout = 'True' and c.id_project=p.id and p.name not in ('intellij-community','neo4j','graal','spring-boot');
 select id, sha1, date_time, is_merge_commit, id_project from commit where sha1 = "3d52b53b46838d7ebe1d1a4258b88cde3dbaed65";
 select id, id_commit, is_fast_forward_merge, extra_effort, wasted_effort, rework_effort, branch1_actions, branch2_actions, merge_actions  from merge_commit;
 select id, type, id_commit from refactoring;
@@ -58,6 +59,9 @@ select count(*) from merge_commit where extra_effort > 0 or wasted_effort > 0 or
 
 """retornar a quantidade de refactorings por TIPO """
 select type, count(*) as qty from refactoring group by type order by qty desc;
+"""retornar a quantidade de refactorings por TIPO - Só pega os 33 tipos selecionados e vinculados a projetos """
+select r.type, count(*) as qty from refactoring r, commit c, project p where r.id_commit = c.id and c.id_project = p.id and r.type in (select type from refac_accept_type) group by r.type order by qty desc;
+
 
 """retornar a quantidade de refactorings por id do projeto """
 select refactoring.type, count(*) as qty from project, commit, refactoring where project.id = 2 and project.id = commit.id_project and commit.id = refactoring.id_commit group by type order by qty desc;
@@ -129,6 +133,8 @@ create table project(
     url varchar(200),    
     PRIMARY KEY (id)
 );
+
+
 
 create table commit(
     id bigint AUTO_INCREMENT,
@@ -278,3 +284,24 @@ select * from merge_commit where merge_commit.id_commit in (select commit.id fro
 select * from commit where id_project = 17;
 "tabela projeto"
 select * from project where id = 17;
+
+
+// PESQUISA FEITA PARA O ARTIGO 1 - INSPEÇÂO MANUAL
+
+select distinct c.sha1 from project p, commit c, merge_commit mc, refactoring r where
+ p.id = c.id_project and c.id = mc.id_commit and  c.id = r.id_commit 
+ and r.type in ('Extract Method','Inline Method','Pull Up Method','Push Down Method') 
+ and p.name in ('Activiti','netty','elasticsearch') and mc.extra_effort >=2  and mc.extra_effort <20;
+
+
+select r.type from commit c, refactoring r where c.id = r.id_commit and c.sha1="924b7a64c0bffafd9e943ade0e2a8cb4c5f7fa6b";
+
+
+//pegar commits nos ramos deste commit que tenham um dos 4 tipos de refactorings consideradas
+select distinct c.sha1 from merge_branch mb, commit c, refactoring r where mb.id_commit = c.id and 
+    mb.id_merge_commit in (select mc.id_commit from merge_commit mc, commit c where c.id = mc.id_commit and
+     c.sha1 = 'c42cc5b68c45c137e239bbdbdb3048433cd7fd56') and c.id = r.id_commit and 
+     r.type in ('Extract Method','Inline Method','Pull Up Method','Push Down Method');
+
+
+
