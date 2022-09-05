@@ -105,7 +105,7 @@ Options:
 To build the dataset for the application of the data mining technique (extraction of association rules) just run the script "extract_merge_commits_score.py":
 
 ```
-./extract_merge_commits_score.py --branches --selected_refactorings
+./extract_merge_commits_score.py --branches --selected_refactorings --datasetname ['datasetname.csv']
 
 ```
 
@@ -115,6 +115,7 @@ Options:
 
 --selected_refactorings = Boolean that indicate to compute only selected refactorings. When informed, the script will only consider the 33 types of refactorings considered in this study.
 
+--datasetname = Name of the produced dataset. When not informed, the script will save in the "output" folder a csv file with the following name: "merge_refactoring_ds.csv"
 
 ## Team
 
