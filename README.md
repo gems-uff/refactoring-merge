@@ -80,9 +80,13 @@ merge-effort --url [git_url] --normalized
 
 ## Team
 
-
-* Tayane Silva Fernandes de Moura (UFF, Brazil)
-* Leonardo Gresta Paulino Murta (UFF, Brazil)
+Hidden due to ICSE submission.
+<!-- * André Oliveira (UFF, Brazil)
+* Leonardo Murta (UFF, Brazil)
+* Alexandre Plastino (UFF, Brazil)
+* Vânia Neves (UFF-Brasil)
+* Ana Carla Bibiano (PUC-Rio)
+* Alessandro Garcia (PUC-Rio) -->
 
 ## Publications
 
