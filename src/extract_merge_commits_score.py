@@ -83,11 +83,20 @@ def get_total_refactoring_b1_b2(sha1, id_branch, refac_type_list):
 
 def analyse_branches(merge_commit,id_branch,refac_type_list, both_branches):
 	#print(f"############   Commit de merge {merge_commit['sha1']} sendo avaliado para o branch {id_branch}")
+	
+	if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519"):		
+		print(id_branch)
+		print(merge_commit)
 	total_commits_with_refac = len(merge_commit['branch'+id_branch+'_list'])
 	total_refac_branch = 0
 	for sha1 in merge_commit['branch'+id_branch+'_list']:		
-		if(sha1 in cache_commit_refactoring.keys()): #ADDED 28/12/2021			
-			for refact_type, qty in (cache_commit_refactoring[sha1]).items():					
+
+		#ARTIGO adicionei o "and (not cache_commit[sha1])" no IF abaixo
+		if((sha1 in cache_commit_refactoring.keys()) and (not cache_commit[sha1])): 
+			for refact_type, qty in (cache_commit_refactoring[sha1]).items():
+				if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):
+					print(sha1)
+					print(qty)					
 				if both_branches:
 					rt = refact_type+"_b"+id_branch				
 				else:
@@ -115,7 +124,16 @@ def analyse_branches(merge_commit,id_branch,refac_type_list, both_branches):
 				else:
 					for refact_type in refac_type_list:
 						merge_commit[refact_type] += output[sha1][refact_type]
+						if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):							
+							print("Achou merge commit")
+							print(sha1)
+							print(output[sha1][refact_type])
+
 						total_refac_branch += output[sha1][refact_type] #ADDED 28/12/2021
+	if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519"):		
+		print("#########################")
+		print(merge_commit)
+		print("$$$$$$$$$$$$$$$$$$$$$$$$$")
 
 	return (total_commits_with_refac, total_refac_branch)		
 
@@ -160,7 +178,9 @@ def get_list_of_commit_in_branch(connection_bd, merge_commit, id_branch):
 def calculate_qty_refactoring_each_commit_per_type(connection_bd, refac_type_list):		
 	for refactoring in refac_type_list:			
 		with connection_bd.cursor() as cursor:
+						
 			cursor.execute("select c.sha1, r.type, count(*) as qty from commit c, refactoring r where c.id = r.id_commit and r.type = %s group by sha1", refactoring.replace("_"," "))
+			
 			list_commits_refactoring = cursor.fetchall()
 
 		for commit in list_commits_refactoring:
@@ -208,7 +228,7 @@ def get_list_merge_commits(connection_bd, refac_type_list, both_branches):
 												'branch1_list': get_list_of_commit_in_branch(connection_bd, merge_commit, '1'),
 												'branch2_list': get_list_of_commit_in_branch(connection_bd, merge_commit, '2')
 											}
-			
+			#TESTANDO
 			if str(merge_commit['sha1']) in cache_commit.keys():				
 				cache_commit[str(merge_commit['sha1'])] = True #set True if is a merge commit
 			
