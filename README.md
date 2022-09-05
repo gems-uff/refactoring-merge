@@ -1,12 +1,6 @@
-# Merge Effort
+# Refactoring and Merge Effort
 
-This project aims at analyzing the merge effort of Git projects. In this regard, it calculates some metrics: 
-
-* The number of actions (i.e., lines added or removed) in each branch
-* The number of actions in the merge commit
-* The rework: similar actions in both branches
-* The wasted actions: actions in the branches that were not merged
-* The extra actions: actions not in the branches that were added during the merge
+This project aims to analyze the relationship between the occurrence of refactorings and the merge effort.
 
 ## Getting Started
 
