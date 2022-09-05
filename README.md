@@ -46,36 +46,45 @@ $ sudo ldconfig
 
 For more information http://www.pygit2.org/install.html
 
+#### Install mysql
+
+First of all, if you are using Mac OS or Linux you need to install libgit2. If you have Anaconda installed in your computer, you can simple do:
+
+1. Open the terminal and run the following command:
+
+```
+sudo apt update
+
+```
+
+2. Enter your password and wait for the update to finish.
+
+3. Next, run:
+
+```
+sudo apt upgrade
+
+```
+4. Install
+
+```
+sudo apt install mysql-server
+```
 
 ## Basic Usage
 
-To run the script with a local repository:
+### Mining repositories on GitHub
+
+To mine repositories on GitHub run the following script:
 
 ```
-merge-effort --local [path]
-
-```
-
-or you can run it passing a git url:
-
-```
-merge-effort --url [git_url]
+./mining_refactoring_merge.py --repo_path [local_path_git_project] --refminer_path[local_path_refminer] --merge_effort
 
 ```
 
-By defaul the script will analyze all merge commits in the repository, but you can pass one or more commits using their hash
-
-```
-merge-effort --url [git_url] --commit [commit1 commit2]
-
-```
-
-By default the script will retun the merge effort, but if you want to see the metrics normalized you can set --normalized
-
-```
-merge-effort --url [git_url] --normalized
-
-```
+--merge_effort = optional boolean parameter indicating whether the merge effort should be computed.
+--repo_path = local path to where the Git project repository was cloned.
+--refminer_path = local path where RefactoringMiner was installed.
 
 ## Team
 
