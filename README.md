@@ -16,6 +16,10 @@ mysql==8.0.23
 RefactoringMiner==2.1
 ```
 
+### Preparing the runtime environment:
+
+#### Install libgit2/pygit2
+
 First of all, if you are using Mac OS or Linux you need to install libgit2. If you have Anaconda installed in your computer, you can simple do:
 
 ```
@@ -42,13 +46,6 @@ $ sudo ldconfig
 
 For more information http://www.pygit2.org/install.html
 
-### Installing
-
-To install merge-effort you should do:
-
-```
-$ pip install merge-effort
-```
 
 ## Basic Usage
 
