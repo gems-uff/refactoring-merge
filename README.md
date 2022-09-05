@@ -1,24 +1,24 @@
-# Merge Effort
+# Refactoring and Merge Effort
 
-This project aims at analyzing the merge effort of Git projects. In this regard, it calculates some metrics: 
-
-* The number of actions (i.e., lines added or removed) in each branch
-* The number of actions in the merge commit
-* The rework: similar actions in both branches
-* The wasted actions: actions in the branches that were not merged
-* The extra actions: actions not in the branches that were added during the merge
+This project aims to analyze the relationship between the occurrence of refactorings and the merge effort.
 
 ## Getting Started
 
 ### Prerequisites
 
-This project requires python, pygit2 and libgit2, and it was tested on the following versions:
+This project requires python, pygit2, libgit2, mysql and RefactoringMiner, and it was tested on the following versions:
 
 ```
 python==3.6
 pygit2==0.27.0
 libgit2==0.27.0
+mysql==8.0.23
+RefactoringMiner==2.1
 ```
+
+### Preparing the runtime environment:
+
+#### Install libgit2/pygit2
 
 First of all, if you are using Mac OS or Linux you need to install libgit2. If you have Anaconda installed in your computer, you can simple do:
 
@@ -46,54 +46,59 @@ $ sudo ldconfig
 
 For more information http://www.pygit2.org/install.html
 
-### Installing
+#### Install mysql
 
-To install merge-effort you should do:
+First of all, if you are using Mac OS or Linux you need to install libgit2. If you have Anaconda installed in your computer, you can simple do:
+
+1. Open the terminal and run the following command:
 
 ```
-$ pip install merge-effort
+sudo apt update
+
+```
+
+2. Enter your password and wait for the update to finish.
+
+3. Next, run:
+
+```
+sudo apt upgrade
+
+```
+4. Install
+
+```
+sudo apt install mysql-server
 ```
 
 ## Basic Usage
 
-To run the script with a local repository:
+### Mining repositories on GitHub
+
+To mine repositories on GitHub run the following script:
 
 ```
-merge-effort --local [path]
-
-```
-
-or you can run it passing a git url:
-
-```
-merge-effort --url [git_url]
+./mining_refactoring_merge.py --repo_path [local_path_git_project] --refminer_path[local_path_refminer] --merge_effort
 
 ```
 
-By defaul the script will analyze all merge commits in the repository, but you can pass one or more commits using their hash
-
-```
-merge-effort --url [git_url] --commit [commit1 commit2]
-
-```
-
-By default the script will retun the merge effort, but if you want to see the metrics normalized you can set --normalized
-
-```
-merge-effort --url [git_url] --normalized
-
-```
+--merge_effort = optional boolean parameter indicating whether the merge effort should be computed.
+--repo_path = local path to where the Git project repository was cloned.
+--refminer_path = local path where RefactoringMiner was installed.
 
 ## Team
 
+Hidden due to ICSE submission.
+<!-- * André Oliveira (UFF, Brazil)
+* Leonardo Murta (UFF, Brazil)
+* Alexandre Plastino (UFF, Brazil)
+* Vânia Neves (UFF-Brasil)
+* Ana Carla Bibiano (PUC-Rio)
+* Alessandro Garcia (PUC-Rio) -->
 
-* Tayane Silva Fernandes de Moura (UFF, Brazil)
-* Leonardo Gresta Paulino Murta (UFF, Brazil)
+<!-- ## Publications
 
-## Publications
-
-* [MOURA, T.; MURTA, L. Uma técnica para a quantificação do esforço de merge. . In: VI WORKSHOP ON SOFTWARE VISUALIZATION, EVOLUTION AND MAINTENANCE. 2018](https://github.com/gems-uff/merge-effort/blob/master/docs/VEM_2018.pdf)
-
+* [MOURA, T.; MURTA, L. Uma técnica para a quantificação do esforço de merge. . In: VI WORKSHOP ON SOFTWARE VISUALIZATION, EVOLUTION AND MAINTENANCE. 2018](https://github.com/gems-uff/merge-effort/blob/master/docs/VEM_2018.pdf) -->
 
 ## License
 
