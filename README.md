@@ -6,12 +6,14 @@ This project aims to analyze the relationship between the occurrence of refactor
 
 ### Prerequisites
 
-This project requires python, pygit2 and libgit2, and it was tested on the following versions:
+This project requires python, pygit2, libgit2, mysql and RefactoringMiner, and it was tested on the following versions:
 
 ```
 python==3.6
 pygit2==0.27.0
 libgit2==0.27.0
+mysql==8.0.23
+RefactoringMiner==2.1
 ```
 
 First of all, if you are using Mac OS or Linux you need to install libgit2. If you have Anaconda installed in your computer, you can simple do:
