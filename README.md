@@ -88,7 +88,7 @@ The script for creating the database in mysql can be found in the file "script_d
 To mine repositories on GitHub run the following script:
 
 ```
-./mining_refactoring_merge.py --repo_path [local_path_git_project] --refminer_path[local_path_refminer] --merge_effort
+./mining_refactoring_merge.py --repo_path [local_path_git_project] --refminer_path [local_path_refminer] --merge_effort
 
 ```
 
