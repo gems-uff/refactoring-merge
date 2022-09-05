@@ -83,7 +83,9 @@ To mine repositories on GitHub run the following script:
 ```
 
 --merge_effort = optional boolean parameter indicating whether the merge effort should be computed.
+
 --repo_path = local path to where the Git project repository was cloned.
+
 --refminer_path = local path where RefactoringMiner was installed.
 
 ## Team
