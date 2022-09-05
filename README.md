@@ -48,13 +48,10 @@ For more information http://www.pygit2.org/install.html
 
 #### Install mysql
 
-First of all, if you are using Mac OS or Linux you need to install libgit2. If you have Anaconda installed in your computer, you can simple do:
-
 1. Open the terminal and run the following command:
 
 ```
 sudo apt update
-
 ```
 
 2. Enter your password and wait for the update to finish.
@@ -63,13 +60,26 @@ sudo apt update
 
 ```
 sudo apt upgrade
-
 ```
 4. Install
 
 ```
 sudo apt install mysql-server
 ```
+
+#### Install RefactoringMiner
+
+We are using version 2.1 of RefactoringMiner. More details about the tool and installation steps can be found at: https://github.com/tsantalis/RefactoringMiner.
+
+#### Clone Refactoring-Merge Project
+
+URL: https://github.com/gems-uff/refactoring-merge.git.
+
+
+#### Create the Database
+
+The script for creating the database in mysql can be found in the file "script_database.sql" in the output folder of this project.
+
 
 ## Basic Usage
 
@@ -82,11 +92,29 @@ To mine repositories on GitHub run the following script:
 
 ```
 
+Options:
+
 --merge_effort = optional boolean parameter indicating whether the merge effort should be computed.
 
 --repo_path = local path to where the Git project repository was cloned.
 
 --refminer_path = local path where RefactoringMiner was installed.
+
+### Building the Dataset
+
+To build the dataset for the application of the data mining technique (extraction of association rules) just run the script "extract_merge_commits_score.py":
+
+```
+./extract_merge_commits_score.py --branches --selected_refactorings
+
+```
+
+Options:
+
+--branches  = Boolean that indicate to split refactoring attributes in two branches (b1 and b1). When not informed, the script will sum the total of refactorings of each type in the two branches.
+
+--selected_refactorings = Boolean that indicate to compute only selected refactorings. When informed, the script will only consider the 33 types of refactorings considered in this study.
+
 
 ## Team
 
