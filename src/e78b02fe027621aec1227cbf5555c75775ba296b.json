@@ -1,0 +1,90 @@
+{
+"commits": [
+{
+	"repository": "https://github.com/danilofes/refactoring-toy-example.git",
+	"sha1": "e78b02fe027621aec1227cbf5555c75775ba296b",
+	"url": "https://github.com/danilofes/refactoring-toy-example/commit/e78b02fe027621aec1227cbf5555c75775ba296b",
+	"refactorings": [{
+	"type": "Extract Superclass",
+	"description": "Extract Superclass org.animals.Bird from classes [org.animals.Chicken, org.animals.Duck]",
+	"leftSideLocations": [{
+		"filePath": "src/org/animals/Chicken.java",
+		"startLine": 3,
+		"endLine": 9,
+		"startColumn": 0,
+		"endColumn": 2,
+		"codeElementType": "TYPE_DECLARATION",
+		"description": "sub-type declaration",
+		"codeElement": "org.animals.Chicken"
+}, {
+		"filePath": "src/org/animals/Duck.java",
+		"startLine": 3,
+		"endLine": 9,
+		"startColumn": 0,
+		"endColumn": 2,
+		"codeElementType": "TYPE_DECLARATION",
+		"description": "sub-type declaration",
+		"codeElement": "org.animals.Duck"
+}],
+	"rightSideLocations": [{
+		"filePath": "src/org/animals/Bird.java",
+		"startLine": 3,
+		"endLine": 9,
+		"startColumn": 0,
+		"endColumn": 2,
+		"codeElementType": "TYPE_DECLARATION",
+		"description": "extracted super-type declaration",
+		"codeElement": "org.animals.Bird"
+}]
+},
+{
+	"type": "Pull Up Method",
+	"description": "Pull Up Method public layEgg() : void from class org.animals.Chicken to public layEgg() : void from class org.animals.Bird",
+	"leftSideLocations": [{
+		"filePath": "src/org/animals/Chicken.java",
+		"startLine": 9,
+		"endLine": 11,
+		"startColumn": 2,
+		"endColumn": 3,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "public layEgg() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "src/org/animals/Bird.java",
+		"startLine": 5,
+		"endLine": 7,
+		"startColumn": 2,
+		"endColumn": 3,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "pulled up method declaration",
+		"codeElement": "public layEgg() : void"
+}]
+},
+{
+	"type": "Pull Up Method",
+	"description": "Pull Up Method public layEgg() : void from class org.animals.Duck to public layEgg() : void from class org.animals.Bird",
+	"leftSideLocations": [{
+		"filePath": "src/org/animals/Duck.java",
+		"startLine": 9,
+		"endLine": 11,
+		"startColumn": 2,
+		"endColumn": 3,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "public layEgg() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "src/org/animals/Bird.java",
+		"startLine": 5,
+		"endLine": 7,
+		"startColumn": 2,
+		"endColumn": 3,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "pulled up method declaration",
+		"codeElement": "public layEgg() : void"
+}]
+}
+]
+}]
+}

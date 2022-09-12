@@ -1,3 +1,7 @@
+DANGER ################################## DROP DATABASE IF EXISTS refactoring_merge;
+CREATE DATABASE IF NOT EXISTS refactoring_merge;
+SHOW DATABASES;
+
 use refactoring_merge;
 
 create table project(

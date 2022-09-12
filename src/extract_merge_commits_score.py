@@ -84,19 +84,20 @@ def get_total_refactoring_b1_b2(sha1, id_branch, refac_type_list):
 def analyse_branches(merge_commit,id_branch,refac_type_list, both_branches):
 	#print(f"############   Commit de merge {merge_commit['sha1']} sendo avaliado para o branch {id_branch}")
 	
-	if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519"):		
-		print(id_branch)
-		print(merge_commit)
+	#if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519"):		
+		#print(id_branch)
+		#print(merge_commit)
 	total_commits_with_refac = len(merge_commit['branch'+id_branch+'_list'])
 	total_refac_branch = 0
 	for sha1 in merge_commit['branch'+id_branch+'_list']:		
 
-		#ARTIGO adicionei o "and (not cache_commit[sha1])" no IF abaixo
+		#TODO: ARTIGO adicionei o "and (not cache_commit[sha1])" no IF abaixo
+		# quando o script mining conseguir separar refacs específicas do merge, tirar esse "and"
 		if((sha1 in cache_commit_refactoring.keys()) and (not cache_commit[sha1])): 
 			for refact_type, qty in (cache_commit_refactoring[sha1]).items():
-				if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):
-					print(sha1)
-					print(qty)					
+				#if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):
+					#print(sha1)
+					#print(qty)					
 				if both_branches:
 					rt = refact_type+"_b"+id_branch				
 				else:
@@ -124,16 +125,16 @@ def analyse_branches(merge_commit,id_branch,refac_type_list, both_branches):
 				else:
 					for refact_type in refac_type_list:
 						merge_commit[refact_type] += output[sha1][refact_type]
-						if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):							
-							print("Achou merge commit")
-							print(sha1)
-							print(output[sha1][refact_type])
+						#if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):							
+							#print("Achou merge commit")
+							#print(sha1)
+							#print(output[sha1][refact_type])
 
 						total_refac_branch += output[sha1][refact_type] #ADDED 28/12/2021
-	if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519"):		
-		print("#########################")
-		print(merge_commit)
-		print("$$$$$$$$$$$$$$$$$$$$$$$$$")
+	#if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519"):		
+		#print("#########################")
+		#print(merge_commit)
+		#print("$$$$$$$$$$$$$$$$$$$$$$$$$")
 
 	return (total_commits_with_refac, total_refac_branch)		
 
@@ -243,7 +244,7 @@ def get_list_merge_commits(connection_bd, refac_type_list, both_branches):
 					refactoring_type = {refac: 0}
 					output[merge_commit['sha1']].update(refactoring_type)				
 	
-def init_analysis(both_branches=False, selected_refactorings=False):	
+def init_analysis(both_branches=False, selected_refactorings=False,datasetname='merge_refactoring_ds.csv'):	
 	start_time = datetime.now()	
 	logger.info("Starting evaluation")	
 	connection_bd = open_connection_db()
@@ -253,7 +254,7 @@ def init_analysis(both_branches=False, selected_refactorings=False):
 	#print(output)
 	join_refactoring_score(refac_type_list, both_branches)				
 	print(len(output))
-	write_csv(output,"../output/merge_refactoring_db.csv")
+	write_csv(output,"../output/"+datasetname)
 		
 	connection_bd.close()
 		
@@ -264,8 +265,9 @@ def main():
 	parser = argparse.ArgumentParser(description='Extract Merge-Refactoring')	
 	parser.add_argument("--branches", action='store_true', help="boolean that indicate to split refactoring attributes in two branches")
 	parser.add_argument("--selected_refactorings", action='store_true', help="boolean that indicate to compute only selected refactorings -table: refac_accept_type")
+	parser.add_argument("--datasetname", default='merge_refactoring_ds.csv', help="output dataset file name.")
 	args = parser.parse_args()
-	init_analysis(args.branches, args.selected_refactorings)
+	init_analysis(args.branches, args.selected_refactorings,args.datasetname)
 	
 if __name__ == '__main__':
 	main()

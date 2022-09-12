@@ -117,8 +117,7 @@ select p.path_workdir, count(*) from merge_commit m, commit c, project p where p
 select p.path_workdir, count(*) from merge_commit m, commit c, project p where p.id = c.id_project and m.id_commit = c.id and m.is_fast_forward_merge = 'False' group by p.path_workdir order by p.path_workdir;
 
 #### Total de commit com refatorações em um dado projeto ####
-select count(distinct c.sha1) as total_commits_with_refac from commit c, refactoring r where c.id = r.id_commit and c.id_pro
-ject = 80;
+select count(distinct c.sha1) as total_commits_with_refac from commit c, refactoring r where c.id = r.id_commit and c.id_project = 41;
 
 
 ########################################################
@@ -190,15 +189,15 @@ create database if not exists refactoring_merge_t;
 
 "Deletar projeto - nesta ordem"
 #tabela refactoring
-delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 17);
+delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 52);
 #tabela merge_branch
-delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 17);
+delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 52);
 #tabela merge_commit
-delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 17);
+delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 52);
 #tabela commit
-delete from commit where id_project = 17;
+delete from commit where id_project = 52;
 #tabela projeto
-delete from project where id = 17;
+delete from project where id = 52;
 
 
 
@@ -231,7 +230,7 @@ select r.type, count(*) from commit c, refactoring r where
         c.id = r.id_commit and r.type in (select type from refac_accept_type) 
         and c.id in (select distinct(c.id) from merge_branch mb, commit c, refactoring r where mb.id_commit = c.id and 
                         mb.id_merge_commit in (select mc.id_commit from merge_commit mc, commit c 
-                          where c.id = mc.id_commit and c.sha1 = '6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519'))        
+                          where c.id = mc.id_commit and c.sha1 = 'e78b02fe027621aec1227cbf5555c75775ba296b'))        
         group by r.type order by r.type;
 
 //and c.id not in (select mc.id_commit from merge_commit mc)
@@ -245,10 +244,11 @@ select distinct c.sha1 from merge_branch mb, commit c, refactoring r where mb.id
 
 //Query MUITO IMPORTANTE
 //pegar commits nos ramos deste commit que tenham um dos 33 tipos de refactorings consideradas
+
 select distinct(c.sha1), type_branch from merge_branch mb, commit c, refactoring r where mb.id_commit = c.id and 
     mb.id_merge_commit in (select mc.id_commit from merge_commit mc, commit c 
                           where c.id = mc.id_commit and 
-                           c.sha1 = '6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519') 
+                           c.sha1 = 'e78b02fe027621aec1227cbf5555c75775ba296b') 
         and c.id = r.id_commit and r.type in (select type from refac_accept_type);
 
 

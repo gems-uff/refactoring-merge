@@ -1,0 +1,57 @@
+{
+"commits": [
+{
+	"repository": "https://github.com/danilofes/refactoring-toy-example.git",
+	"sha1": "ef3422578c0bcaef1561980ef077d06c3f6fc9f9",
+	"url": "https://github.com/danilofes/refactoring-toy-example/commit/ef3422578c0bcaef1561980ef077d06c3f6fc9f9",
+	"refactorings": [{
+	"type": "Extract Interface",
+	"description": "Extract Interface org.felines.AnimalSuper from classes [org.felines.Animal]",
+	"leftSideLocations": [{
+		"filePath": "src/org/felines/Animal.java",
+		"startLine": 3,
+		"endLine": 4,
+		"startColumn": 0,
+		"endColumn": 2,
+		"codeElementType": "TYPE_DECLARATION",
+		"description": "sub-type declaration",
+		"codeElement": "org.felines.Animal"
+}],
+	"rightSideLocations": [{
+		"filePath": "src/org/felines/AnimalSuper.java",
+		"startLine": 3,
+		"endLine": -1,
+		"startColumn": 0,
+		"endColumn": -1,
+		"codeElementType": "TYPE_DECLARATION",
+		"description": "extracted super-type declaration",
+		"codeElement": "org.felines.AnimalSuper"
+}]
+},
+{
+	"type": "Pull Up Method",
+	"description": "Pull Up Method public action() : void from class org.felines.Animal to public action() : void from class org.felines.AnimalSuper",
+	"leftSideLocations": [{
+		"filePath": "src/org/felines/Animal.java",
+		"startLine": 5,
+		"endLine": 5,
+		"startColumn": 3,
+		"endColumn": 17,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "original method declaration",
+		"codeElement": "public action() : void"
+}],
+	"rightSideLocations": [{
+		"filePath": "src/org/felines/AnimalSuper.java",
+		"startLine": 5,
+		"endLine": 5,
+		"startColumn": 2,
+		"endColumn": 16,
+		"codeElementType": "METHOD_DECLARATION",
+		"description": "pulled up method declaration",
+		"codeElement": "public action() : void"
+}]
+}
+]
+}]
+}
