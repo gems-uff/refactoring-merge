@@ -100,6 +100,8 @@ Options:
 
 --refminer_path = local path where RefactoringMiner was installed.
 
+--log = optional boolean parameter indicating to print the execution log.
+
 ### Building the Dataset
 
 To build the dataset for the application of the data mining technique (extraction of association rules) just run the script "extract_merge_commits_score.py":
