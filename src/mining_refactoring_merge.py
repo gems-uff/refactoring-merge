@@ -121,6 +121,30 @@ def analyze_merge_effort(merge_commit, base, repo):
 		logger.error(f'Project {repo} finished with error!')
 	return metrics
 
+
+def has_duplicated_refac_in_merge(connection_bd, merge_sha1, project_seq, type_refac, description_refac):
+	
+	with connection_bd.cursor() as cursor:
+		cursor.execute("SELECT r.type from refactoring r, commit c, project p where p.id = c.id_project and c.id = r.id_commit and p.id=%s and r.type=%s and r.description=%s and c.sha1!=%s",(str(project_seq), type_refac, description_refac, merge_sha1))
+		rows = cursor.fetchall()		
+	if rows:	
+		"""print("######################################")
+		print(merge_sha1) #andre
+		print(project_seq) #andre
+		print(type_refac) #andre
+		print(description_refac) #andre
+		print(rows) #andre
+		print("######################################")"""
+		return True
+	else:
+		print("######################################")		
+		print("TEM REFAC ESPECIFICA")
+		print(merge_sha1)
+		print(description_refac)
+		print("######################################")
+		return False
+
+
 def get_refactoring_commit(path_repository,commit_sha1):		
 	""" /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner -c /mnt/c/Users/aoliv/RepositoriosEO1/spring-boot/ 8364840cd5a0cf7c838085378a275f350a682046 -json teste1.json"""
 	commit = []	
@@ -140,12 +164,19 @@ def get_refactoring_commit(path_repository,commit_sha1):
 		subprocess.run(["rm", "ref_miner_temp.json"], capture_output=True)
 
 		
-def save_refactoring_commit(repo, connection_bd, commit_sha1, commit_seq):	
+def save_refactoring_commit(repo, connection_bd, commit_sha1, commit_seq, project_seq, is_merge_commit):	
 	(refactorings_list, refminer_timeout) = get_refactoring_commit(repo.workdir, commit_sha1)	
 	for refactoring in refactorings_list:
-		with connection_bd.cursor() as cursor:
-			sql = "INSERT INTO refactoring (id, type, description, id_commit) VALUES (%s, %s, %s, %s)"
-			cursor.execute(sql, (None, refactoring['type'], refactoring['description'][:1000], commit_seq))		
+		save_refac = True
+		if(is_merge_commit):
+			duplicated_refac = has_duplicated_refac_in_merge(connection_bd, commit_sha1, project_seq, refactoring['type'], refactoring['description'][:1000])
+			if(duplicated_refac):
+				save_refac = False
+		if(save_refac):
+			with connection_bd.cursor() as cursor:
+				sql = "INSERT INTO refactoring (id, type, description, id_commit) VALUES (%s, %s, %s, %s)"
+				cursor.execute(sql, (None, refactoring['type'], refactoring['description'][:1000], commit_seq))		
+	
 	if len(refactorings_list) > 0:		
 		cache_refactoring.add(commit_seq)
 	return (len(refactorings_list), refminer_timeout)
@@ -480,29 +511,32 @@ def mining_repository(repo,merge_effort,path_repository):
 		for branch_name in repo.branches:
 			for commit in repo.walk(repo.branches[branch_name].peel().id, pygit2.GIT_SORT_REVERSE):				
 				if str(commit.id) not in commit_visited:					
-					commit_visited.add(str(commit.id))					
-					#commit_seq = get_db_commit_seq_by_sha1(connection_bd, str(commit.id))					
-					commit_processed = str(commit.id) in cache_commit.keys()									
+					commit_visited.add(str(commit.id))										
+					commit_processed = str(commit.id) in cache_commit.keys()	
+
+					#is a merge commit?
+					is_merge_commit = False
+					if len(commit.parents) == 2:						
+						is_merge_commit = True
+						if(printlog):
+							logger.info("Merge Commit = " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)))
+						merge_list.append(commit)
+						qty_merge_commits +=1
 					
 					if not commit_processed: #commit not saved in database
 						if(printlog):
 							logger.info("## Commit " + str(commit.id) + " was not processed")
 						commit_seq = save_commit(connection_bd, commit, project_seq)
 						cache_commit[str(commit.id)] = commit_seq #put commit db_sequence in cache
-						(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq)
+
+						#call RefactoringMiner and save commit refactorings
+						(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq, project_seq, is_merge_commit)
 						if(printlog):
 							logger.info("## Saving refactoring " + str(commit.id) + " Refacs=" + str(qty_refactoring_commit))
 						if(refminer_timeout):
 							set_refminer_timeout_in_commit(connection_bd, str(commit.id))
-							qty_refminer_timeout += 1										
+							qty_refminer_timeout += 1								
 					
-					if len(commit.parents) == 2:
-						if not commit_processed:
-							if(printlog):
-								logger.info("Merge Commit = " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)))
-						merge_list.append(commit)
-						qty_merge_commits +=1
-										
 					connection_bd.commit()
 
 		merge_analysis(connection_bd, repo, merge_list, merge_effort)
