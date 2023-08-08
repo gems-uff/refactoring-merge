@@ -26,20 +26,20 @@ logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 
-fh = logging.FileHandler(r'merge_commits_extract_db.log')
+"""fh = logging.FileHandler(r'merge_commits_extract_db.log')"""
 
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(levelname)s:%(name)s : %(message)s')
-fh.setFormatter(formatter)
+"""fh.setFormatter(formatter)"""
 # add formatter to ch
 ch.setFormatter(formatter)
 
 # add ch to logger
 logger.addHandler(ch)
-logger.addHandler(fh)
+"""logger.addHandler(fh)"""
 
 
-REFMINER_TIMEOUT = 300 # 5 min
+REFMINER_TIMEOUT = 600 # 10 min
 
 def read_json(arq_json):	
 	my_file = Path(arq_json)
@@ -54,11 +54,18 @@ def write_json(data,file_name):
 	with open(file_name, 'w', encoding='utf-8') as json_file:
 		json.dump(data, json_file, ensure_ascii=False, indent=4)
 
+
+# TESTAR ANTES DE USAR COM O TOY
+def save_end_time_exec(connection_bd, id_project):
+	with connection_bd.cursor() as cursor:
+			sql = "UPDATE project SET date_time_end_exec = CURRENT_TIMESTAMP where id = %s"			
+			cursor.execute(sql,id_project)
+
 def open_connection_db():
 	connection = pymysql.connect(host='localhost',
                              user='root',
                              password='root',
-                             database='refactoring_merge_teste', ###ANDRE ALTERAR TESTE 10/09/2022
+                             database='refactoring_merge_art2', ###ANDRE ALTERAR TESTE 03/07/2023
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 	return connection
@@ -127,55 +134,50 @@ def has_duplicated_refac_in_merge(connection_bd, merge_sha1, project_seq, type_r
 	with connection_bd.cursor() as cursor:
 		cursor.execute("SELECT r.type from refactoring r, commit c, project p where p.id = c.id_project and c.id = r.id_commit and p.id=%s and r.type=%s and r.description=%s and c.sha1!=%s",(str(project_seq), type_refac, description_refac, merge_sha1))
 		rows = cursor.fetchall()		
-	if rows:	
-		"""print("######################################")
-		print(merge_sha1) #andre
-		print(project_seq) #andre
-		print(type_refac) #andre
-		print(description_refac) #andre
-		print(rows) #andre
-		print("######################################")"""
+	if rows:			
 		return True
 	else:
-		print("######################################")		
-		print("TEM REFAC ESPECIFICA")
-		print(merge_sha1)
-		print(description_refac)
-		print("######################################")
+		if(printlog):
+			logger.info("Has specific refactoring in the merge commit - " + merge_sha1 + " - " + description_refac)			
 		return False
 
 
-def get_refactoring_commit(path_repository,commit_sha1):		
-	""" /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner -c /mnt/c/Users/aoliv/RepositoriosEO1/spring-boot/ 8364840cd5a0cf7c838085378a275f350a682046 -json teste1.json"""
+def get_refactoring_commit(path_repository,commit_sha1,name_arq):		
+	""" /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner -c /mnt/c/Users/aoliv/RepositoriosEO1/spring-boot/ 49525b0a83e7809a603f420d807b433b268dd2b4 -json teste1.json"""
 	commit = []	
 	try:
-		subprocess.run([refMiner_exec, "-c", path_repository, str(commit_sha1), "-json", "ref_miner_temp.json"],
+		subprocess.run([refMiner_exec, "-c", path_repository, str(commit_sha1), "-json", name_arq],
 					timeout=REFMINER_TIMEOUT, capture_output=True) #timeout = 2 hours
-		retorno_arq = read_json("ref_miner_temp.json")		
+		retorno_arq = read_json(name_arq)		
 		commit = retorno_arq['commits']
 		if len(commit) > 0:
 			return (commit[0]['refactorings'], False)
 		else:			
 			return (commit, False)
 	except:	
-		logger.info("Refatoring Miner Timeout: " + commit_sha1)		
+		if(printlog):
+			logger.info("Refatoring Miner Timeout: " + commit_sha1)		
 		return (commit, True)
 	finally:
-		subprocess.run(["rm", "ref_miner_temp.json"], capture_output=True)
+		subprocess.run(["rm", name_arq], capture_output=True)
 
 		
-def save_refactoring_commit(repo, connection_bd, commit_sha1, commit_seq, project_seq, is_merge_commit):	
-	(refactorings_list, refminer_timeout) = get_refactoring_commit(repo.workdir, commit_sha1)	
+def save_refactoring_commit(repo, connection_bd, commit_sha1, commit_seq, project_seq, is_merge_commit,name_arq):	
+	(refactorings_list, refminer_timeout) = get_refactoring_commit(repo.workdir, commit_sha1,name_arq)	
 	for refactoring in refactorings_list:
 		save_refac = True
 		if(is_merge_commit):
 			duplicated_refac = has_duplicated_refac_in_merge(connection_bd, commit_sha1, project_seq, refactoring['type'], refactoring['description'][:1000])
 			if(duplicated_refac):
 				save_refac = False
+		
+		#print(json.dumps(refactoring['leftSideLocations']))
+		#print(json.dumps(refactoring['rightSideLocations']))
+		
 		if(save_refac):
 			with connection_bd.cursor() as cursor:
-				sql = "INSERT INTO refactoring (id, type, description, id_commit) VALUES (%s, %s, %s, %s)"
-				cursor.execute(sql, (None, refactoring['type'], refactoring['description'][:1000], commit_seq))		
+				sql = "INSERT INTO refactoring (id, type, description, leftSideLocations, rightSideLocations, id_commit) VALUES (%s, %s, %s, %s, %s, %s)"
+				cursor.execute(sql, (None, refactoring['type'], refactoring['description'][:1000], json.dumps(refactoring['leftSideLocations']), json.dumps(refactoring['rightSideLocations']), commit_seq))
 	
 	if len(refactorings_list) > 0:		
 		cache_refactoring.add(commit_seq)
@@ -349,7 +351,7 @@ def save_merge_commit(repo, connection_bd, commit, commit_seq,merge_effort):
 	ff_commit = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
 	is_fast_forward_merge = False if ff_commit else True
 		
-	if base_commit and merge_effort:				
+	if base_commit and merge_effort: # and str(commit.id) != '3d3acf07dddcf51ecf1adf07ce6e6d940d32d9a7' and str(commit.id) != '5357a39ec8cb511b254435107736ea50ce33e036':					
 		time_ini_me = datetime.now()
 		if(printlog):
 			logger.info("Starting Merge Effort process")
@@ -357,7 +359,7 @@ def save_merge_commit(repo, connection_bd, commit, commit_seq,merge_effort):
 		if(printlog):
 			logger.info('End Merge Effort process:' + str(datetime.now() - time_ini_me))
 	else:
-		if not base_commit:
+		if not base_commit: # or str(commit.id) == '3d3acf07dddcf51ecf1adf07ce6e6d940d32d9a7' or str(commit.id) == '5357a39ec8cb511b254435107736ea50ce33e036':
 			has_base_version = False
 			metrics = {'extra':0, 'wasted':0, 'rework':0, 'branch1_actions':0, 'branch2_actions':0, 'merge_actions':0}
 			merge_effort_calculated = False
@@ -415,43 +417,56 @@ def save_project(repo, connection_bd):
 		return projec_id
 		#raise TypeError("Project " + repo.workdir + " have already processed")
 
+
 def set_refminer_timeout_in_commit(connection_bd, sha1):
 	with connection_bd.cursor() as cursor:
 			sql = "UPDATE commit SET refminer_timeout = 'True' where sha1=%s"			
 			cursor.execute(sql, sha1)
 			
 def merge_analysis(connection_bd, repo, merge_list, merge_effort):	
-	qtd = len(merge_list)	
+	qtd = len(merge_list)		
 	for commit in merge_list:
-
 		base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)
 		"""TODO: ESSE IF FOI COLOCADO PARA OTIMIZAR, POIS NÃO EXECUTAR O MERGE EFFORT E MERGE BRANCH DE 
 		COMMITS DE MERGE MARCADOS COMO --NO-FF.
 		OUTRA OTIMIZAÇÃO É USAR PANDAS E NÃO CHAMAR O REFMINER PARA TODOS OS COMMITS. PRIMEIRO MONTAR O BRANCH
 		EM MEMÓRIA E DEPOIS SÓ CHAMAR ESSE O REF MINER E ESSE TRECHO DE MERGE EFFORT
 		"""
-		if base_commit:		
-			# is fast forward commit?
-			valid_commit_merge = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
-			
-			if valid_commit_merge:	
-				if(printlog):
-					logger.info("Qtd = "+ str(qtd) + " Commit_time = " + str(datetime.fromtimestamp(commit.commit_time)))
-				qtd -=1
-				cache_merge[str(commit.id)] = [] # prepare cache of merge commits branches		
-				save_merge_commit(repo, connection_bd, commit, cache_commit[str(commit.id)],merge_effort)		
-				time_ini_mb = datetime.now()
-				if(printlog):
-					logger.info("Starting Merge Branch save process")
-				save_merge_branches(repo, connection_bd, commit, cache_commit[str(commit.id)])
-				if(printlog):
-					logger.info('End Merge Branch save process:' + str(datetime.now() - time_ini_mb))
+		#print(commit.id)
+		merge_data = get_db_merge_commit_data(connection_bd,str(commit.id)) 
+		#print(merge_data)
+		if merge_data: 
+			if(printlog):
+				logger.info("Merge commit " + str(commit.id) + " has already processed.")
+		else:	
+			if(printlog):
+				logger.info("Start process Merge commit " + str(commit.id))
+			#return		
+			if base_commit:
+				# is fast forward commit?
+				valid_commit_merge = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
+				
+				if valid_commit_merge:	
+					if(printlog):
+						logger.info("Qtd = "+ str(qtd) + " Commit_time = " + str(datetime.fromtimestamp(commit.commit_time)))
+					
+					cache_merge[str(commit.id)] = [] # prepare cache of merge commits branches		
+					save_merge_commit(repo, connection_bd, commit, cache_commit[str(commit.id)],merge_effort)		
+					time_ini_mb = datetime.now()
+					if(printlog):
+						logger.info("Starting Merge Branch save process")
+					save_merge_branches(repo, connection_bd, commit, cache_commit[str(commit.id)])
+					if(printlog):
+						logger.info('End Merge Branch save process:' + str(datetime.now() - time_ini_mb))
+					connection_bd.commit()
+				else:
+					if(printlog):
+						logger.info("Invalid merge commit (--no-ff): "+ str(commit.id))
 			else:
 				if(printlog):
-					logger.info("Commit: "+ str(commit.id) + " inválido - no-ff")
-		else:
-			if(printlog):
-				logger.info("Commit: "+ commit.id + " inválido - has no base version")
+					logger.info("Invalid merge commit (has no base version): "+ str(commit.id))
+		qtd -=1
+
 cache_merge = {}
 cache_commit = {}
 cache_refactoring = set()
@@ -470,7 +485,7 @@ def get_qty_merge_commits_involving_refactoring():
 			qty +=1
 	return qty
 
-def set_id_commits_processed(connection_bd,path_project):
+def set_id_commits_processed(connection_bd,path_project):	
 	with connection_bd.cursor() as cursor:
 		cursor.execute("select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.path_workdir = %s",path_project)
 		rows = cursor.fetchall()			
@@ -484,8 +499,12 @@ def set_id_commits_with_refactoring(connection_bd,path_project):
 		for row in rows:
 			cache_refactoring.add(row['id'])
 
-def mining_repository(repo,merge_effort,path_repository):	
+
+
+def mining_repository(repo,merge_effort,path_repository,name_arq):	
+
 	connection_bd = open_connection_db()
+
 	start_time = datetime.now()
 	end_time = datetime.now()
 	if(printlog):
@@ -510,6 +529,8 @@ def mining_repository(repo,merge_effort,path_repository):
 
 		for branch_name in repo.branches:
 			for commit in repo.walk(repo.branches[branch_name].peel().id, pygit2.GIT_SORT_REVERSE):				
+				
+				
 				if str(commit.id) not in commit_visited:					
 					commit_visited.add(str(commit.id))										
 					commit_processed = str(commit.id) in cache_commit.keys()	
@@ -525,12 +546,12 @@ def mining_repository(repo,merge_effort,path_repository):
 					
 					if not commit_processed: #commit not saved in database
 						if(printlog):
-							logger.info("## Commit " + str(commit.id) + " was not processed")
+							logger.info("## Commit " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)) + " was not processed")
 						commit_seq = save_commit(connection_bd, commit, project_seq)
 						cache_commit[str(commit.id)] = commit_seq #put commit db_sequence in cache
 
 						#call RefactoringMiner and save commit refactorings
-						(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq, project_seq, is_merge_commit)
+						(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq, project_seq, is_merge_commit,name_arq)
 						if(printlog):
 							logger.info("## Saving refactoring " + str(commit.id) + " Refacs=" + str(qty_refactoring_commit))
 						if(refminer_timeout):
@@ -540,6 +561,9 @@ def mining_repository(repo,merge_effort,path_repository):
 					connection_bd.commit()
 
 		merge_analysis(connection_bd, repo, merge_list, merge_effort)
+		
+		#set end time execution
+		save_end_time_exec(connection_bd, project_seq)
 		
 		connection_bd.commit()
 
@@ -551,13 +575,15 @@ def mining_repository(repo,merge_effort,path_repository):
 						'qtyCommits':len(commit_visited),
 						'qtyMergeCommits':qty_merge_commits						
 					   }	
-		save_json_project_results(project_data)		
+		save_json_project_results(project_data)	
+
+		
 	#except TypeError as err: #ANDRE DESCOMENTAR
 	#	logger.info("Type Error: " + str(err))
 	#	connection_bd.rollback()
-	except pymysql.Error as mySqlErr:
-		logger.info("Data base Error: " + str(mySqlErr))
-		connection_bd.rollback()
+	#except pymysql.Error as mySqlErr:
+	#	logger.info("Data base Error: " + str(mySqlErr))
+ 	#	connection_bd.rollback()
 	#except Exception as ex: #ANDRE DESCOMENTAR
 	#	logger.info("General Error: " + str(ex))
 	#	connection_bd.rollback()
@@ -568,27 +594,31 @@ def mining_repository(repo,merge_effort,path_repository):
 			logger.info('Elapsed time:' + str(end_time))
 		
 
-def init_analysis(path_repository,refminer_path,merge_effort=False,log=False):		
+def init_analysis(path_repository,refminer_path,name_arq,merge_effort=False,log=False):		
 	global refMiner_exec
 	global printlog
 	refMiner_exec = refminer_path
 	printlog = log
 	repo_path = pygit2.discover_repository(path_repository)
 	repo = pygit2.Repository(repo_path)
-	mining_repository(repo,merge_effort,path_repository)
+	
+	mining_repository(repo,merge_effort,path_repository,name_arq)
+	
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis - Refactoring')	
 	parser.add_argument("--repo_path", help="set a path to local git repository")
 	parser.add_argument("--merge_effort", action='store_true', help="boolean to compute or not the merge effort")
 	parser.add_argument("--refminer_path", help="set a path to RefactoringMiner executable code")
+	parser.add_argument("--arq_ref_miner", help="set the refmine results file name")
 	parser.add_argument("--log", action='store_true', help="print log")
+	
 
 	# Example
-	# ./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosEO1/XXXX --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
+	# ./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosEO1/XXXX --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner --arq_ref_miner ref_miner_temp4.json
 
 	args = parser.parse_args()	
-	init_analysis(args.repo_path, args.refminer_path, args.merge_effort,args.log)
+	init_analysis(args.repo_path, args.refminer_path, args.arq_ref_miner, args.merge_effort,args.log)
 
 if __name__ == '__main__':
 	main()

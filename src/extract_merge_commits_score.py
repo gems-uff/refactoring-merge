@@ -55,11 +55,11 @@ def write_csv(data,file_name):
 		fc.writerows(list_dicts)
 
 
-def open_connection_db():
+def open_connection_db(database_name):
 	connection = pymysql.connect(host='localhost',
                              user='root',
                              password='root',
-                             database='refactoring_merge',
+                             database=database_name,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 	return connection
@@ -244,10 +244,12 @@ def get_list_merge_commits(connection_bd, refac_type_list, both_branches):
 					refactoring_type = {refac: 0}
 					output[merge_commit['sha1']].update(refactoring_type)				
 	
-def init_analysis(both_branches=False, selected_refactorings=False,datasetname='merge_refactoring_ds.csv'):	
+def init_analysis(both_branches=False, selected_refactorings=False,database='refactoring_merge',datasetname='merge_refactoring_ds.csv'):	
 	start_time = datetime.now()	
+	print(database)
+	
 	logger.info("Starting evaluation")	
-	connection_bd = open_connection_db()
+	connection_bd = open_connection_db(database)
 	refac_type_list = get_list_of_distinct_refactoring(connection_bd, selected_refactorings)	
 	calculate_qty_refactoring_each_commit_per_type(connection_bd, refac_type_list)	
 	get_list_merge_commits(connection_bd, refac_type_list, both_branches)		
@@ -265,9 +267,10 @@ def main():
 	parser = argparse.ArgumentParser(description='Extract Merge-Refactoring')	
 	parser.add_argument("--branches", action='store_true', help="boolean that indicate to split refactoring attributes in two branches")
 	parser.add_argument("--selected_refactorings", action='store_true', help="boolean that indicate to compute only selected refactorings -table: refac_accept_type")
+	parser.add_argument("--database", default='refactoring_merge', help="database name.")
 	parser.add_argument("--datasetname", default='merge_refactoring_ds.csv', help="output dataset file name.")
 	args = parser.parse_args()
-	init_analysis(args.branches, args.selected_refactorings,args.datasetname)
+	init_analysis(args.branches, args.selected_refactorings,args.database, args.datasetname)
 	
 if __name__ == '__main__':
 	main()

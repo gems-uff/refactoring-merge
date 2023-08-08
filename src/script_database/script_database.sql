@@ -1,13 +1,15 @@
 DANGER ################################## DROP DATABASE IF EXISTS refactoring_merge;
-CREATE DATABASE IF NOT EXISTS refactoring_merge;
+CREATE DATABASE IF NOT EXISTS refactoring_merge_art2;
 SHOW DATABASES;
 
-use refactoring_merge;
+use refactoring_merge_art2;
 
 create table project(
     id bigint AUTO_INCREMENT,
     name varchar(100) NOT NULL,
     path_workdir varchar(200) NOT NULL UNIQUE,
+    date_time_ini_exec timestamp DEFAULT CURRENT_TIMESTAMP,
+    date_time_end_exec timestamp,
     url varchar(200),    
     PRIMARY KEY (id)
 );
@@ -60,6 +62,8 @@ create table refactoring(
     id bigint AUTO_INCREMENT,
     type varchar(100) NOT NULL,
     description varchar(1000) NOT NULL,
+    leftSideLocations TEXT,
+    rightSideLocations TEXT,
     id_commit bigint,  
     PRIMARY KEY (id),
     FOREIGN KEY (id_commit) REFERENCES commit(id)    

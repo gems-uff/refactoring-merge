@@ -1,0 +1,282 @@
+[
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/Activiti/",
+        "dateTimeExecution": "2023-07-04 18:14:45.615841",
+        "elapsedTime": "1 day, 0:57:29.842420",
+        "qtyCommits": 11390,
+        "qtyMergeCommits": 1918
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/antlr4/",
+        "dateTimeExecution": "2023-07-05 16:47:55.255797",
+        "elapsedTime": "20:56:20.149374",
+        "qtyCommits": 9290,
+        "qtyMergeCommits": 1895
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/druid/",
+        "dateTimeExecution": "2023-07-06 06:25:27.920096",
+        "elapsedTime": "12:29:05.333706",
+        "qtyCommits": 6862,
+        "qtyMergeCommits": 1572
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/flink/",
+        "dateTimeExecution": "2023-07-12 02:29:39.931227",
+        "elapsedTime": "4 days, 15:15:33.462079",
+        "qtyCommits": 44834,
+        "qtyMergeCommits": 653
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2023-07-13 22:22:25.095857",
+        "elapsedTime": "0:00:12.545825",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/Arduino/",
+        "dateTimeExecution": "2023-07-14 12:16:23.613647",
+        "elapsedTime": "13:53:20.221973",
+        "qtyCommits": 7478,
+        "qtyMergeCommits": 839
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2023-07-14 14:58:46.284767",
+        "elapsedTime": "0:04:53.590913",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2023-07-14 15:06:03.554953",
+        "elapsedTime": "0:05:46.026031",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/mockito/",
+        "dateTimeExecution": "2023-07-15 01:29:33.114652",
+        "elapsedTime": "10:05:25.477650",
+        "qtyCommits": 6064,
+        "qtyMergeCommits": 518
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/skywalking/",
+        "dateTimeExecution": "2023-08-01 14:35:26.546172",
+        "elapsedTime": "23:02:19.490973",
+        "qtyCommits": 7770,
+        "qtyMergeCommits": 991
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-01 14:59:13.200858",
+        "elapsedTime": "14:57:44.619998",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/java-design-patterns/",
+        "dateTimeExecution": "2023-08-02 02:08:27.980534",
+        "elapsedTime": "11:00:11.296465",
+        "qtyCommits": 3481,
+        "qtyMergeCommits": 465
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/graphql-java/",
+        "dateTimeExecution": "2023-08-02 04:33:39.081318",
+        "elapsedTime": "13:17:12.442810",
+        "qtyCommits": 4252,
+        "qtyMergeCommits": 656
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/nacos/",
+        "dateTimeExecution": "2023-08-02 05:54:49.116533",
+        "elapsedTime": "1 day, 14:59:02.036138",
+        "qtyCommits": 5042,
+        "qtyMergeCommits": 1113
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/jna/",
+        "dateTimeExecution": "2023-08-02 13:50:32.303352",
+        "elapsedTime": "10:11:54.263571",
+        "qtyCommits": 4168,
+        "qtyMergeCommits": 677
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/dubbo/",
+        "dateTimeExecution": "2023-08-02 16:47:14.082884",
+        "elapsedTime": "2 days, 1:52:14.494448",
+        "qtyCommits": 8097,
+        "qtyMergeCommits": 622
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/mybatis-3/",
+        "dateTimeExecution": "2023-08-03 01:39:03.486194",
+        "elapsedTime": "15:30:30.132381",
+        "qtyCommits": 4883,
+        "qtyMergeCommits": 1146
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/okhttp/",
+        "dateTimeExecution": "2023-08-03 11:18:48.557899",
+        "elapsedTime": "12:39:40.457306",
+        "qtyCommits": 5929,
+        "qtyMergeCommits": 1946
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/swagger-core/",
+        "dateTimeExecution": "2023-08-03 11:26:14.299237",
+        "elapsedTime": "14:37:24.257520",
+        "qtyCommits": 4758,
+        "qtyMergeCommits": 1271
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/onedev/",
+        "dateTimeExecution": "2023-08-03 19:17:29.417689",
+        "elapsedTime": "20:50:02.305078",
+        "qtyCommits": 5623,
+        "qtyMergeCommits": 373
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/nokogiri/",
+        "dateTimeExecution": "2023-08-04 08:39:10.299675",
+        "elapsedTime": "12:58:32.081569",
+        "qtyCommits": 7372,
+        "qtyMergeCommits": 1005
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/react-native-navigation/",
+        "dateTimeExecution": "2023-08-04 10:40:51.149615",
+        "elapsedTime": "15:01:00.364310",
+        "qtyCommits": 7091,
+        "qtyMergeCommits": 253
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/RxJava/",
+        "dateTimeExecution": "2023-08-04 18:36:19.729886",
+        "elapsedTime": "22:57:43.847219",
+        "qtyCommits": 7453,
+        "qtyMergeCommits": 1566
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/android-oss/",
+        "dateTimeExecution": "2023-08-05 00:32:25.042971",
+        "elapsedTime": "15:36:47.078451",
+        "qtyCommits": 5266,
+        "qtyMergeCommits": 498
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/mybatis-plus/",
+        "dateTimeExecution": "2023-08-05 02:11:22.046389",
+        "elapsedTime": "15:25:24.924659",
+        "qtyCommits": 5562,
+        "qtyMergeCommits": 669
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/metrics/",
+        "dateTimeExecution": "2023-08-05 09:15:45.240462",
+        "elapsedTime": "0:00:06.951366",
+        "qtyCommits": 4614,
+        "qtyMergeCommits": 498
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:41:50.810827",
+        "elapsedTime": "0:00:06.338951",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:43:41.758637",
+        "elapsedTime": "0:00:07.164651",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:44:14.039925",
+        "elapsedTime": "0:00:05.454045",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:44:31.337245",
+        "elapsedTime": "0:00:06.418450",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:47:31.464034",
+        "elapsedTime": "0:00:06.999167",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:48:53.310783",
+        "elapsedTime": "0:00:10.126426",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/smile/",
+        "dateTimeExecution": "2023-08-05 09:49:55.587591",
+        "elapsedTime": "0:00:09.369303",
+        "qtyCommits": 3283,
+        "qtyMergeCommits": 345
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/metrics/",
+        "dateTimeExecution": "2023-08-05 11:00:44.548144",
+        "elapsedTime": "0:02:14.684702",
+        "qtyCommits": 4614,
+        "qtyMergeCommits": 498
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/metrics/",
+        "dateTimeExecution": "2023-08-05 11:05:30.665159",
+        "elapsedTime": "0:02:03.395767",
+        "qtyCommits": 4614,
+        "qtyMergeCommits": 498
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/byte-buddy/",
+        "dateTimeExecution": "2023-08-05 19:36:28.804642",
+        "elapsedTime": "0:13:06.794758",
+        "qtyCommits": 7339,
+        "qtyMergeCommits": 353
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/metrics/",
+        "dateTimeExecution": "2023-08-05 21:09:40.913989",
+        "elapsedTime": "10:01:16.416551",
+        "qtyCommits": 4614,
+        "qtyMergeCommits": 498
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/baritone/",
+        "dateTimeExecution": "2023-08-06 16:41:54.835918",
+        "elapsedTime": "20:45:18.227020",
+        "qtyCommits": 4364,
+        "qtyMergeCommits": 629
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/AntennaPod/",
+        "dateTimeExecution": "2023-08-07 06:05:48.202332",
+        "elapsedTime": "1 day, 22:16:22.678204",
+        "qtyCommits": 8571,
+        "qtyMergeCommits": 2311
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/Repositorios_art2/druid/",
+        "dateTimeExecution": "2023-08-07 06:48:51.788054",
+        "elapsedTime": "1 day, 8:33:58.938069",
+        "qtyCommits": 6868,
+        "qtyMergeCommits": 1572
+    }
+]

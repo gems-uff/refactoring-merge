@@ -1,3 +1,4 @@
+
 OBS: MELHORAR DATABASE ############## OBS: Criando do Zero - COLOCAR ON DELETE CASCADE NAS ENTIDADES FRACAS
 
 # Esse merge dá problema no Intellij-community para calcular merge effort. Parar para inevstigar
@@ -9,7 +10,7 @@ OBS: MELHORAR DATABASE ############## OBS: Criando do Zero - COLOCAR ON DELETE C
 # abrir o MySQL ===> sudo mysql -u root -p
 
 # backup do bd
-mysqldump -u root -p refactoring_merge > refactoring_merge.sql
+mysqldump -u root -p refactoring_merge_art2 > refactoring_merge_art2.sql
 
 
 # restaurar BD - backup do bd
@@ -18,6 +19,10 @@ mysql -u root -p banco_teste_backup < refactoring_merge.sql
 
 ########### Dicas de quando dá uma travada no MySQL
 This error occurs due to multiple installations of mysql. Run the command:
+
+
+###### Listar o tamanho das tabelas do BD
+SELECT table_name AS 'Tables', round(((data_length + index_length) / 1024 / 1024), 2) as 'Size in MB' FROM information_schema.TABLES WHERE table_schema = 'refactoring_merge_art2' ORDER BY (data_length + index_length) DESC;
 
 ps -A|grep mysql
 sudo pkill mysql
@@ -31,6 +36,10 @@ mysql -u root -p
 
 use refactoring_merge;
 
+
+## listar merges com extra_effort > 0 de um dado projeto
+select p.name, mc.extra_effort from merge_commit mc, commit c, project p where p.id = c.id_project and mc.id_commit = c.id and mc.extra_effort > 0 and p.id = 10;
+
 #### Listar todas as tuplas
 select * from project;
 select id, sha1, date_time, is_merge_commit, id_project, refminer_timeout from commit;
@@ -43,6 +52,10 @@ select count(*) from merge_commit where is_fast_forward_merge = 'True';
 select count(*) from merge_commit where has_base_version = 'False';
 select count(*) from merge_commit where has_base_version = 'True' and is_fast_forward_merge = 'False';
 
+#### Conta quantos commmits de merge têm refatorações feitas no próprio commit ####
+select c.sha1, count(*)  from commit c, merge_commit mc, refactoring r where c.id = mc.id_commit and c.id = r.id_commit group by c.sha1;
+
+
 ### Verificar commits de merge em duplicidade
 select commit.sha1, count(*) as total_repetido from merge_commit, commit where commit.id = merge_commit.id_commit and merge_commit.has_base_version = 'True' and merge_commit.is_fast_forward_merge = 'False' group by commit.sha1 having count(*) > 1;
 select project.path_workdir, project.name from project, commit where commit.id_project = project.id and commit.sha1 = '5334e80d46de7e5a7a314e6de6423f280f121611';
@@ -51,7 +64,11 @@ select project.path_workdir, project.name from project, commit where commit.id_p
 ### Qtd de merges Validos de um projeto ####
 select p.name, count(*) from project p, commit c where p.id = c.id_project group by p.name order by p.name;
 select p.name, count(*) from project p, merge_commit m, commit c where p.id = c.id_project and m.id_commit = c.id group by p.name order by p.name;
+
+# O MELHOR
 select p.name, count(*) from project p, merge_commit m, commit c where p.id = c.id_project and m.id_commit = c.id and m.is_fast_forward_merge='False' group by p.name order by p.name;
+
+
 select p.name, count(*) from project p, merge_commit m, commit c where p.id = c.id_project and m.id_commit = c.id and m.is_fast_forward_merge='True' group by p.name order by p.name;
 #########################################
 
@@ -78,7 +95,12 @@ select refactoring.type, count(*) as qty from commit, refactoring where commit.i
 select is_merge_commit from commit where id = 120274;
 
 """Selecionar commits nos branches de um merge """
-select merge_branch.id_merge_commit, (select commit.sha1 from commit where id = merge_branch.id_commit) as sha1, (select commit.date_time from commit where id = merge_branch.id_commit) as date_time , merge_branch.id_commit, merge_branch.type_branch from commit, merge_branch where commit.sha1 = "f88a9502a586b5562059e1a2364bdae10e8f9fd1" and commit.id = merge_branch.id_merge_commit;
+select merge_branch.id_merge_commit, (select commit.sha1 from commit where id = merge_branch.id_commit) as sha1, (select commit.date_time from commit where id = merge_branch.id_commit) as date_time , merge_branch.id_commit, merge_branch.type_branch from commit, merge_branch where commit.sha1 = "b370b9e961c2077dbef1058389ca84b88baeaa1b" and commit.id = merge_branch.id_merge_commit;
+select c.sha1, mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 22;
+## Essa abaixo é ótima - mostra todos o commits nos ramos de um projeto
+select c.sha1 as merge_commit, (select sha1 from commit where id = id_commit) as commit_branch,  mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 36 and c.sha1 in (select c.sha1 from commit c, project p, merge_commit mc where p.id = c.id_project and mc.id_commit = c.id and p.id = 36);
+## Essa são os branches de um sha1 específico
+select c.sha1, mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 36 and c.sha1 = 'b370b9e961c2077dbef1058389ca84b88baeaa1b';
 
 """ Verificar commit duplicados """
 select c.sha1, count(c.sha1) from commit c, project p where p.id = c.id_project group by c.sha1 having count(c.sha1) > 1;
@@ -91,11 +113,18 @@ VER COMO FICOU NOS BRANCHES - se um deles não for mencionado no branch - exclui
 
 
 
-select * from merge_branch;
-
 ALTER TABLE merge_commit CHANGE extra_effort extra_effort bigint;
 ALTER TABLE commit CHANGE author author varchar(200)
 ALTER table commit add column refminer_timeout enum('False', 'True') DEFAULT 'False' NOT NULL after parent;
+
+ALTER table project add column date_time_ini_exec timestamp DEFAULT CURRENT_TIMESTAMP after path_workdir;
+ALTER table project add column date_time_end_exec timestamp after date_time_ini_exec;
+
+ALTER table refactoring add column leftSideLocations TEXT after description ;
+ALTER table refactoring add column rightSideLocations TEXT after rightSideLocations;
+ALTER TABLE refactoring CHANGE leftSideLocations leftSideLocations json;
+
+
 ALTER table merge_commit add column merge_effort_calculated enum('False', 'True') DEFAULT 'True' NOT NULL after is_fast_forward_merge;
 
 #### UPDATE ####
@@ -118,6 +147,12 @@ select p.path_workdir, count(*) from merge_commit m, commit c, project p where p
 
 #### Total de commit com refatorações em um dado projeto ####
 select count(distinct c.sha1) as total_commits_with_refac from commit c, refactoring r where c.id = r.id_commit and c.id_project = 41;
+
+#### Total de refatorações em um dado projeto ####
+select count(*) from commit c, project p, refactoring r where c.id_project = p.id and r.id_commit = c.id and p.id = 19;
+
+
+
 
 
 ########################################################
@@ -189,27 +224,27 @@ create database if not exists refactoring_merge_t;
 
 "Deletar projeto - nesta ordem"
 #tabela refactoring
-delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 60);
+delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
 #tabela merge_branch
-delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 60);
+delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
 #tabela merge_commit
-delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 60);
+delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
 #tabela commit
-delete from commit where id_project = 60;
+delete from commit where id_project = 3;
 #tabela projeto
-delete from project where id = 60;
+delete from project where id = 3;
 
 
 
-select * from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 17);
+select * from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 10);
 "tabela merge_branch"
-select * from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 17);
+select * from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 16);
 "tabela merge_commit"
-select * from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 17);
+select * from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 16);
 "tabela commit"
-select * from commit where id_project = 17;
+select * from commit where id_project = 16;
 "tabela projeto"
-select * from project where id = 17;
+select * from project where id = 16;
 
 
 // PESQUISA FEITA PARA O ARTIGO 1 - INSPEÇÂO MANUAL
@@ -248,8 +283,42 @@ select distinct c.sha1 from merge_branch mb, commit c, refactoring r where mb.id
 select distinct(c.sha1), type_branch from merge_branch mb, commit c, refactoring r where mb.id_commit = c.id and 
     mb.id_merge_commit in (select mc.id_commit from merge_commit mc, commit c 
                           where c.id = mc.id_commit and 
-                           c.sha1 = 'e78b02fe027621aec1227cbf5555c75775ba296b') 
+                           c.sha1 = '563967070a5070e9504d6f2faf78373cd23d33ea') 
         and c.id = r.id_commit and r.type in (select type from refac_accept_type);
+
+563967070a5070e9504d6f2faf78373cd23d33ea |
+| 2f1ef083104e352231f6bf0f9e12d37c44a18a9a |
+| 7b3d91d145c6e884af5b128f6f1ba518704c46a6 |
+| 9d046a1b947d6c262cdc8a584e002d2c4afe0bfe |
+| f1773badf14d8dbef599d5ae8d94650a3a2e9792 
+
+
+#TOTAL COMMITS POR PROJETO
+select p.name, count(*) as num_commits from project p, commit c where c.id_project = p.id group by p.name order
+by num_commits desc;
+
+
+#TOTAL MERGE COMMITS POR PROJETO 
+select p.name, count(*) as num_merge_commits from project p, commit c, merge_commit mc where c.id_project = p.id and c.id = mc.id_commit group by p.name order by num_merge_commits desc;
+
+
+#TOTAL MERGE COMMITS POR PROJETO COM FALEID MERGE 
+select p.name, count(*) as num_merge_commits from project p, commit c, merge_commit mc
+where c.id_project = p.id and c.id = mc.id_commit and mc.extra_effort > 0 
+group by p.name order by num_merge_commits desc;
+
+#TOTAL MERGE COMMITS POR PROJETO QUE ENVOLVEM AS 33 REFACS
+select p.name, count(*) as num_merge_commits from project p, commit c, merge_commit mc where 
+    c.id_project = p.id and c.id = mc.id_commit and (select count(*) from merge_branch mb, commit c1, refactoring r where mb.id_commit = c1.id and 
+    mb.id_merge_commit in (select mc.id_commit from merge_commit mc, commit c2 
+                          where c2.id = mc.id_commit and 
+                           c2.sha1 = c.sha1)
+        and c1.id = r.id_commit and r.type in (select type from refac_accept_type)) > 0
+    group by p.name order by num_merge_commits desc;
+
+
+
+
 
 
 
