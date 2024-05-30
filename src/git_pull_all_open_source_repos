@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# executar antes: ls  -1 -d "$PWD/"* > /mnt/c/Users/aoliv/refactoring-merge/input/repos_path_os.txt
+
+cd /mnt/d/OpenSourceProjects/Activiti
+git pull
+cd /mnt/d/OpenSourceProjects/Anki-Android
+git pull
+cd /mnt/d/OpenSourceProjects/AntennaPod
+git pull
+cd /mnt/d/OpenSourceProjects/Arduino
+git pull
+cd /mnt/d/OpenSourceProjects/aeron
+git pull
+cd /mnt/d/OpenSourceProjects/android-oss
+git pull
+cd /mnt/d/OpenSourceProjects/antlr4
+git pull
+cd /mnt/d/OpenSourceProjects/baritone
+git pull
+cd /mnt/d/OpenSourceProjects/byte-buddy
+git pull
+

@@ -1,4 +1,8 @@
 
+Criação de token GitHub
+https://techglimpse.com/git-push-github-token-based-passwordless/
+
+
 OBS: MELHORAR DATABASE ############## OBS: Criando do Zero - COLOCAR ON DELETE CASCADE NAS ENTIDADES FRACAS
 
 # Esse merge dá problema no Intellij-community para calcular merge effort. Parar para inevstigar
@@ -24,6 +28,9 @@ This error occurs due to multiple installations of mysql. Run the command:
 ###### Listar o tamanho das tabelas do BD
 SELECT table_name AS 'Tables', round(((data_length + index_length) / 1024 / 1024), 2) as 'Size in MB' FROM information_schema.TABLES WHERE table_schema = 'refactoring_merge_art2' ORDER BY (data_length + index_length) DESC;
 
+#### tamanho de todos os bancos
+sudo du -h /var/lib/mysql
+
 ps -A|grep mysql
 sudo pkill mysql
 ps -A|grep mysqld
@@ -34,7 +41,7 @@ mysql -u root -p
 
 ##### Queries 
 
-use refactoring_merge;
+use refactoring_merge_art2;
 
 
 ## listar merges com extra_effort > 0 de um dado projeto
@@ -100,7 +107,7 @@ select c.sha1, mb.type_branch from merge_branch mb, commit c, project p where mb
 ## Essa abaixo é ótima - mostra todos o commits nos ramos de um projeto
 select c.sha1 as merge_commit, (select sha1 from commit where id = id_commit) as commit_branch,  mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 36 and c.sha1 in (select c.sha1 from commit c, project p, merge_commit mc where p.id = c.id_project and mc.id_commit = c.id and p.id = 36);
 ## Essa são os branches de um sha1 específico
-select c.sha1, mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 36 and c.sha1 = 'b370b9e961c2077dbef1058389ca84b88baeaa1b';
+select c.sha1 as merge_commit, (select sha1 from commit where id = mb.id_commit) as commit_branch,  mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project = p.id and p.id = 1 and c.sha1 = "276626221d218e6720a2955ae4223c7bcbcdc3ed";
 
 """ Verificar commit duplicados """
 select c.sha1, count(c.sha1) from commit c, project p where p.id = c.id_project group by c.sha1 having count(c.sha1) > 1;
@@ -120,6 +127,7 @@ ALTER table commit add column refminer_timeout enum('False', 'True') DEFAULT 'Fa
 ALTER table project add column date_time_ini_exec timestamp DEFAULT CURRENT_TIMESTAMP after path_workdir;
 ALTER table project add column date_time_end_exec timestamp after date_time_ini_exec;
 
+
 ALTER table refactoring add column leftSideLocations TEXT after description ;
 ALTER table refactoring add column rightSideLocations TEXT after rightSideLocations;
 ALTER TABLE refactoring CHANGE leftSideLocations leftSideLocations json;
@@ -129,6 +137,7 @@ ALTER table merge_commit add column merge_effort_calculated enum('False', 'True'
 
 #### UPDATE ####
 update project set name = 'druid' WHERE id = 15;
+update project set url = 'http://www.github.com/Activiti/Activiti' WHERE id = 58;
 update project set path_workdir = '/mnt/c/Users/aoliv/RepositoriosEO1/druid/' WHERE id = 15;
 
 ### Selecionar merge branch de um projeto específico ######
@@ -224,15 +233,15 @@ create database if not exists refactoring_merge_t;
 
 "Deletar projeto - nesta ordem"
 #tabela refactoring
-delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
+delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 69);
 #tabela merge_branch
-delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
+delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 69);
 #tabela merge_commit
-delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
+delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 69);
 #tabela commit
-delete from commit where id_project = 3;
+delete from commit where id_project = 69;
 #tabela projeto
-delete from project where id = 3;
+delete from project where id = 69;
 
 
 

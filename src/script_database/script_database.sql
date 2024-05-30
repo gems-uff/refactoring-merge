@@ -1,8 +1,8 @@
-DANGER ################################## DROP DATABASE IF EXISTS refactoring_merge;
-CREATE DATABASE IF NOT EXISTS refactoring_merge_art2;
+DANGER ################################## DROP DATABASE IF EXISTS db_refac_merge_serpro;
+CREATE DATABASE IF NOT EXISTS db_refac_merge_serpro;
 SHOW DATABASES;
 
-use refactoring_merge_art2;
+use banco_teste;
 
 create table project(
     id bigint AUTO_INCREMENT,
@@ -10,6 +10,14 @@ create table project(
     path_workdir varchar(200) NOT NULL UNIQUE,
     date_time_ini_exec timestamp DEFAULT CURRENT_TIMESTAMP,
     date_time_end_exec timestamp,
+    number_commits bigint,
+    number_merge_commits bigint,
+    number_valid_merge_commits bigint,
+    number_commits_refminer bigint,
+    exec_script_branches enum('False', 'True') DEFAULT 'False' NOT NULL,
+    exec_script_refactorings enum('False', 'True') DEFAULT 'False' NOT NULL,    
+    exec_script_merge_effort enum('False', 'True') DEFAULT 'False' NOT NULL,
+    selected_experiments enum('False', 'True') DEFAULT 'True' NOT NULL,
     url varchar(200),    
     PRIMARY KEY (id)
 );
@@ -23,6 +31,7 @@ create table commit(
     date_time timestamp NOT NULL,  
     is_merge_commit enum('False', 'True') NOT NULL,
     parent varchar(40),
+    refminer_execute enum('False', 'True') DEFAULT 'False' NOT NULL,
     refminer_timeout enum('False', 'True') DEFAULT 'False' NOT NULL,
     id_project bigint,
     PRIMARY KEY (id),
@@ -32,17 +41,20 @@ create table commit(
 create table merge_commit(
     id bigint AUTO_INCREMENT,  
     has_base_version enum('False', 'True') NOT NULL,
+    isPullRequest enum('False', 'True') DEFAULT 'False' NOT NULL,
     common_ancestor varchar(40) NOT NULL,
+    common_ancestor_date_time timestamp, 
     parent1 varchar(40) NOT NULL,
     parent2 varchar(40) NOT NULL,
     is_fast_forward_merge enum('False', 'True') NOT NULL,
-    merge_effort_calculated enum('False', 'True') DEFAULT 'True' NOT NULL,
+    merge_effort_calculated enum('False', 'True') DEFAULT 'False' NOT NULL,
+    merge_effort_calc_timeout enum('False', 'True') DEFAULT 'True' NOT NULL,
     extra_effort bigint,
     wasted_effort bigint,
     rework_effort bigint,
     branch1_actions bigint,
 	branch2_actions bigint,
-	merge_actions bigint,
+	merge_actions bigint,    
     id_commit bigint,
     PRIMARY KEY (id),
     FOREIGN KEY (id_commit) REFERENCES commit(id)
@@ -52,7 +64,7 @@ create table merge_branch(
     id bigint AUTO_INCREMENT,
     id_commit bigint,
     id_merge_commit bigint,
-    type_branch enum('1', '2') NOT NULL,
+    type_branch enum('1', '2') NOT NULL,    
     PRIMARY KEY (id),
     FOREIGN KEY (id_commit) REFERENCES commit(id),
     FOREIGN KEY (id_merge_commit) REFERENCES commit(id)
@@ -62,8 +74,8 @@ create table refactoring(
     id bigint AUTO_INCREMENT,
     type varchar(100) NOT NULL,
     description varchar(1000) NOT NULL,
-    leftSideLocations TEXT,
-    rightSideLocations TEXT,
+    leftSideLocations json,
+    rightSideLocations json,
     id_commit bigint,  
     PRIMARY KEY (id),
     FOREIGN KEY (id_commit) REFERENCES commit(id)    

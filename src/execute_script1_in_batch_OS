@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# executar antes: ls -1 -d "$PWD/"* > ../refactoring-merge/input/repos_path.txt
+
+

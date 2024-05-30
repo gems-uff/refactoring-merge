@@ -6,7 +6,6 @@
 # Dicas:https://pypi.org/project/PyMySQL/
 # https://pymysql.readthedocs.io/en/latest/user/examples.html
 
-# Execução programa  = sudo ./mining_refactoring_merge.py --repo_path /mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/
 
 import pygit2
 from datetime import datetime
@@ -19,6 +18,8 @@ import subprocess
 import json
 import sys
 from pathlib import Path
+from timeout_decorator import timeout
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -38,8 +39,7 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 logger.addHandler(fh)
 
-refMiner_exec = "/mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner"
-REFMINER_TIMEOUT = 1200 # 20 min
+
 
 def read_json(arq_json):	
 	my_file = Path(arq_json)
@@ -54,11 +54,11 @@ def write_json(data,file_name):
 	with open(file_name, 'w', encoding='utf-8') as json_file:
 		json.dump(data, json_file, ensure_ascii=False, indent=4)
 
-def open_connection_db():
+def open_connection_db(database_name):
 	connection = pymysql.connect(host='localhost',
                              user='root',
                              password='root',
-                             database='refactoring_merge',
+                             database=database_name,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 	return connection
@@ -116,16 +116,18 @@ def analyze_merge_effort(merge_commit, base, repo):
 		metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions)		
 	except:
 		print()
-		logger.exception("Unexpected error in commit " + str(merge_commit))
+		logger.exception("ERROR: Unexpected error in commit " + str(merge_commit))
 		error = True	
 	if error:
-		logger.error(f'Project {repo} finished with error!')
+		logger.error(f'ERROR: Project {repo} finished with error!')
 	return metrics
 
-
+#TIMEOUT  = 180 sec = 3 min
+@timeout(seconds=180, timeout_exception=StopIteration, exception_message="Timeout ERROR", use_signals=False)
 def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository):		
 	time_ini_me = datetime.now()
-	logger.info("Starting Merge Effort process - merge: "+str(merge_commit))
+	if(printlog):
+		logger.info("Starting Merge Effort process - merge: "+str(merge_commit))
 	metrics = {}
 	commit = repo.get(merge_commit)	
 	base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)		
@@ -138,7 +140,7 @@ def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository
 		metrics = {'extra':0, 'wasted':0, 'rework':0, 'branch1_actions':0, 'branch2_actions':0, 'merge_actions':0}
 
 	with connection_bd.cursor() as cursor:			
-		sql = "UPDATE merge_commit SET merge_effort_calculated='True', extra_effort = %s, wasted_effort = %s, rework_effort=%s, branch1_actions=%s, branch2_actions=%s, merge_actions=%s WHERE id_commit = (SELECT c.id from commit c, project p WHERE p.id = c.id_project and p.path_workdir=%s and c.sha1=%s)"
+		sql = "UPDATE merge_commit SET merge_effort_calculated='True', extra_effort = %s, wasted_effort = %s, rework_effort=%s, branch1_actions=%s, branch2_actions=%s, merge_actions=%s, merge_effort_calc_timeout='False' WHERE id_commit = (SELECT c.id from commit c, project p WHERE p.id = c.id_project and p.path_workdir=%s and c.sha1=%s)"		
 		cursor.execute(sql, (	
 								metrics['extra'],
 								metrics['wasted'],
@@ -149,57 +151,117 @@ def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository
 								path_repository,
 								merge_commit
 							)
-		)
+		)	
+	
 	connection_bd.commit()
-	logger.info('End Merge Effort process:' + str(datetime.now() - time_ini_me))
+	if(printlog):
+		logger.info('End Merge Effort process:' + str(datetime.now() - time_ini_me))
 
-def get_unprocessed_merge_effort_commits(connection_bd,path_project):
+def get_unprocessed_merge_effort_commits(connection_bd,path_project, retry):
 	merge_commit_list = []
+	if(not retry):		
+		sql = "SELECT c.sha1 FROM project p, commit c, merge_commit mc where p.id = c.id_project and c.id = mc.id_commit and mc.merge_effort_calculated = 'False' and p.path_workdir=%s"
+	else:
+		sql = "SELECT c.sha1 FROM project p, commit c, merge_commit mc where p.id = c.id_project and c.id = mc.id_commit and (mc.merge_effort_calculated = 'False' or mc.merge_effort_calc_timeout = 'True') and p.path_workdir=%s"
+
 	with connection_bd.cursor() as cursor:
-		cursor.execute("SELECT c.sha1 FROM project p, commit c, merge_commit m where p.id = c.id_project and c.id = m.id_commit and m.merge_effort_calculated = 'False' and p.path_workdir=%s",path_project)
+		cursor.execute(sql,path_project)
 		rows = cursor.fetchall()		
 		for row in rows:
 			merge_commit_list.append(row['sha1'])
 	return merge_commit_list
 
 
-def calculate_merge_effort(path_repository):	
+def find_project_in_db(connection_bd, path_workdir):	
+	with connection_bd.cursor() as cursor:
+		cursor.execute("SELECT id, exec_script_branches, exec_script_merge_effort FROM project where project.path_workdir = %s", path_workdir)
+		row = cursor.fetchone()	
+	if row:
+		return row['id'], eval(row['exec_script_branches']), eval(row['exec_script_merge_effort'])
+	else:
+		return False, False, False
+
+
+def update_table_project(connection_bd, id_project):
+	with connection_bd.cursor() as cursor:
+			sql = "UPDATE project SET date_time_end_exec = CURRENT_TIMESTAMP, exec_script_merge_effort = 'True' where id = %s"
+			cursor.execute(sql,id_project)
+
+
+def calculate_merge_effort(path_repository,log=False,retry=False, database_name="refactoring_merge"):	
+	
+	global printlog	
+	printlog = log
+	
+	start_time = datetime.now()		
+	repo_path = pygit2.discover_repository(path_repository)
+	repo = pygit2.Repository(repo_path)	
+	
 	try:
-		connection_bd = open_connection_db()
-		start_time = datetime.now()
-		end_time = datetime.now()
-		repo_path = pygit2.discover_repository(path_repository)
-		repo = pygit2.Repository(repo_path)		
-		logger.info("Starting project" + repo.workdir)
-		list_merge_unprocessed_effort = get_unprocessed_merge_effort_commits(connection_bd,path_repository)
-		logger.info("Number of merge commit unprocessed: " + str(len(list_merge_unprocessed_effort)))
+		connection_bd = open_connection_db(database_name)
+				
+		project_id, exec_script_branches, exec_script_merge_effort = find_project_in_db(connection_bd, repo.workdir)
 		
+		if(exec_script_merge_effort and not retry):
+			logger.error("This script has already been run.")
+			exit()
+
+		if(not exec_script_branches):
+			logger.error("ERROR: You first need execute the script_1_colllect_branches.py script.")
+			exit()
+
+		if(printlog):
+			logger.info("Starting project" + repo.workdir)	
+			logger.info('Elapsed time:' + str(start_time))
+		
+		list_merge_unprocessed_effort = get_unprocessed_merge_effort_commits(connection_bd,path_repository, retry)		
+		number_pending_merge_commits = len(list_merge_unprocessed_effort)
 		for commit in list_merge_unprocessed_effort:
-			save_merge_effort_metrics(repo, connection_bd, commit, path_repository)
+			if(printlog): 
+				logger.info("Number of merge commit unprocessed: " + str(number_pending_merge_commits))				
+			try:				
+				save_merge_effort_metrics(repo, connection_bd, commit, path_repository)				
+			except StopIteration as errorTimeout:
+				if(printlog): 
+					logger.info("ERROR: Timeout during merge effort calculation.")
 			
-		end_time = datetime.now() - start_time		
+
+			number_pending_merge_commits-=1
+
+		if(project_id):			
+			update_table_project(connection_bd, project_id)
+			end_time = datetime.now() - start_time
+			if(printlog):
+				logger.info("Finished project " + repo.workdir)
+				logger.info('Elapsed time:' + str(end_time))
+		else:
+			logger.error("ERROR: Project not found.")
+							
 	except TypeError as err:
-		logger.info("Type Error: " + str(err))
+		logger.exception("Type Error: " + str(err))
 		connection_bd.rollback()
 	except pymysql.Error as mySqlErr:
-		logger.info("Database Error: " + str(mySqlErr))
+		logger.exception("Database Error: " + str(mySqlErr))
 		connection_bd.rollback()	
 	finally:				
-		connection_bd.close()
-		logger.info("Finished project " + repo.workdir)
-		logger.info('Elapsed time:' + str(end_time))
+		connection_bd.commit()
+		connection_bd.close()			
 		
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis')
 	group = parser.add_mutually_exclusive_group(required=True)
 	group.add_argument("--repo_path", help="set a path for a local git repository")	
-	args = parser.parse_args()	
-	calculate_merge_effort(args.repo_path)
+	parser.add_argument("--log", action='store_true', help="print log")
+	parser.add_argument("--retry", action='store_true', help="retry execute")	
+	parser.add_argument("--database", default='refactoring_merge', help="database name.")
 
-	"""
-		./save_merge_effort.py --repo_path /mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/
-	"""
+	# ./script_3_calculate_merge_effort.py --repo_path /mnt/c/Users/aoliv/Repositorios_art2/netty/ --log --timeout 2 --database banco_teste
+
+	args = parser.parse_args()		
+
+	calculate_merge_effort(args.repo_path,args.log, args.retry, args.database)
+
 
 if __name__ == '__main__':
 	main()

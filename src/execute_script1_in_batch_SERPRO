@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# executar antes: ls -1 -d "$PWD/"* > ../refactoring-merge/input/repos_path.txt
+
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/cct-aereo
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/ctma-src
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/edbv-src
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/oea-ambiente-desenvolvimento
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-anex-desenv
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-cadatributos
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-catprodutos
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-cct-backend
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-coad-backend-src
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-duex-backend
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-duimp-10978-src
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-pcce
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-recintos
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-tabx-backend
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-talpco
+./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/pucomex-ttce-web

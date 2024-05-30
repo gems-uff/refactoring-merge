@@ -1,9 +1,0 @@
-#!/bin/bash
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/pucomex-coad-backend-src/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/pucomex-coad-integration-src/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/tramitacao/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/siscomex-sapi/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/pucomex-clsf-integration/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/pucomex-cint-backend/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/pucomex-tabx-integration/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner
-./mining_refactoring_merge.py --log --merge_effort --repo_path /mnt/c/Users/aoliv/RepositoriosSERPRO/Siscomex-NVE/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner

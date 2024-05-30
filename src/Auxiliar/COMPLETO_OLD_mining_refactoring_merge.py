@@ -65,7 +65,7 @@ def open_connection_db():
 	connection = pymysql.connect(host='localhost',
                              user='root',
                              password='root',
-                             database='refactoring_merge_art2', ###ANDRE ALTERAR TESTE 03/07/2023
+                             database= 'banco_teste',#'refactoring_merge_art2', ###ANDRE ALTERAR TESTE 03/07/2023
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 	return connection
@@ -504,7 +504,6 @@ def set_id_commits_with_refactoring(connection_bd,path_project):
 def mining_repository(repo,merge_effort,path_repository,name_arq):	
 
 	connection_bd = open_connection_db()
-
 	start_time = datetime.now()
 	end_time = datetime.now()
 	if(printlog):
@@ -543,13 +542,15 @@ def mining_repository(repo,merge_effort,path_repository,name_arq):
 							logger.info("Merge Commit = " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)))
 						merge_list.append(commit)
 						qty_merge_commits +=1
-					
-					if not commit_processed: #commit not saved in database
+										
+					if not commit_processed:  #commit not saved in database
+						
 						if(printlog):
 							logger.info("## Commit " + str(commit.id) + " - " + str(datetime.fromtimestamp(commit.commit_time)) + " was not processed")
 						commit_seq = save_commit(connection_bd, commit, project_seq)
 						cache_commit[str(commit.id)] = commit_seq #put commit db_sequence in cache
 
+						
 						#call RefactoringMiner and save commit refactorings
 						(qty_refactoring_commit, refminer_timeout) = save_refactoring_commit(repo, connection_bd, str(commit.id), commit_seq, project_seq, is_merge_commit,name_arq)
 						if(printlog):

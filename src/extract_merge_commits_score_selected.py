@@ -93,7 +93,7 @@ def analyse_branches(merge_commit,id_branch,refac_type_list, both_branches):
 
 		#TODO: ARTIGO adicionei o "and (not cache_commit[sha1])" no IF abaixo
 		# quando o script mining conseguir separar refacs específicas do merge, tirar esse "and"
-		if((sha1 in cache_commit_refactoring.keys()) and (not cache_commit[sha1])): 
+		if((sha1 in cache_commit_refactoring.keys())): #and (not cache_commit[sha1])): 
 			for refact_type, qty in (cache_commit_refactoring[sha1]).items():
 				#if(merge_commit['sha1']=="6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519" and refact_type == "Rename_Method"):
 					#print(sha1)
@@ -202,7 +202,7 @@ def get_list_of_distinct_refactoring(connection_bd, selected_refactorings):
 		for row in rows:
 			refactoring_list.append(str(row['type']).replace(" ","_"))
 	else: # get from table refac_accept_type (a subset of more accept refactorings)
-		
+		print("Aqui")
 		with connection_bd.cursor() as cursor:
 			cursor.execute("select distinct type from refac_accept_type")
 			rows = cursor.fetchall()
@@ -212,44 +212,50 @@ def get_list_of_distinct_refactoring(connection_bd, selected_refactorings):
 	return refactoring_list
 
 def get_list_merge_commits(connection_bd, refac_type_list, both_branches):	
+
+	list_selected_merges = read_json("ICSE_merges.json")
+
+	print(len(list_selected_merges))
+	
 	with connection_bd.cursor() as cursor:
 		cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.is_fast_forward_merge, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id=c.id_project and c.id = mc.id_commit and mc.is_fast_forward_merge='False' and mc.has_base_version='True' order by c.date_time")
 		list_merge_commits = cursor.fetchall()		
 		qt = 0
 		logger.info('Quantidade de Commits de Merge:' + str(len(list_merge_commits)))
 		for merge_commit in list_merge_commits:
-			output[merge_commit['sha1']] = {
-												'sha1': merge_commit['sha1'],
-												'project_name': merge_commit['name'],
-												'project_url': merge_commit['url'],
-												'date_time': merge_commit['date_time'],
-												'commit_seq': merge_commit['id'],
-												'is_ff_merge': merge_commit['is_fast_forward_merge'],
-												'extra': merge_commit['extra_effort'],
-												'wasted': merge_commit['wasted_effort'],
-												'rework': merge_commit['rework_effort'],
-												'branch1_actions': merge_commit['branch1_actions'],
-												'branch2_actions': merge_commit['branch2_actions'],
-												'branch1_list': get_list_of_commit_in_branch(connection_bd, merge_commit, '1'),
-												'branch2_list': get_list_of_commit_in_branch(connection_bd, merge_commit, '2'),
-												'common_ancestor': merge_commit['common_ancestor'],
-												'parent1': merge_commit['parent1'],
-												'parent2': merge_commit['parent2']
-											}
-			#TESTANDO
-			if str(merge_commit['sha1']) in cache_commit.keys():				
-				cache_commit[str(merge_commit['sha1'])] = True #set True if is a merge commit
-			
-			#include refactoring types in the output (branch_b1 and branch_b2 / or no branch)			
-			for refac in refac_type_list:
-				if both_branches:
-					refactoring_type_b1 = {refac+"_b1": 0}
-					output[merge_commit['sha1']].update(refactoring_type_b1)
-					refactoring_type_b2 = {refac+"_b2": 0}
-					output[merge_commit['sha1']].update(refactoring_type_b2)
-				else:
-					refactoring_type = {refac: 0}
-					output[merge_commit['sha1']].update(refactoring_type)				
+			if(merge_commit['sha1'] in list_selected_merges): #if adicionado para so considerar merges do ICSE
+				output[merge_commit['sha1']] = {
+													'sha1': merge_commit['sha1'],
+													'project_name': merge_commit['name'],
+													'project_url': merge_commit['url'],
+													'date_time': merge_commit['date_time'],
+													'commit_seq': merge_commit['id'],
+													'is_ff_merge': merge_commit['is_fast_forward_merge'],
+													'extra': merge_commit['extra_effort'],
+													'wasted': merge_commit['wasted_effort'],
+													'rework': merge_commit['rework_effort'],
+													'branch1_actions': merge_commit['branch1_actions'],
+													'branch2_actions': merge_commit['branch2_actions'],
+													'branch1_list': get_list_of_commit_in_branch(connection_bd, merge_commit, '1'),
+													'branch2_list': get_list_of_commit_in_branch(connection_bd, merge_commit, '2'),
+													'common_ancestor': merge_commit['common_ancestor'],
+													'parent1': merge_commit['parent1'],
+													'parent2': merge_commit['parent2']
+												}
+				#TESTANDO
+				if str(merge_commit['sha1']) in cache_commit.keys():				
+					cache_commit[str(merge_commit['sha1'])] = True #set True if is a merge commit
+				
+				#include refactoring types in the output (branch_b1 and branch_b2 / or no branch)			
+				for refac in refac_type_list:
+					if both_branches:
+						refactoring_type_b1 = {refac+"_b1": 0}
+						output[merge_commit['sha1']].update(refactoring_type_b1)
+						refactoring_type_b2 = {refac+"_b2": 0}
+						output[merge_commit['sha1']].update(refactoring_type_b2)
+					else:
+						refactoring_type = {refac: 0}
+						output[merge_commit['sha1']].update(refactoring_type)				
 	
 def init_analysis(both_branches=False, selected_refactorings=False,database='refactoring_merge',datasetname='merge_refactoring_ds.csv'):	
 	start_time = datetime.now()	

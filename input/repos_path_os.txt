@@ -1,0 +1,10 @@
+/mnt/d/OpenSourceProjects/Activiti
+/mnt/d/OpenSourceProjects/Anki-Android
+/mnt/d/OpenSourceProjects/AntennaPod
+/mnt/d/OpenSourceProjects/Arduino
+/mnt/d/OpenSourceProjects/aeron
+/mnt/d/OpenSourceProjects/android-oss
+/mnt/d/OpenSourceProjects/antlr4
+/mnt/d/OpenSourceProjects/baritone
+/mnt/d/OpenSourceProjects/byte-buddy
+/mnt/d/OpenSourceProjects/camel
