@@ -2,6 +2,8 @@
 
 # executar antes: ls  -1 -d "$PWD/"* > /mnt/c/Users/aoliv/refactoring-merge/input/repos_path_os.txt
 
+# REPOS EQ
+
 git clone http://www.github.com/Activiti/Activiti
 git clone http://www.github.com/real-logic/aeron
 git clone http://www.github.com/kickstarter/android-oss
@@ -72,3 +74,27 @@ git clone http://www.github.com/swagger-api/swagger-core
 git clone http://www.github.com/thingsboard/thingsboard
 git clone http://www.github.com/eclipse-vertx/vert.x
 git clone http://www.github.com/zaproxy/zaproxy
+
+
+# REPOS EXCLUÍDOS EQ
+
+git clone http://www.github.com/Alluxio/alluxio
+git clone http://www.github.com/apache/pulsar
+git clone http://www.github.com/apache/tomcat
+git clone http://www.github.com/apache/jmeter
+git clone http://www.github.com/apache/beam
+git clone http://www.github.com/AsyncHttpClient/async-http-client
+git clone http://www.github.com/bazelbuild/bazel
+git clone http://www.github.com/bigbluebutton/bigbluebutton
+git clone http://www.github.com/bumptech/glide
+git clone http://www.github.com/checkstyle/checkstyle
+git clone http://www.github.com/clojure/clojure
+git clone http://www.github.com/confluentinc/ksql
+git clone http://www.github.com/debezium/debezium
+git clone http://www.github.com/eugenp/tutorials
+git clone http://www.github.com/facebook/fresco
+git clone http://www.github.com/facebook/buck
+git clone http://www.github.com/facebook/litho
+git clone http://www.github.com/flyway/flyway
+git clone http://www.github.com/google/tink
+

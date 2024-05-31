@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# executar antes: ls  -1 -d "$PWD/"* > /mnt/c/Users/aoliv/refactoring-merge/input/repos_path_os.txt
+
+
+git clone http://www.github.com/JetBrains/intellij-community
+git clone http://www.github.com/JetBrains/ideavim
+git clone http://www.github.com/junit-team/junit5
+git clone http://www.github.com/kiegroup/drools
+git clone http://www.github.com/LawnchairLauncher/Lawnchair
+git clone http://www.github.com/material-components/material-components-android
+git clone http://www.github.com/neo4j/neo4j
+git clone http://www.github.com/netty/netty
+git clone http://www.github.com/oracle/graal
+git clone http://www.github.com/prestodb/presto
+git clone http://www.github.com/quarkusio/quarkus
+git clone http://www.github.com/questdb/questdb
+git clone http://www.github.com/SeleniumHQ/selenium
+git clone http://www.github.com/signalapp/Signal-Android
+git clone http://www.github.com/spring-projects/spring-boot
+git clone http://www.github.com/stanfordnlp/CoreNLP
+git clone http://www.github.com/trinodb/trino
+git clone http://www.github.com/zxing/zxing
+git clone http://www.github.com/google/j2objc
+git clone http://www.github.com/google/error-prone
+git clone http://www.github.com/grpc/grpc-java
+git clone http://www.github.com/h2oai/h2o-3
+git clone http://www.github.com/hazelcast/hazelcast

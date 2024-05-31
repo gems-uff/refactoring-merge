@@ -1,8 +1,8 @@
-DANGER ################################## DROP DATABASE IF EXISTS db_refac_merge_serpro;
-CREATE DATABASE IF NOT EXISTS db_refac_merge_serpro;
+DANGER ################################## DROP DATABASE IF EXISTS db_refac_merge_os;
+CREATE DATABASE IF NOT EXISTS db_refac_merge_os;
 SHOW DATABASES;
 
-use banco_teste;
+use db_refac_merge_os;
 
 create table project(
     id bigint AUTO_INCREMENT,

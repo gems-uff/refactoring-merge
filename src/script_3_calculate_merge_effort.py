@@ -256,7 +256,7 @@ def main():
 	parser.add_argument("--retry", action='store_true', help="retry execute")	
 	parser.add_argument("--database", default='refactoring_merge', help="database name.")
 
-	# ./script_3_calculate_merge_effort.py --repo_path /mnt/c/Users/aoliv/Repositorios_art2/netty/ --log --timeout 2 --database banco_teste
+	# ./script_3_calculate_merge_effort.py --repo_path /mnt/c/Users/aoliv/Repositorios_art2/netty/ --log --database banco_teste
 
 	args = parser.parse_args()		
 
