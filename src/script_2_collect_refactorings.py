@@ -65,6 +65,8 @@ def has_duplicated_refac_in_merge(connection_bd, merge_sha1, project_seq, type_r
 		cursor.execute("SELECT r.type from refactoring r, commit c, project p where p.id = c.id_project and c.id = r.id_commit and p.id=%s and r.type=%s and r.description=%s and c.sha1!=%s",(str(project_seq), type_refac, description_refac, merge_sha1))
 		rows = cursor.fetchall()		
 	if rows:			
+		if(printlog):
+			logger.info("######## Duplicated refactoring in the branches")
 		return True
 	else:
 		if(printlog):
@@ -216,7 +218,7 @@ def mining_repository(path_repository,refminer_path,name_arq,log=False, retry=Fa
 		
 	try:		
 		project_id, exec_script_branches, exec_script_refactorings = find_project_in_db(connection_bd, repo.workdir)
-	
+			
 		if(exec_script_refactorings and not retry):
 			logger.info("This script has already been run.")
 			exit()
@@ -281,7 +283,7 @@ def main():
 	
 
 	# Example
-	# ./script_2_collect_refactorings.py --log --repo_path /mnt/c/Users/aoliv/Repositorios_art2 --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner --arq_ref_miner ref_miner_temp4.json --database banco_teste
+	# ./script_2_collect_refactorings.py --log --repo_path /mnt/d/OpenSourceProjects/RxJava/ --refminer_path  /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner --arq_ref_miner ref_miner_rxjava.json --database db_refac_merge_os
 
 	args = parser.parse_args()	
 

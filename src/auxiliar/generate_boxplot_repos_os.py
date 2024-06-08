@@ -132,7 +132,11 @@ def collect_projects_data(log=False, database_name="refactoring_merge"):
         		'ValidsCommits':valid_merge_commits_list
        	}
 		
+		
 		df = pd.DataFrame(data)
+
+		print(data)
+
 		generate_boxplot(df)
 
 							

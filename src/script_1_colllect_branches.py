@@ -64,12 +64,12 @@ def get_count_commits(connection_bd, id_project):
 
 def get_db_commit_seq_by_sha1(connection_bd, sha1):	
 	with connection_bd.cursor() as cursor:
-		cursor.execute("SELECT id FROM commit where sha1=%s", sha1)
+		cursor.execute("SELECT id, id_project FROM commit where sha1=%s", sha1)
 		row = cursor.fetchone()
 	if row:
-		return row['id']
+		return row['id'], row['id_project']
 	else:
-		return False
+		return False, False
 
 
 def delete_merge_branches(connection_bd, project_id):
@@ -111,13 +111,17 @@ def get_list_commits_branch(repo, connection_bd, commit_evaluated, common_ancest
 			is_merge_commit = len(commit_evaluated.parents) == 2	
 					
 			#check if commit has already stored in database
-			commit_id = get_db_commit_seq_by_sha1(connection_bd, str(commit_evaluated.id))
+			commit_id, project_sec = get_db_commit_seq_by_sha1(connection_bd, str(commit_evaluated.id))
 			if not commit_id:
 				if is_merge_commit:					
 					commit_id = save_merge_commit(repo, connection_bd, commit_evaluated, project_id)					
 				else:					
 					commit_id = save_commit(connection_bd, commit_evaluated, project_id)					
-
+			else:
+				if(project_sec != project_id):
+					logger.error("Error: This is a clone or a fork from another project. 'Id' in database: " + str(project_sec) + " commit: " + str(commit_evaluated.id))
+					connection_bd.rollback()
+					exit()
 			
 			if(commit_id):
 				commit_list.append(commit_id)
@@ -169,7 +173,7 @@ def save_commits_from_branch(connection_bd, merge_seq, commit_seq, type_branch, 
 		sql = "INSERT INTO merge_branch (id, id_commit, id_merge_commit, type_branch) VALUES (%s, %s, %s, %s)"
 		cursor.execute(sql, (None, commit_seq, merge_seq, type_branch))
 		merge_branch_seq = connection_bd.insert_id()		
-		connection_bd.commit()
+		#connection_bd.commit()
 		return merge_branch_seq
 
 def save_merge_commit(repo, connection_bd, commit, project_id):		
@@ -235,16 +239,20 @@ def save_commit(connection_bd, commit, project_seq):
 
 def save_merge_branches(repo, connection_bd, merge_commit, project_id):	
     
-	#check if merge_commit_has already saved	
-	
-	merge_commit_seq = get_db_commit_seq_by_sha1(connection_bd, str(merge_commit.id))
+	#check if merge_commit_has already saved		
+	merge_commit_seq, project_sec = get_db_commit_seq_by_sha1(connection_bd, str(merge_commit.id))
 	if not merge_commit_seq:				
 		merge_commit_seq = save_merge_commit(repo, connection_bd, merge_commit, project_id)	
 		if(printlog):
 			logger.info("## Merge Commit "+ str(merge_commit.id) +" created.")
 	else:
-		if(printlog):
-			logger.info("## Merge Commit "+ str(merge_commit.id) +" already exists.")
+		if(project_sec != project_id):
+			logger.error("Error: This is a clone or a fork from another project. 'Id' in database: " + str(project_sec) + " commit: " + str(merge_commit.id))
+			connection_bd.rollback()
+			exit()
+		else:
+			if(printlog):
+				logger.info("## Merge Commit "+ str(merge_commit.id) +" already exists.")
 		
 	if merge_commit_seq:	
 		common_ancestor = repo.merge_base(merge_commit.parents[0].hex, merge_commit.parents[1].hex)	
@@ -365,15 +373,15 @@ def mining_repository(path_repository,log=False, retry=False, database_name="ref
 		else:
 			print("Error: Project not found")
 		
-	#except TypeError as err:
-	#	logger.exception("Type Error: " + str(err))
-	#	connection_bd.rollback()
-	#except pymysql.Error as mySqlErr:
-	#	logger.exception("Data base Error: " + str(mySqlErr))
-	#	connection_bd.rollback()
-	#except Exception as ex:
-	#	logger.exception("General Error: " + str(ex))
-	#	connection_bd.rollback()
+	except TypeError as err:
+		logger.exception("Type Error: " + str(err))
+		connection_bd.rollback()
+	except pymysql.Error as mySqlErr:
+		logger.exception("Data base Error: " + str(mySqlErr))
+		connection_bd.rollback()
+	except Exception as ex:
+		logger.exception("General Error: " + str(ex))
+		connection_bd.rollback()
 	finally:				
 		#connection_bd.rollback()		
 		connection_bd.commit()		

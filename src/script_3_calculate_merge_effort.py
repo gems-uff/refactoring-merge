@@ -107,6 +107,7 @@ def analyze_merge_effort(merge_commit, base, repo):
 	metrics = {}
 	try:
 		base_version = repo.get(base)							
+		# context_lines - is the number of unchanged lines that define the boundary of a hunk (and to display before and after) 
 		diff_base_final = repo.diff(base_version, merge_commit, context_lines=0)
 		diff_base_parent1 = repo.diff(base_version, merge_commit.parents[0], context_lines=0)
 		diff_base_parent2 = repo.diff(base_version, merge_commit.parents[1], context_lines=0)				

@@ -23,7 +23,7 @@ git clone http://www.github.com/apache/dolphinscheduler
 git clone http://www.github.com/dropwizard/dropwizard
 git clone http://www.github.com/alibaba/druid
 git clone http://www.github.com/apache/dubbo
-git clone http://www.github.com/elastic/elasticsearch
+# git clone http://www.github.com/elastic/elasticsearch ESSE ERA OFICIAL E FOI CORTADO
 git clone http://www.github.com/google/ExoPlayer
 git clone http://www.github.com/apache/flink
 git clone http://www.github.com/TechEmpower/FrameworkBenchmarks
@@ -97,4 +97,28 @@ git clone http://www.github.com/facebook/buck
 git clone http://www.github.com/facebook/litho
 git clone http://www.github.com/flyway/flyway
 git clone http://www.github.com/google/tink
-
+git clone http://www.github.com/JetBrains/ideavim
+git clone http://www.github.com/junit-team/junit5
+git clone https://github.com/kiegroup/drools.git
+git clone https://github.com/LawnchairLauncher/lawnchair.git
+git clone https://github.com/material-components/material-components-android.git
+git clone http://www.github.com/neo4j/neo4j
+git clone http://www.github.com/netty/netty
+git clone http://www.github.com/oracle/graal
+git clone http://www.github.com/prestodb/presto
+git clone http://www.github.com/grpc/grpc-java
+git clone http://www.github.com/h2oai/h2o-3
+git clone http://www.github.com/hazelcast/hazelcast
+git clone http://www.github.com/google/error-prone
+git clone https://github.com/quarkusio/quarkus.git
+git clone https://github.com/SeleniumHQ/selenium.git 
+git clone https://github.com/questdb/questdb.git
+git clone https://github.com/signalapp/Signal-Android.git
+git clone https://github.com/JetBrains/intellij-community.git
+git clone https://github.com/spring-projects/spring-boot.git
+git clone https://github.com/zxing/zxing.git
+git clone https://github.com/google/j2objc.git
+git clone https://github.com/projectlombok/lombok.git
+git clone https://github.com/stanfordnlp/CoreNLP.git
+git clone https://github.com/trinodb/trino.git
+git clone https://github.com/androidx/androidx.git

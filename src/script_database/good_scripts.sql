@@ -232,16 +232,11 @@ create database if not exists refactoring_merge_t;
 
 
 "Deletar projeto - nesta ordem"
-#tabela refactoring
-delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 69);
-#tabela merge_branch
-delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 69);
-#tabela merge_commit
-delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 69);
-#tabela commit
-delete from commit where id_project = 69;
-#tabela projeto
-delete from project where id = 69;
+delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
+delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
+delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
+delete from commit where id_project = 13;
+delete from project where id = 13;
 
 
 
