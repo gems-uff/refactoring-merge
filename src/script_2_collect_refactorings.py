@@ -181,10 +181,10 @@ def get_list_of_pending__refminer_commits(connection_bd, id_project, retry):
 	with connection_bd.cursor() as cursor:
 
 		if not retry:		
-			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and c.refminer_execute = 'False';"
+			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and c.refminer_execute = 'False' order by c.date_time asc;"
 		else:			
 			delete_refacs_to_retry_refminer(connection_bd, id_project) #to avoid duplicate
-			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and (c.refminer_execute = 'False' or c.refminer_timeout = 'True');"
+			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and (c.refminer_execute = 'False' or c.refminer_timeout = 'True') order by c.date_time asc;"
 
 		cursor.execute(sql,id_project)
 		list_pending_refminer_commits = cursor.fetchall()		
