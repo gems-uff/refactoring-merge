@@ -140,16 +140,15 @@ To build the dataset for the application of the data mining technique (extractio
 ```
 
 Parameters:
-
+```
 --branches = (optional) boolean parameter indicating the need to split refactoring attributes into two branches (b1 and b2). When not informed, the script will sum the total of refactorings of each type in the two branches.
-
 --selected_refactorings = (optional) boolean parameter indicating the need to compute only selected refactorings. When informed, the script will only consider the 33 types of refactorings considered in this study.
-
 --datasetname = (optional) name of the produced dataset. When not informed, the script will save in the "output" folder a csv file with the following name: "merge_refactoring_ds.csv"
+```
 
 ## Team
 
-Hidden due to ICSE submission.
+Hidden due to paper submission.
 <!-- * André Oliveira (UFF, Brazil)
 * Leonardo Murta (UFF, Brazil)
 * Alexandre Plastino (UFF, Brazil)
