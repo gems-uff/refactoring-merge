@@ -1,3 +1,12 @@
+#### TEMP
+Durante exec - saber os pendentes de execução do Script 2 por ordem de qtde de commits
+select id, name, number_commits as NC, number_merge_commits as NMC ,number_valid_merge_commits as NVMC ,(number_commits_refminer - number_merge_commits)  as refminer, ((number_commits_refminer - number_merge_commits) /number_commits)*100 as perc, 
+selected_experiments as selected from project where exec_script_refactorings = 'False' order by refminer;
+
+select id, name, exec_script_branches, exec_script_refactorings, exec_script_merge_effort from project where exec_script_refactorings = 'True';
+
+####### FIM TEMP
+
 
 Criação de token GitHub
 https://techglimpse.com/git-push-github-token-based-passwordless/
@@ -14,7 +23,7 @@ OBS: MELHORAR DATABASE ############## OBS: Criando do Zero - COLOCAR ON DELETE C
 # abrir o MySQL ===> sudo mysql -u root -p
 
 # backup do bd
-mysqldump -u root -p refactoring_merge_art2 > refactoring_merge_art2.sql
+mysqldump -u root -p db_refac_merge_serpro > db_refac_merge_serpro.sql
 
 
 # restaurar BD - backup do bd
@@ -232,7 +241,7 @@ create database if not exists refactoring_merge_t;
 
 
 "Deletar projeto - nesta ordem"
-delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
+delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 45);
 delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
 delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
 delete from commit where id_project = 13;

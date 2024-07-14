@@ -213,7 +213,7 @@ def get_list_of_distinct_refactoring(connection_bd, selected_refactorings):
 
 def get_list_merge_commits(connection_bd, refac_type_list, both_branches):	
 	with connection_bd.cursor() as cursor:
-		cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.is_fast_forward_merge, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id=c.id_project and c.id = mc.id_commit and mc.is_fast_forward_merge='False' and mc.has_base_version='True' order by c.date_time")
+		cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.is_fast_forward_merge, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id=c.id_project and c.id = mc.id_commit and mc.merge_effort_calculated='True' and mc.merge_effort_calc_timeout = 'False' and mc.is_fast_forward_merge='False' and mc.has_base_version='True' order by c.date_time")
 		list_merge_commits = cursor.fetchall()		
 		qt = 0
 		logger.info('Quantidade de Commits de Merge:' + str(len(list_merge_commits)))
@@ -251,7 +251,7 @@ def get_list_merge_commits(connection_bd, refac_type_list, both_branches):
 					refactoring_type = {refac: 0}
 					output[merge_commit['sha1']].update(refactoring_type)				
 	
-def init_analysis(both_branches=False, selected_refactorings=False,database='refactoring_merge',datasetname='merge_refactoring_ds.csv'):	
+def init_analysis(both_branches=False, selected_refactorings=False,database='refactoring_merge',dataset_path_name='output/merge_refactoring_ds.csv'):
 	start_time = datetime.now()	
 	print(database)
 	
@@ -263,7 +263,7 @@ def init_analysis(both_branches=False, selected_refactorings=False,database='ref
 	#print(output)
 	join_refactoring_score(refac_type_list, both_branches)				
 	print(len(output))
-	write_csv(output,"/mnt/c/Users/aoliv/"+datasetname)
+	write_csv(output,dataset_path_name)
 		
 	connection_bd.close()
 		
@@ -275,9 +275,9 @@ def main():
 	parser.add_argument("--branches", action='store_true', help="boolean that indicate to split refactoring attributes in two branches")
 	parser.add_argument("--selected_refactorings", action='store_true', help="boolean that indicate to compute only selected refactorings -table: refac_accept_type")
 	parser.add_argument("--database", default='refactoring_merge', help="database name.")
-	parser.add_argument("--datasetname", default='merge_refactoring_ds.csv', help="output dataset file name.")
+	parser.add_argument("--dataset_path_name", default='output/merge_refactoring_ds.csv', help="output dataset file name.")
 	args = parser.parse_args()
 	init_analysis(args.branches, args.selected_refactorings,args.database, args.datasetname)
-	# ./extract_merge_commits_score.py --branches --selected_refactorings --database refactoring_merge_art2_serpro --datasetname /mnt/c/Users/aoliv/experimentos_serpro.csv
+	# ./extract_merge_commits_score.py --branches --selected_refactorings --database refactoring_merge_art2_serpro --dataset_path_name /mnt/c/Users/aoliv/experimentos_serpro.csv
 if __name__ == '__main__':
 	main()

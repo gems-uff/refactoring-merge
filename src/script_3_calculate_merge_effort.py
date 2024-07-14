@@ -27,17 +27,17 @@ logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 
-fh = logging.FileHandler(r'merge_commits_extract_db.log')
+"""fh = logging.FileHandler(r'merge_commits_extract_db.log')"""
 
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(levelname)s:%(name)s : %(message)s')
-fh.setFormatter(formatter)
+"fh.setFormatter(formatter)"
 # add formatter to ch
 ch.setFormatter(formatter)
 
 # add ch to logger
 logger.addHandler(ch)
-logger.addHandler(fh)
+"""logger.addHandler(fh)"""
 
 
 
@@ -74,7 +74,7 @@ def calculate_wasted_effort(parents_actions, merge_actions):
 	return (sum(wasted_actions.values()))
 
 def calculate_additional_effort(parents_actions, merge_actions):
-	additional_actions = merge_actions - parents_actions
+	additional_actions = merge_actions - parents_actions	
 	return (sum(additional_actions.values()))
 
 def calculate_metrics(merge_actions, parent1_actions, parent2_actions):
@@ -112,19 +112,18 @@ def analyze_merge_effort(merge_commit, base, repo):
 		diff_base_parent1 = repo.diff(base_version, merge_commit.parents[0], context_lines=0)
 		diff_base_parent2 = repo.diff(base_version, merge_commit.parents[1], context_lines=0)				
 		merge_actions = get_actions(diff_base_final)
-		parent1_actions = get_actions(diff_base_parent1)
-		parent2_actions = get_actions(diff_base_parent2)
+		parent1_actions = get_actions(diff_base_parent1)		
+		parent2_actions = get_actions(diff_base_parent2)		
 		metrics = calculate_metrics(merge_actions, parent1_actions, parent2_actions)		
-	except:
-		print()
+	except:		
 		logger.exception("ERROR: Unexpected error in commit " + str(merge_commit))
 		error = True	
 	if error:
 		logger.error(f'ERROR: Project {repo} finished with error!')
 	return metrics
 
-#TIMEOUT  = 180 sec = 3 min
-@timeout(seconds=180, timeout_exception=StopIteration, exception_message="Timeout ERROR", use_signals=False)
+#TIMEOUT  = 600 sec = 10 min
+@timeout(seconds=6000, timeout_exception=StopIteration, exception_message="Timeout ERROR", use_signals=False)
 def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository):		
 	time_ini_me = datetime.now()
 	if(printlog):
@@ -158,18 +157,26 @@ def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository
 	if(printlog):
 		logger.info('End Merge Effort process:' + str(datetime.now() - time_ini_me))
 
+
+def set_timeout_false_no_ff_merge_commit(connection_bd, id_project):
+	with connection_bd.cursor() as cursor:
+		sql = "UPDATE merge_commit SET merge_effort_calc_timeout='False' WHERE is_fast_forward_merge = 'True' and id_commit in (SELECT c.id from commit c, project p WHERE p.id = c.id_project and p.id = %s)"
+		cursor.execute(sql,id_project)
+	connection_bd.commit()
+
 def get_unprocessed_merge_effort_commits(connection_bd,path_project, retry):
 	merge_commit_list = []
 	if(not retry):		
-		sql = "SELECT c.sha1 FROM project p, commit c, merge_commit mc where p.id = c.id_project and c.id = mc.id_commit and mc.merge_effort_calculated = 'False' and p.path_workdir=%s"
+		sql = "SELECT c.sha1 FROM project p, commit c, merge_commit mc where p.id = c.id_project and c.id = mc.id_commit and mc.is_fast_forward_merge = 'False' and mc.merge_effort_calculated = 'False' and p.path_workdir=%s"
 	else:
-		sql = "SELECT c.sha1 FROM project p, commit c, merge_commit mc where p.id = c.id_project and c.id = mc.id_commit and (mc.merge_effort_calculated = 'False' or mc.merge_effort_calc_timeout = 'True') and p.path_workdir=%s"
+		sql = "SELECT c.sha1 FROM project p, commit c, merge_commit mc where p.id = c.id_project and c.id = mc.id_commit and mc.is_fast_forward_merge = 'False' and (mc.merge_effort_calculated = 'False' or mc.merge_effort_calc_timeout = 'True') and p.path_workdir=%s"
 
 	with connection_bd.cursor() as cursor:
 		cursor.execute(sql,path_project)
 		rows = cursor.fetchall()		
 		for row in rows:
 			merge_commit_list.append(row['sha1'])
+		
 	return merge_commit_list
 
 
@@ -211,17 +218,24 @@ def calculate_merge_effort(path_repository,log=False,retry=False, database_name=
 			logger.error("ERROR: You first need execute the script_1_colllect_branches.py script.")
 			exit()
 
-		if(printlog):
-			logger.info("Starting project" + repo.workdir)	
-			logger.info('Elapsed time:' + str(start_time))
+		
+		logger.info("Starting project" + repo.workdir)	
+		logger.info('Elapsed time:' + str(start_time))
 		
 		list_merge_unprocessed_effort = get_unprocessed_merge_effort_commits(connection_bd,path_repository, retry)		
+		
+		#set timeout false in --no-ff merge commits - won't be computed
+		set_timeout_false_no_ff_merge_commit(connection_bd, project_id)
+		
 		number_pending_merge_commits = len(list_merge_unprocessed_effort)
+		logger.info("Number of merge commit unprocessed: " + str(number_pending_merge_commits))
+		
 		for commit in list_merge_unprocessed_effort:
 			if(printlog): 
 				logger.info("Number of merge commit unprocessed: " + str(number_pending_merge_commits))				
 			try:				
-				save_merge_effort_metrics(repo, connection_bd, commit, path_repository)				
+				if(str(commit) != "398cf997b3dfc415520d9c56e0bc1a49e4473bee"): #TIRAR
+					save_merge_effort_metrics(repo, connection_bd, commit, path_repository)				
 			except StopIteration as errorTimeout:
 				if(printlog): 
 					logger.info("ERROR: Timeout during merge effort calculation.")
@@ -232,9 +246,8 @@ def calculate_merge_effort(path_repository,log=False,retry=False, database_name=
 		if(project_id):			
 			update_table_project(connection_bd, project_id)
 			end_time = datetime.now() - start_time
-			if(printlog):
-				logger.info("Finished project " + repo.workdir)
-				logger.info('Elapsed time:' + str(end_time))
+			logger.info("Finished project " + repo.workdir)
+			logger.info('Elapsed time:' + str(end_time))
 		else:
 			logger.error("ERROR: Project not found.")
 							

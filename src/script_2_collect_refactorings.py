@@ -39,7 +39,7 @@ logger.addHandler(ch)
 """logger.addHandler(fh)"""
 
 
-REFMINER_TIMEOUT = 600 # 10 min
+REFMINER_TIMEOUT = 6000 # 5 min = 300
 
 def read_json(arq_json):	
 	my_file = Path(arq_json)
@@ -59,14 +59,14 @@ def open_connection_db(database_name):
                              cursorclass=pymysql.cursors.DictCursor)
 	return connection
 
-def has_duplicated_refac_in_merge(connection_bd, merge_sha1, project_seq, type_refac, description_refac):
+def has_duplicated_refac_in_merge(connection_bd, merge_sha1, project_seq, type_refac, description_refac, leftSideLocations, rightSideLocations):
 	
 	with connection_bd.cursor() as cursor:
-		cursor.execute("SELECT r.type from refactoring r, commit c, project p where p.id = c.id_project and c.id = r.id_commit and p.id=%s and r.type=%s and r.description=%s and c.sha1!=%s",(str(project_seq), type_refac, description_refac, merge_sha1))
+		cursor.execute("SELECT r.type from refactoring r, commit c, project p where p.id = c.id_project and c.id = r.id_commit and p.id=%s and r.type=%s and r.description=%s and CAST(r.leftSideLocations AS JSON)=CAST(%s AS JSON) and CAST(r.rightSideLocations AS JSON)=CAST(%s AS JSON) and c.sha1!=%s",(str(project_seq), type_refac, description_refac, json.dumps(leftSideLocations), json.dumps(rightSideLocations), merge_sha1))
 		rows = cursor.fetchall()		
 	if rows:			
 		if(printlog):
-			logger.info("######## Duplicated refactoring in the branches")
+			logger.info("######## Duplicated refactoring in merge commit " + merge_sha1 + " - found the same refactoring in the branches")
 		return True
 	else:
 		if(printlog):
@@ -99,7 +99,7 @@ def save_refactoring_commit(repo, connection_bd, commit_sha1, commit_seq, projec
 	for refactoring in refactorings_list:
 		save_refac = True
 		if(is_merge_commit):
-			duplicated_refac = has_duplicated_refac_in_merge(connection_bd, commit_sha1, project_seq, refactoring['type'], refactoring['description'][:1000])
+			duplicated_refac = has_duplicated_refac_in_merge(connection_bd, commit_sha1, project_seq, refactoring['type'], refactoring['description'][:1000],refactoring['leftSideLocations'],refactoring['rightSideLocations'])
 			if(duplicated_refac):
 				save_refac = False
 		
@@ -181,12 +181,18 @@ def get_list_of_pending__refminer_commits(connection_bd, id_project, retry):
 	with connection_bd.cursor() as cursor:
 
 		if not retry:		
-			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and c.refminer_execute = 'False' order by c.date_time asc;"
+			#including merge commits
+			#sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and c.refminer_execute = 'False' order by c.date_time asc;"
+			#Excluding merge commits
+			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and  c.refminer_execute = 'False' and c.id not in (select id_commit from merge_commit mc, commit c, project p where p.id = c.id_project and c.id = mc.id_commit and p.id = %s) order by c.date_time asc;"
 		else:			
 			delete_refacs_to_retry_refminer(connection_bd, id_project) #to avoid duplicate
-			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and (c.refminer_execute = 'False' or c.refminer_timeout = 'True') order by c.date_time asc;"
+			#including merge commits
+			#sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and (c.refminer_execute = 'False' or c.refminer_timeout = 'True') order by c.date_time asc;"
+			#Excluding merge commits
+			sql = "select c.id, c.sha1 from commit c, project p where c.id_project = p.id and p.id = %s and (c.refminer_execute = 'False' or c.refminer_timeout = 'True') and c.id not in (select id_commit from merge_commit mc, commit c, project p where p.id = c.id_project and c.id = mc.id_commit and p.id = %s) order by c.date_time asc;"
 
-		cursor.execute(sql,id_project)
+		cursor.execute(sql,(id_project,id_project))
 		list_pending_refminer_commits = cursor.fetchall()		
 		for commit in list_pending_refminer_commits:
 			dict_pendings_commits[commit["sha1"]] = [commit["id"], is_merge_commit(connection_bd, commit["sha1"])]
@@ -206,11 +212,11 @@ def mining_repository(path_repository,refminer_path,name_arq,log=False, retry=Fa
 	connection_bd = open_connection_db(database_name)	
 	start_time = datetime.now()
 	
-	if(printlog):
-		if(repo.workdir):
-			logger.info("Starting project" + repo.workdir)		
-		else:
-			logger.info("Error: Repositorie not identified")
+	
+	if(repo.workdir):
+		logger.info("Starting project" + repo.workdir)		
+	else:
+		logger.info("Error: Repositorie not identified")
 		
 	qty_refactoring_commit = 0
 	
@@ -230,14 +236,14 @@ def mining_repository(path_repository,refminer_path,name_arq,log=False, retry=Fa
 		pending_refminer_commits = get_list_of_pending__refminer_commits(connection_bd, project_id, retry)
 		count_pending_commit = len(pending_refminer_commits)
 
-		if(printlog):
-			logger.info("## Number of refminer penfing commits: " + str(len(pending_refminer_commits)))
+		logger.info("## Number of refminer pending commits: " + str(len(pending_refminer_commits)))
 		
 		for sha1, commit_data in pending_refminer_commits.items():			
 			if(printlog):
 				logger.info("## Pending commits " + str(count_pending_commit))
 			#call RefactoringMiner and save commit refactorings
 			#commit_data[0] = id_commit and commit_data[1] = boolean (True if is merge commit)
+			
 			qty_refactoring_commit, refminer_timeout = save_refactoring_commit(repo, connection_bd, str(sha1), commit_data[0], project_id, commit_data[1], name_arq)
 			set_refminer_data_in_commit(connection_bd, str(sha1), refminer_timeout)			
 			if(printlog):
@@ -252,9 +258,8 @@ def mining_repository(path_repository,refminer_path,name_arq,log=False, retry=Fa
 		if(project_id):
 			update_table_project(connection_bd, project_id)
 			end_time = datetime.now() - start_time
-			if(printlog):
-				logger.info("Finished project " + repo.workdir)
-				logger.info('Elapsed time:' + str(end_time))
+			logger.info("Finished project " + repo.workdir)
+			logger.info('Elapsed time:' + str(end_time))
 		else:
 			logger.info("ERROR: Project not found.")
 		

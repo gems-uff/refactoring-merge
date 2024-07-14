@@ -14,7 +14,6 @@
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/SmartTubeNext
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/aeron
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/android-oss
-./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/androidx
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/antlr4
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/baritone
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/byte-buddy
@@ -26,6 +25,7 @@
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/dropwizard
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/druid
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/dubbo
+./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/elasticsearch
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/flink
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/ghidra
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/gocd
@@ -62,7 +62,6 @@
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/smile
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/sonarqube
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/spring-framework
-./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/spring-security
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/swagger-core
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/thingsboard
 ./script_1_colllect_branches.py --database db_refac_merge_os --repo_path /mnt/d/OpenSourceProjects/vert.x

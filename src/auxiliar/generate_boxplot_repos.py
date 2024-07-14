@@ -159,7 +159,7 @@ def main():
 	parser.add_argument("--log", action='store_true', help="print log")	
 	parser.add_argument("--database", default='refactoring_merge', help="database name.")
 
-	# ./generate_boxplot_repos_os.py --log --database banco_teste
+	# 	./generate_boxplot_repos.py --log --database banco_teste
 
 	args = parser.parse_args()		
 
