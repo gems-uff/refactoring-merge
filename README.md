@@ -6,7 +6,7 @@ This project aims to analyze the relationship between the occurrence of refactor
 
 ### Prerequisites
 
-This project requires python, pygit2, libgit2, mysql and RefactoringMiner, and it was tested on the following versions:
+This project requires Python, pygit2, libgit2, Mysql and RefactoringMiner, and it was tested on the following versions:
 
 ```
 python==3.6
@@ -46,7 +46,7 @@ $ sudo ldconfig
 
 For more information http://www.pygit2.org/install.html
 
-#### Install mysql
+#### Install Mysql
 
 1. Open the terminal and run the following command:
 
@@ -92,9 +92,8 @@ Mining cloned repositories must be carried out in three steps: collecting branch
 ./script_1_colllect_branches.py --database [data_base_name] --repo_path [local_repository_path]
 ```
 
-```
 Parameters:
-
+```
 --database = (mandatory) database name.
 --repo_path = (mandatory) local path to where the Git project repository was cloned.
 --log = (optional) boolean parameter indicating the need to print the execution log.
@@ -107,9 +106,8 @@ Parameters:
 ./script_2_collect_refactorings.py --database [data_base_name] --repo_path [local_repository_path] --refminer_path [refminer_path] --arq_ref_miner [refminer_path_output_file] 
 ```
 
-```
 Parameters:
-
+```
 --database = (mandatory) database name.
 --repo_path = (mandatory) local path to where the Git project repository was cloned.
 --refminer_path = (mandatory) Refactoring Miner tool executable code path.
@@ -124,9 +122,8 @@ Parameters:
 ./script_3_calculate_merge_effort.py --log --database [data_base_name] --repo_path [local_repository_path]
 ```
 
-```
 Parameters:
-
+```
 --database = (mandatory) database name.
 --repo_path = (mandatory) local path to where the Git project repository was cloned.
 --log = (optional) boolean parameter indicating the need to print the execution log.
