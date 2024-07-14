@@ -92,12 +92,14 @@ Mining cloned repositories must be carried out in three steps: collecting branch
 ./script_1_colllect_branches.py --database [data_base_name] --repo_path [local_repository_path]
 ```
 
+```
 Parameters:
 
 --database = (mandatory) database name.
 --repo_path = (mandatory) local path to where the Git project repository was cloned.
 --log = (optional) boolean parameter indicating the need to print the execution log.
 --retry (optional) boolean parameter indicating the need to retry the execution. This retry is only applicable when the repository is updated via git pull.
+```
 
 #### Script 2 - Collect Refactorings
 
@@ -105,6 +107,7 @@ Parameters:
 ./script_2_collect_refactorings.py --database [data_base_name] --repo_path [local_repository_path] --refminer_path [refminer_path] --arq_ref_miner [refminer_path_output_file] 
 ```
 
+```
 Parameters:
 
 --database = (mandatory) database name.
@@ -113,6 +116,7 @@ Parameters:
 --arq_ref_miner = (mandatory) .json file name that will store the results returned by the Refactorings Miner tool.
 --log = (optional) boolean parameter indicating the need to print the execution log.
 --retry (optional) boolean parameter indicating the need to retry the execution. This new attempt is applicable in cases of interruptions in script execution or in Refactoring Miner timeout situations.
+```
 
 #### Script 3 - Calculate Merge Effort
 
@@ -120,13 +124,14 @@ Parameters:
 ./script_3_calculate_merge_effort.py --log --database [data_base_name] --repo_path [local_repository_path]
 ```
 
+```
 Parameters:
 
 --database = (mandatory) database name.
 --repo_path = (mandatory) local path to where the Git project repository was cloned.
 --log = (optional) boolean parameter indicating the need to print the execution log.
 --retry (optional) boolean parameter indicating the need to retry the execution. This new attempt is applicable in cases of interruptions in the execution of the script or in situations of timeout in the effort calculation.
-
+```
 
 ### Building the Dataset
 
