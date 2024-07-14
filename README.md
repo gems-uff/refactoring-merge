@@ -84,24 +84,48 @@ The script for creating the database in mysql can be found in the file "script_d
 
 ### Mining repositories on GitHub
 
-To mine repositories on GitHub run the following scripts
+Mining cloned repositories must be carried out in three steps: collecting branches, collecting code refactorings, and calculating the merge effort. The script that collects the branches must be the first to be executed. The other scripts are independent and can be executed in any order.
 
-#### Mining repositories on GitHub
-
-```
-./mining_refactoring_merge.py --repo_path [local_path_git_project] --refminer_path [local_path_refminer] --merge_effort
+#### Script 1 - Collect Branches
 
 ```
+./script_1_colllect_branches.py --database [data_base_name] --repo_path [local_repository_path]
+```
 
-Options:
+Parameters:
 
---merge_effort = optional boolean parameter indicating whether the merge effort should be computed.
+--database = (mandatory) database name.
+--repo_path = (mandatory) local path to where the Git project repository was cloned.
+--log = (optional) boolean parameter indicating the need to print the execution log.
+--retry (optional) boolean parameter indicating the need to retry the execution. This retry is only applicable when the repository is updated via git pull.
 
---repo_path = local path to where the Git project repository was cloned.
+#### Script 2 - Collect Refactorings
 
---refminer_path = local path where RefactoringMiner was installed.
+```
+./script_2_collect_refactorings.py --database [data_base_name] --repo_path [local_repository_path] --refminer_path [refminer_path] --arq_ref_miner [refminer_path_output_file] 
+```
 
---log = optional boolean parameter indicating to print the execution log.
+Parameters:
+
+--database = (mandatory) database name.
+--repo_path = (mandatory) local path to where the Git project repository was cloned.
+--refminer_path = (mandatory) Refactoring Miner tool executable code path.
+--arq_ref_miner = (mandatory) .json file name that will store the results returned by the Refactorings Miner tool.
+--log = (optional) boolean parameter indicating the need to print the execution log.
+--retry (optional) boolean parameter indicating the need to retry the execution. This new attempt is applicable in cases of interruptions in script execution or in Refactoring Miner timeout situations.
+
+#### Script 3 - Calculate Merge Effort
+
+```
+./script_3_calculate_merge_effort.py --log --database [data_base_name] --repo_path [local_repository_path]
+```
+
+Parameters:
+
+--database = (mandatory) database name.
+--repo_path = (mandatory) local path to where the Git project repository was cloned.
+--log = (optional) boolean parameter indicating the need to print the execution log.
+--retry (optional) boolean parameter indicating the need to retry the execution. This new attempt is applicable in cases of interruptions in the execution of the script or in situations of timeout in the effort calculation.
 
 
 ### Building the Dataset
@@ -115,11 +139,11 @@ To build the dataset for the application of the data mining technique (extractio
 
 Parameters:
 
---branches  = Boolean that indicate to split refactoring attributes in two branches (b1 and b1). When not informed, the script will sum the total of refactorings of each type in the two branches.
+--branches = (optional) boolean parameter indicating the need to split refactoring attributes into two branches (b1 and b2). When not informed, the script will sum the total of refactorings of each type in the two branches.
 
---selected_refactorings = Boolean that indicate to compute only selected refactorings. When informed, the script will only consider the 33 types of refactorings considered in this study.
+--selected_refactorings = (optional) boolean parameter indicating the need to compute only selected refactorings. When informed, the script will only consider the 33 types of refactorings considered in this study.
 
---datasetname = Name of the produced dataset. When not informed, the script will save in the "output" folder a csv file with the following name: "merge_refactoring_ds.csv"
+--datasetname = (optional) name of the produced dataset. When not informed, the script will save in the "output" folder a csv file with the following name: "merge_refactoring_ds.csv"
 
 ## Team
 
