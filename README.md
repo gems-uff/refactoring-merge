@@ -80,12 +80,13 @@ URL: https://github.com/gems-uff/refactoring-merge.git.
 
 The script for creating the database in mysql can be found in the file "script_database.sql" in the output folder of this project.
 
-
 ## Basic Usage
 
 ### Mining repositories on GitHub
 
-To mine repositories on GitHub run the following script:
+To mine repositories on GitHub run the following scripts
+
+#### Mining repositories on GitHub
 
 ```
 ./mining_refactoring_merge.py --repo_path [local_path_git_project] --refminer_path [local_path_refminer] --merge_effort
@@ -102,6 +103,7 @@ Options:
 
 --log = optional boolean parameter indicating to print the execution log.
 
+
 ### Building the Dataset
 
 To build the dataset for the application of the data mining technique (extraction of association rules) just run the script "extract_merge_commits_score.py":
@@ -111,7 +113,7 @@ To build the dataset for the application of the data mining technique (extractio
 
 ```
 
-Options:
+Parameters:
 
 --branches  = Boolean that indicate to split refactoring attributes in two branches (b1 and b1). When not informed, the script will sum the total of refactorings of each type in the two branches.
 
