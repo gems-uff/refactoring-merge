@@ -123,7 +123,7 @@ def analyze_merge_effort(merge_commit, base, repo):
 	return metrics
 
 #TIMEOUT  = 600 sec = 10 min
-@timeout(seconds=6000, timeout_exception=StopIteration, exception_message="Timeout ERROR", use_signals=False)
+#@timeout(seconds=600000, timeout_exception=StopIteration, exception_message="Timeout ERROR", use_signals=False)
 def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository):		
 	time_ini_me = datetime.now()
 	if(printlog):
@@ -233,9 +233,9 @@ def calculate_merge_effort(path_repository,log=False,retry=False, database_name=
 		for commit in list_merge_unprocessed_effort:
 			if(printlog): 
 				logger.info("Number of merge commit unprocessed: " + str(number_pending_merge_commits))				
-			try:				
-				if(str(commit) != "398cf997b3dfc415520d9c56e0bc1a49e4473bee"): #TIRAR
-					save_merge_effort_metrics(repo, connection_bd, commit, path_repository)				
+			try:			
+				#if(str(commit) != "398cf997b3dfc415520d9c56e0bc1a49e4473bee") and (str(commit) != "3d3acf07dddcf51ecf1adf07ce6e6d940d32d9a7"): #TIRAR
+				save_merge_effort_metrics(repo, connection_bd, commit, path_repository)				
 			except StopIteration as errorTimeout:
 				if(printlog): 
 					logger.info("ERROR: Timeout during merge effort calculation.")

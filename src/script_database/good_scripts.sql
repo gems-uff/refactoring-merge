@@ -23,7 +23,7 @@ OBS: MELHORAR DATABASE ############## OBS: Criando do Zero - COLOCAR ON DELETE C
 # abrir o MySQL ===> sudo mysql -u root -p
 
 # backup do bd
-mysqldump -u root -p db_refac_merge_serpro > db_refac_merge_serpro.sql
+mysqldump -u root -p db_refac_merge_os > db_refac_merge_os.sql
 
 
 # restaurar BD - backup do bd
