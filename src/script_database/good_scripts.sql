@@ -114,7 +114,8 @@ select is_merge_commit from commit where id = 120274;
 select merge_branch.id_merge_commit, (select commit.sha1 from commit where id = merge_branch.id_commit) as sha1, (select commit.date_time from commit where id = merge_branch.id_commit) as date_time , merge_branch.id_commit, merge_branch.type_branch from commit, merge_branch where commit.sha1 = "b370b9e961c2077dbef1058389ca84b88baeaa1b" and commit.id = merge_branch.id_merge_commit;
 select c.sha1, mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 22;
 ## Essa abaixo é ótima - mostra todos o commits nos ramos de um projeto
-select c.sha1 as merge_commit, (select sha1 from commit where id = id_commit) as commit_branch,  mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project= p.id and p.id = 36 and c.sha1 in (select c.sha1 from commit c, project p, merge_commit mc where p.id = c.id_project and mc.id_commit = c.id and p.id = 36);
+SELECT (select c1.date_time from commit c1 where c1.id = mb.id_merge_commit) as mc_date_time,  (select RIGHT(mc.common_ancestor,6) from merge_commit mc where mc.id_commit = mb.id_merge_commit) as sha1_ca,  (select mc.common_ancestor_date_time from merge_commit mc where mc.id_commit = mb.id_merge_commit) as date_time_ca,  (select is_fast_forward_merge from merge_commit mc where mc.id_commit = mb.id_merge_commit) as is_ff,  mb.id_commit,   mb.type_branch,   (select c2.sha1 from commit c2 where c2.id = mb.id_commit) as commit_branch, (select mc2.id from merge_commit mc2 where mc2.id_commit = mb.id_commit) as commit_branch , (select c2.date_time from commit c2 where c2.id = mb.id_commit) as commit_b_date_time   FROM merge_branch mb, commit c, merge_commit mc   WHERE mc.id_commit = mb.id_merge_commit and mc.id_commit = c.id and c.id_project = 1;
+
 ## Essa são os branches de um sha1 específico
 select c.sha1 as merge_commit, (select sha1 from commit where id = mb.id_commit) as commit_branch,  mb.type_branch from merge_branch mb, commit c, project p where mb.id_merge_commit = c.id and c.id_project = p.id and p.id = 1 and c.sha1 = "276626221d218e6720a2955ae4223c7bcbcdc3ed";
 
@@ -241,11 +242,11 @@ create database if not exists refactoring_merge_t;
 
 
 "Deletar projeto - nesta ordem"
-delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 45);
-delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
-delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 13);
-delete from commit where id_project = 13;
-delete from project where id = 13;
+delete from refactoring where refactoring.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
+delete from merge_branch where merge_branch.id_merge_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
+delete from merge_commit where merge_commit.id_commit in (select commit.id from commit, project where commit.id_project = project.id and project.id = 3);
+delete from commit where id_project = 3;
+delete from project where id = 3;
 
 
 

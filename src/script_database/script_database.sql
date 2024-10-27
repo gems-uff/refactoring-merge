@@ -1,8 +1,9 @@
 DANGER ################################## DROP DATABASE IF EXISTS db_refac_merge_os;
-CREATE DATABASE IF NOT EXISTS db_refac_merge_os;
+
+CREATE DATABASE IF NOT EXISTS db_refac_merge_os_big;
 SHOW DATABASES;
 
-use db_refac_merge_os;
+use db_refac_merge_os_big;
 
 create table project(
     id bigint AUTO_INCREMENT,

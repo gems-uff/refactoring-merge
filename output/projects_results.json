@@ -726,5 +726,19 @@
         "elapsedTime": "23:17:50.415521",
         "qtyCommits": 18998,
         "qtyMergeCommits": 277
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/",
+        "dateTimeExecution": "2024-08-21 17:36:44.463118",
+        "elapsedTime": "0:03:48.313314",
+        "qtyCommits": 65,
+        "qtyMergeCommits": 26
+    },
+    {
+        "projectWorkDir": "/mnt/c/Users/aoliv/OneDrive/Área de Trabalho/DOUTORADO/SerproProjects/pucomex-talpco/",
+        "dateTimeExecution": "2024-08-22 23:13:24.455206",
+        "elapsedTime": "13:11:28.211394",
+        "qtyCommits": 9638,
+        "qtyMergeCommits": 1541
     }
 ]

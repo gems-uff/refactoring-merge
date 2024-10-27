@@ -105,7 +105,7 @@ def get_list_commits_branch(repo, connection_bd, commit_evaluated, common_ancest
 	
 	if common_ancestor:	
 		common_ancestor_obj = repo.get(common_ancestor)
-		# ATENÇÃO: a segunda parte do while abaixo (depois do and) foi adicionado para resolver questões de ancestrais comuns um pouco confusos, como por exemplo do commit 6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519 (quinta-feira, 27 de setembro de 2012 16:47:37) do projeto mockito
+		# ATENÇÃO: a segunda parte do while abaixo (depois do and) foi adicionado para resolver questões de ancestrais comuns anteriores a ancestral comumm do merge em questão. Como por exemplo do commit 6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519 (quinta-feira, 27 de setembro de 2012 16:47:37) do projeto mockito
 		while (str(commit_evaluated.id) != str(common_ancestor)) and (commit_evaluated.commit_time > common_ancestor_obj.commit_time):			
 			
 			is_merge_commit = len(commit_evaluated.parents) == 2	
