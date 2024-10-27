@@ -245,7 +245,7 @@ def mount_branches_and_calculate_final_score(connection_bd, refac_type_list, bot
 		#TESTE - THINGSBOARD
 		#cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.has_base_version , mc.is_fast_forward_merge, mc.merge_effort_calculated, mc.merge_effort_calc_timeout, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id = c.id_project and p.selected_experiments = 'True' and c.id = mc.id_commit and (c.sha1='fe30a23ef5596546842f59c6a62e80c5d54f680e' or c.sha1='5f7c4748379e2d9d21d87c9177ae8141cfe74f42') order by c.date_time")
 		
-		#OFFICAL
+		#OFFICIAL
 		cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.has_base_version , mc.is_fast_forward_merge, mc.merge_effort_calculated, mc.merge_effort_calc_timeout, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id = c.id_project and p.selected_experiments = 'True' and c.id = mc.id_commit order by c.date_time")
 		list_merge_commits = cursor.fetchall()		
 	
