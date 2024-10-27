@@ -4,6 +4,8 @@ The table below shows the characteristics of the projects selected for analysis,
 
 The experiments were conducted with 64 open-source projects between May 30, 2024, and June 1, 2024.
 
+This folder contains two compressed .csv files: *experiments_os_join.csv* and *experiments_os_split.zip*. Each dataset row represents a merge commit and its collected/calculated attributes. In the first one, each type's total number of refactorings is added without considering the branch in which it was implemented. In the second one, these amounts are separated by branches.
+
 #|Project Name|NC|NMC|NMC-nff|NVMC
 | --- | ----------------- | ----- | --- | ------ | ---- |
 |1|Activiti|11,696|1,920|682|1,238|
