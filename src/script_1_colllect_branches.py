@@ -101,7 +101,7 @@ def get_list_commits_branch(repo, connection_bd, commit_evaluated, common_ancest
 	
 	if common_ancestor:	
 		common_ancestor_obj = repo.get(common_ancestor)
-		# ATENÇÃO: a segunda parte do while abaixo (depois do and) foi adicionado para resolver questões de ancestrais comuns anteriores a ancestral comumm do merge em questão. Como por exemplo do commit 6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519 (quinta-feira, 27 de setembro de 2012 16:47:37) do projeto mockito
+		# NOTE: The second part of the while loop below (after the 'and') addresses issues with common ancestors preceding the merge's common ancestor. For example, consider commit 6c0d2cb4c21d1d0c5fa1570f9d99b4927801e519 (Thursday, September 27, 2012 16:47:37) from the Mockito project.
 		while (str(commit_evaluated.id) != str(common_ancestor)) and (commit_evaluated.commit_time > common_ancestor_obj.commit_time):			
 			
 			is_merge_commit = len(commit_evaluated.parents) == 2	
@@ -122,9 +122,9 @@ def get_list_commits_branch(repo, connection_bd, commit_evaluated, common_ancest
 			if(commit_id):
 				commit_list.append(commit_id)
 
-			if str(merge_commit_sha1) == commit_teste: # TODO TIRAR
+			if str(merge_commit_sha1) == commit_test: # TODO REMOVE
 				print("###########################################")
-				print("Adicionado na lista de commits do ramo")
+				print("Added to the branch's commit list.")
 				print("###########################################")
 				print(str(commit_evaluated.id))				
 				print(commit_id)				
@@ -148,8 +148,7 @@ def get_list_commits_branch(repo, connection_bd, commit_evaluated, common_ancest
 					or (str(commit_evaluated.parents[1].id) == str(common_ancestor))):
 					next_common_ancestor = repo.merge_base(commit_evaluated.parents[0].hex, commit_evaluated.parents[1].hex)
 					
-					if next_common_ancestor:						
-						#print("entrou aqui")						
+					if next_common_ancestor:												
 						#print(str(next_common_ancestor.hex))
 						nca = repo.get(next_common_ancestor)
 						ca = repo.get(common_ancestor)
@@ -253,9 +252,9 @@ def save_merge_branches(repo, connection_bd, merge_commit, project_id):
 	if merge_commit_seq:	
 		common_ancestor = repo.merge_base(merge_commit.parents[0].hex, merge_commit.parents[1].hex)	
 			
-		if str(merge_commit.id) == commit_teste: #TODO: TIRAR
+		if str(merge_commit.id) == commit_test: #TODO: REMOVE
 			print("###########################################")
-			print("Ancestral commum")
+			print("Common Ancestor")
 			print("###########################################")
 			print(str(common_ancestor))
 			print("-------------------------------------------")
@@ -263,9 +262,9 @@ def save_merge_branches(repo, connection_bd, merge_commit, project_id):
 		# Save commit from branch 1	
 		list_commit_seq_branch1 = get_list_commits_branch(repo, connection_bd, merge_commit.parents[0], common_ancestor, project_id, str(merge_commit.id))
 			
-		if str(merge_commit.id) == commit_teste: #TODO: TIRAR
+		if str(merge_commit.id) == commit_test: #TODO: REMOVE
 			print("###########################################")
-			print("Retorno Lista 1")
+			print("List 1 return")
 			print("###########################################")
 			print(list_commit_seq_branch1)
 			print("-------------------------------------------")		
@@ -276,9 +275,9 @@ def save_merge_branches(repo, connection_bd, merge_commit, project_id):
 		# Save commit from branch 2
 		list_commit_seq_branch2 = get_list_commits_branch(repo, connection_bd, merge_commit.parents[1], common_ancestor, project_id, str(merge_commit.id))
 			
-		if str(merge_commit.id) == commit_teste: #TODO: TIRAR
+		if str(merge_commit.id) == commit_test: #TODO: REMOVE
 			print("###########################################")
-			print(" Retorno Lista 2")
+			print(" List 2 return")
 			print("###########################################")
 			print(list_commit_seq_branch2)
 			print("-------------------------------------------")
@@ -389,7 +388,7 @@ def mining_repository(path_repository,log=False, retry=False, database_name="ref
      
 
 printlog = False
-commit_teste = "XXXX"
+commit_test = "XXXX"
 
 def main():
 	parser = argparse.ArgumentParser(description='Merge effort analysis - Refactoring')	
