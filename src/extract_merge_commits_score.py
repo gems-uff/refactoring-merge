@@ -376,6 +376,6 @@ def main():
 	parser.add_argument("--dataset_path_name", default='output/merge_refactoring_ds.csv', help="output dataset file name.")
 	args = parser.parse_args()
 	init_analysis(args.branches, args.selected_refactorings,args.database, args.dataset_path_name)
-	# ./extract_merge_commits_score.py --branches --selected_refactorings --database db_refac_merge_serpro --dataset_path_name /mnt/c/Users/aoliv/experimentos_serpro_new.csv
+	# ./extract_merge_commits_score.py --branches --selected_refactorings --database db_refac_merge_serpro --dataset_path_name /mnt/c/Users/xxx/experimentos_serpro_new.csv
 if __name__ == '__main__':
 	main()
