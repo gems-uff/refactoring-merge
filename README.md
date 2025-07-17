@@ -148,7 +148,7 @@ Parameters:
 
 ## Project Corpus
 
-Our latest study evaluated 64 open-source projects. We generated two datasets, both containing 91,270 merge commits. You can find more details in the [project-corpus]{https://github.com/gems-uff/refactoring-merge/blob/master/project-corpus/README.md} folder.
+Our latest study evaluated 64 open-source projects. We generated two datasets, both containing 91,270 merge commits. You can find more details in the [project-corpus](https://github.com/gems-uff/refactoring-merge/blob/master/project-corpus/README.md) folder.
 
 ## Team
 
