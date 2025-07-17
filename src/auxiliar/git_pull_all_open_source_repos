@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# executar antes: ls  -1 -d "$PWD/"* > /mnt/c/Users/xxx/refactoring-merge/input/repos_path_os.txt
+# execute before: ls  -1 -d "$PWD/"* > /mnt/c/Users/xxx/refactoring-merge/input/repos_path_os.txt
 
 cd /mnt/d/OpenSourceProjects/Activiti
 git pull
