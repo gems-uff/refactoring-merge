@@ -73,8 +73,6 @@ def analyse_branches(branch_list, merge_commit, id_branch, both_branches):
 	total_refac_branch = 0
 	
 	for sha1 in branch_list:		
-		#TODO: ARTIGO adicionei o "and (not cache_commit[sha1])" no IF abaixo
-		# quando o script mining conseguir separar refacs específicas do merge, tirar esse "and"		
 		if((sha1 in cache_commit_refactoring.keys()) and (not cache_commit[sha1])): 			
 			total_commits_with_refac += 1
 			for refact_type, qty in (cache_commit_refactoring[sha1]).items():				
@@ -128,7 +126,7 @@ def analyse_invalids_commits_in_branch(connection_bd, commits_list, external_mer
 def get_list_of_commit_in_branch(connection_bd, merge_commit_sha1, merge_commit_seq, id_branch, merge_commit_evaluated, ca_list):
 	
 	#print("")
-	#print(f"--------------------- ANALISE DO RAMO {id_branch} do MERGE {merge_commit_sha1}---------------------")
+	#print(f"--------------------- ANALISYS BRANCH {id_branch} OF MERGE {merge_commit_sha1}---------------------")
 	#print("")
 	list_commit_branch = list()	
 	rows = {}
@@ -144,7 +142,7 @@ def get_list_of_commit_in_branch(connection_bd, merge_commit_sha1, merge_commit_
 	#include common ancestor in common ancestors list	
 	ca_list.append(common_ancestor)	
 	#print(f'MERGE COMMIT: {merge_commit_sha1} - Common ancestor = {common_ancestor} - {common_ancestor_date_time}')
-	#print(f'Lista Original do commits do branch {id_branch} = {list_commit_branch}')
+	#print(f'Original List of branch commits {id_branch} = {list_commit_branch}')
 	list_commit_branch_original = list_commit_branch.copy()
 
 	for commit in list_commit_branch_original:
@@ -155,36 +153,34 @@ def get_list_of_commit_in_branch(connection_bd, merge_commit_sha1, merge_commit_
 				merge_commit_id, parent1, parent2 = is_merge_commit(connection_bd, commit)								
 				#print("")
 				#print(f"MC {merge_commit_sha1} HAS MERGE COMMIT INTERNO =>{commit}")
-				#print(f'parent1 MC interno = {parent1}')
-				#print(f'parent2 MC interno= {parent2}')
+				#print(f'parent1 MC internal = {parent1}')
+				#print(f'parent2 MC internal= {parent2}')
 				#print(f'CA LIST = {ca_list}')
 				if(parent1 in ca_list and parent2 not in ca_list):							
-					#print("Pega do ramo 2") #caso semelhante projeto refactoring_toy - commit de merge 3bfbc107eac92f388de9f8b87682c3a0baf74981					
+					
 					list_b2 = get_list_of_commit_in_branch(connection_bd, commit, merge_commit_id, 2, merge_commit_evaluated, ca_list)					
-					#print(f'Ramo 2 = {list_b2}')
+					#print(f'Branch 2 = {list_b2}')
 					for c2 in list_b2:
 						if c2 not in list_commit_branch:
 							list_commit_branch.append(c2)
-				elif (parent2 in ca_list and parent1 not in ca_list): #essa situação parece mais rara					
-					#print("Pega do ramo 1")
+				elif (parent2 in ca_list and parent1 not in ca_list): #essa situação parece mais rara										
 					list_b1 = get_list_of_commit_in_branch(connection_bd, commit, merge_commit_id, 1, merge_commit_evaluated, ca_list)					
-					#print(f'Ramo 1 antes do filtro = {list_b1}')
+					#print(f'Branch 1 before filter = {list_b1}')
 					list_b1_filtred = analyse_invalids_commits_in_branch(connection_bd, list_b1, common_ancestor_date_time)					
-					#print(f'Ramo 1 depois do filtro = {list_b1_filtred}')
+					#print(f'Branch 1 after filter = {list_b1_filtred}')
 					for c1 in list_b1_filtred:
 						if c1 not in list_commit_branch:
 							list_commit_branch.append(c1)					
-				elif (parent1 not in ca_list and parent2 not in ca_list): 					
-					#print("Pega dos dois ramos")				
+				elif (parent1 not in ca_list and parent2 not in ca_list): 										
 					list_b1 = get_list_of_commit_in_branch(connection_bd, commit, merge_commit_id, 1, merge_commit_evaluated, ca_list)					
-					#print(f'Ramo 1 antes do filtro = {list_b1}')
+					#print(f'Branch 1 before filter = {list_b1}')
 					list_b1_filtred = analyse_invalids_commits_in_branch(connection_bd, list_b1, common_ancestor_date_time)					
-					#print(f'Ramo 1 depois do filtro = {list_b1_filtred}')
+					#print(f'Branch 1 after filter = {list_b1_filtred}')
 					for c1 in list_b1_filtred:
 						if c1 not in list_commit_branch:
 							list_commit_branch.append(c1)
 					list_b2 = get_list_of_commit_in_branch(connection_bd, commit, merge_commit_id, 2, merge_commit_evaluated, ca_list)					
-					#print(f'Ramo 2 = {list_b2}')
+					#print(f'Branch 2 = {list_b2}')
 					for c2 in list_b2:
 						if c2 not in list_commit_branch:
 							list_commit_branch.append(c2)					
@@ -235,14 +231,14 @@ def mount_branches_and_calculate_final_score(connection_bd, refac_type_list, bot
 	
 	with connection_bd.cursor() as cursor:
 		
-		#TESTE - TALPCO - ANTIGO
+		#TEST - TALPCO - OLD
 		#cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.has_base_version , mc.is_fast_forward_merge, mc.merge_effort_calculated, mc.merge_effort_calc_timeout, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id = c.id_project and p.selected_experiments = 'True' and c.id = mc.id_commit and (c.sha1='72efba636c0fcb3f46ac13a1fe071d1a5e8d2a31' or c.sha1='d8cbcf3a08614e4d907d711f595ce1be7084eab9' or c.sha1 = 'f0b84096a26f5522001529e873f4e313f7dd87ed') order by c.date_time")
-		#TESTE - TALPCO - NOVO 1
+		#TEST - TALPCO - NEW-A
 		#cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.has_base_version , mc.is_fast_forward_merge, mc.merge_effort_calculated, mc.merge_effort_calc_timeout, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id = c.id_project and p.selected_experiments = 'True' and c.id = mc.id_commit and (c.sha1='55c5ee0a7224eae04dbdb414e7282ab65dc14c61' or c.sha1='a75ed3eae266d63e0870ee37afb7ec1d2d1cc000' or c.sha1 = '49d243afd36d33115b09ee1959cba617455ddd7a' or c.sha1 = 'f838ce33bac11e9a4d5b969dfc97bc11ab721401' or c.sha1 = '8284ed82b683a7a62f0fda313645c9a68f5e2e44' or c.sha1 = '88f611094bfac737bf40dad3aae37d852d9823a2') order by c.date_time")
-		#TESTE - TALPCO - NOVO 2
+		#TEST - TALPCO - NOVO-B
 		#cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.has_base_version , mc.is_fast_forward_merge, mc.merge_effort_calculated, mc.merge_effort_calc_timeout, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id = c.id_project and p.selected_experiments = 'True' and c.id = mc.id_commit and (c.sha1='ebc66aa864f8736918d7c94969ed3ca3e9bc7cc0' or c.sha1='b984a3d19f5a77c7afd5b3339d5338fdfc8e794d' or c.sha1 = 'd5c37271a6bc0115b321f427481d8be3e1090c8f' or c.sha1 = 'a468b6b78317e802fed7bfdc571482c9e2061c59' or c.sha1 = '9f1908d3515f59a87d3cda36ae7483a4913eee94' or c.sha1 = 'a0c53de7084282e845b131a86235f6b397048fcb' or c.sha1 = 'd387199a4959f5be76fcb1a8a08c41c7ea6f1f0c' or c.sha1 = '2794d45245717971b46f22b32516a4f2357b8fd6' or c.sha1 = '9f61517024ecb9177d9bd4614d7f7468e9b8995e') order by c.date_time")
 
-		#TESTE - THINGSBOARD
+		#TEST - THINGSBOARD
 		#cursor.execute("select c.id, c.sha1, p.name, p.url, c.date_time, mc.has_base_version , mc.is_fast_forward_merge, mc.merge_effort_calculated, mc.merge_effort_calc_timeout, mc.extra_effort, mc.wasted_effort, mc.rework_effort, mc.branch1_actions, mc.branch2_actions, mc.common_ancestor, mc.parent1, mc.parent2 FROM project p, commit c, merge_commit mc where p.id = c.id_project and p.selected_experiments = 'True' and c.id = mc.id_commit and (c.sha1='fe30a23ef5596546842f59c6a62e80c5d54f680e' or c.sha1='5f7c4748379e2d9d21d87c9177ae8141cfe74f42') order by c.date_time")
 		
 		#OFFICIAL
@@ -307,10 +303,10 @@ def mount_branches_and_calculate_final_score(connection_bd, refac_type_list, bot
 	for sha1, merge_commit in output.items():
 		logger.info('Pending: ' + str(qt))	
 		print("################################################################################################################")
-		print(f'MERGE COMMIT AVALIADO = {sha1} - {merge_commit["date_time"]} - PROJECT: {merge_commit["project_name"]}')
+		print(f'MERGE COMMIT EVALUATED = {sha1} - {merge_commit["date_time"]} - PROJECT: {merge_commit["project_name"]}')
 		print("################################################################################################################")
 		print("")
-		#COMENTAR COMANDO ABAIXO - QUANDO FOR SEM TRACE
+		
 		common_ancestor_mc, common_ancestor_date_time_mc = get_common_ancestor(connection_bd, merge_commit['id'])			
 		print(f'COMMON ANCESTOR: {common_ancestor_mc} - {common_ancestor_date_time_mc}')
 		print("")
@@ -322,14 +318,14 @@ def mount_branches_and_calculate_final_score(connection_bd, refac_type_list, bot
 		list_commits_b1 = get_list_of_commit_in_branch(connection_bd, sha1, merge_commit['id'], '1', merge_commit_evaluated_b1, ca_list)		
 		qty_commits_with_refac_b1, qty_refac_b1 = analyse_branches(list_commits_b1, merge_commit,'1', both_branches)			
 		print("")
-		print(f'Lista FINAL de commits no ramo 1 = {list_commits_b1}')
+		print(f'FINAL LIST OF commits in the branch 1 = {list_commits_b1}')
 		print("")
 		list_commits_b2.clear()
 		merge_commit_evaluated_b2.clear()
 		ca_list.clear()
 		list_commits_b2 = get_list_of_commit_in_branch(connection_bd, sha1, merge_commit['id'], '2', merge_commit_evaluated_b2, ca_list)			
 		print("")
-		print(f'Lista FINAL de commits no ramo 2 = {list_commits_b2}')
+		print(f'FINAL LIST of commits in the branch 2 = {list_commits_b2}')
 		print("")
 		qty_commits_with_refac_b2, qty_refac_b2 = analyse_branches(list_commits_b2, merge_commit,'2', both_branches)
 
