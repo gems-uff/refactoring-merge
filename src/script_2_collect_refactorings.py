@@ -3,10 +3,6 @@
 
 #switch python versions: sudo update-alternatives --config python3
 
-# Dicas:https://pypi.org/project/PyMySQL/
-# https://pymysql.readthedocs.io/en/latest/user/examples.html
-
-
 from ctypes import sizeof
 import pygit2
 from datetime import datetime
