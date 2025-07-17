@@ -3,9 +3,9 @@ setuptools.setup(
 	name='merge-effort',    
 	version='1.1.1',
 	license='MIT',
-	url='https://github.com/gems-uff/merge-effort',
-	author='Tayane Moura and Leonardo Murta',
-	author_email='tayanemoura@id.uff.br',
+	url='XXXXX',
+	author='XXXXXX',
+	author_email='XXXXX@XXXX',
 	description='a script to measure merge effort',
 	packages= setuptools.find_packages(),
 	entry_points={
