@@ -1,5 +1,3 @@
-DANGER ################################## DROP DATABASE IF EXISTS db_refac_merge_os;
-
 CREATE DATABASE IF NOT EXISTS db_refac_merge_os_big;
 SHOW DATABASES;
 
