@@ -146,6 +146,10 @@ Parameters:
 --datasetname = (optional) name of the produced dataset. When not informed, the script will save in the "output" folder a csv file with the following name: "merge_refactoring_ds.csv"
 ```
 
+## Project Corpus
+
+Our latest study evaluated 64 open-source projects. We generated two datasets, both containing 91,270 merge commits. You can find more details in the [project-corpus]{https://github.com/gems-uff/refactoring-merge/blob/master/project-corpus/README.md} folder.
+
 ## Team
 
 Hidden due to paper submission.
