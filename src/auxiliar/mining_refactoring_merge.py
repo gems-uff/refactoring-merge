@@ -3,7 +3,7 @@
 
 #switch python versions: sudo update-alternatives --config python3
 
-# Dicas:https://pypi.org/project/PyMySQL/
+# Tips:https://pypi.org/project/PyMySQL/
 # https://pymysql.readthedocs.io/en/latest/user/examples.html
 
 # Execução programa  = sudo ./mining_refactoring_merge.py --repo_path /mnt/c/Users/aoliv/RepositoriesGiHub/refactoring-toy-example/
@@ -122,8 +122,7 @@ def analyze_merge_effort(merge_commit, base, repo):
 		logger.error(f'Project {repo} finished with error!')
 	return metrics
 
-def get_refactoring_commit(path_repository,commit_sha1):		
-	""" /mnt/c/Users/aoliv/RefactoringMiner/build/distributions/RefactoringMiner-2.1.0/bin/RefactoringMiner -c /mnt/c/Users/aoliv/RepositoriosEO1/spring-boot/ 8364840cd5a0cf7c838085378a275f350a682046 -json teste1.json"""
+def get_refactoring_commit(path_repository,commit_sha1):			
 	commit = []	
 	try:
 		subprocess.run([refMiner_exec, "-c", path_repository, str(commit_sha1), "-json", "ref_miner_temp.json"],
@@ -378,11 +377,6 @@ def merge_analysis(connection_bd, repo, merge_list, merge_effort):
 	for commit in merge_list:
 
 		base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)
-		"""TODO: ESSE IF FOI COLOCADO PARA OTIMIZAR, POIS NÃO EXECUTAR O MERGE EFFORT E MERGE BRANCH DE 
-		COMMITS DE MERGE MARCADOS COMO --NO-FF.
-		OUTRA OTIMIZAÇÃO É USAR PANDAS E NÃO CHAMAR O REFMINER PARA TODOS OS COMMITS. PRIMEIRO MONTAR O BRANCH
-		EM MEMÓRIA E DEPOIS SÓ CHAMAR ESSE O REF MINER E ESSE TRECHO DE MERGE EFFORT
-		"""
 		if base_commit:		
 			# is fast forward commit?
 			valid_commit_merge = commit.parents[0].hex != base_commit.hex and commit.parents[1].hex != base_commit.hex
