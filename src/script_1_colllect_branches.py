@@ -9,10 +9,6 @@ ii) were generated via --no-ff
 
 #switch python versions: sudo update-alternatives --config python3
 
-# Dicas:https://pypi.org/project/PyMySQL/
-# https://pymysql.readthedocs.io/en/latest/user/examples.html
-
-
 #from asyncio.windows_events import NULL
 from audioop import mul
 import pygit2
