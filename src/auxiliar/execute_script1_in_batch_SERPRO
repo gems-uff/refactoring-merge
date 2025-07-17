@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# executar antes: ls -1 -d "$PWD/"* > ../refactoring-merge/input/repos_SERPRO_path.txt
+# execute before: ls -1 -d "$PWD/"* > ../refactoring-merge/input/repos_SERPRO_path.txt
 
 ./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/cct-aereo
 ./script_1_colllect_branches.py --database db_refac_merge_serpro --repo_path /mnt/c/Users/aoliv/Repositorios_art2_SERPRO/ctma-src
