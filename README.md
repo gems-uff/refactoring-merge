@@ -226,13 +226,9 @@ This folder contains two compressed .csv files: **ds_os_join.csv** and **ds_os_s
 
 Hidden due to paper submission.
 
-<!-- ## Publications
-
-* [MOURA, T.; MURTA, L. Uma técnica para a quantificação do esforço de merge. . In: VI WORKSHOP ON SOFTWARE VISUALIZATION, EVOLUTION AND MAINTENANCE. 2018](https://github.com/gems-uff/merge-effort/blob/master/docs/VEM_2018.pdf) -->
-
 ## License
 
-Copyright (c) 2018 Universidade Federal Fluminense (UFF)
+Copyright (c) 2023 Universidade Federal Fluminense (UFF)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
