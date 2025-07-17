@@ -3,10 +3,6 @@
 
 #switch python versions: sudo update-alternatives --config python3
 
-# Dicas:https://pypi.org/project/PyMySQL/
-# https://pymysql.readthedocs.io/en/latest/user/examples.html
-
-
 import pygit2
 from datetime import datetime
 from datetime import date
@@ -27,8 +23,6 @@ logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 
-"""fh = logging.FileHandler(r'merge_commits_extract_db.log')"""
-
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(levelname)s:%(name)s : %(message)s')
 "fh.setFormatter(formatter)"
@@ -37,8 +31,6 @@ ch.setFormatter(formatter)
 
 # add ch to logger
 logger.addHandler(ch)
-"""logger.addHandler(fh)"""
-
 
 
 def read_json(arq_json):	
@@ -133,7 +125,7 @@ def save_merge_effort_metrics(repo, connection_bd, merge_commit, path_repository
 	base_commit = repo.merge_base(commit.parents[0].hex, commit.parents[1].hex)		
 	if base_commit:			
 		metrics = analyze_merge_effort(commit, base_commit, repo)		
-		if not metrics: #apenas uma proteção - o commit db53e5f7fe634aa0db9a012b2125782d76d66d63 do projeto intelliJ-community não retornou métricas. Avaliar
+		if not metrics: #Just a safeguard: Commit db53e5f7fe634aa0db9a012b2125782d76d66d63 from the IntelliJ-community project didn't return metrics. Needs evaluation.
 			metrics = {'extra':0, 'wasted':0, 'rework':0, 'branch1_actions':0, 'branch2_actions':0, 'merge_actions':0}				
 
 	else:		
@@ -270,7 +262,7 @@ def main():
 	parser.add_argument("--retry", action='store_true', help="retry execute")	
 	parser.add_argument("--database", default='refactoring_merge', help="database name.")
 
-	# ./script_3_calculate_merge_effort.py --repo_path /mnt/c/Users/aoliv/Repositorios_art2/netty/ --log --database banco_teste
+	# ./script_3_calculate_merge_effort.py --repo_path /mnt/c/Users/XXXX/Rep/netty/ --log --database db_test
 
 	args = parser.parse_args()		
 
