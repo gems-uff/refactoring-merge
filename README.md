@@ -180,7 +180,63 @@ Parameters:
 --branches = (optional) boolean parameter indicating the need to split refactoring attributes into two branches (b1 and b2). When not informed, the script will sum the total of refactorings of each type in the two branches.
 --selected_refactorings = (optional) boolean parameter indicating the need to compute only selected refactorings. When informed, the script will only consider the 33 types of refactorings considered in this study.
 --datasetname = (optional) name of the produced dataset. When not informed, the script will save in the "output" folder a csv file with the following name: "merge_refactoring_ds.csv"
+
 ```
+
+### Association Rule Extraction using Apriori Algorithm
+
+In this stage, we implemented algorithms for extracting association rules using **Python** within the **Google Colab** environment. The process focuses on identifying co-occurrence patterns between sets of items.
+
+#### Environment and Dependencies
+
+To execute the scripts, the `apyori` library must be installed:
+
+> [!IMPORTANT]
+> Installation: `!pip install apyori`  
+> Documentation: [PyPI - apyori](https://pypi.org/project/apyori/)
+
+---
+
+#### Google Colab Notebooks
+
+You can access the full implementations through the following links:
+
+* [Apriori Project - Part 1](https://colab.research.google.com/drive/1yK1aNFZqrTykgVKOYxD5FQvQSRK5jhy9?usp=drive_link)
+* [Apriori Project - Part 2](https://colab.research.google.com/drive/1Pqu0AWviWlNkO11JFq_-hGAB6BF5E_kn?usp=drive_link)
+* [Apriori Project - Part 3](https://colab.research.google.com/drive/1mz3OIu_I4e6oMp9ijTRtb4XhzLhDZHp0?usp=drive_link)
+
+---
+
+#### Evaluation Metrics
+
+A rule $X \rightarrow Y$ indicates, with a certain assurance, that antecedent $X$ implies consequent $Y$. We evaluate rule relevance using three primary measures:
+
+**1. Support**
+
+Measures the percentage of instances in the dataset $D$ that satisfy both the antecedent and the consequent.
+
+$$Sup_{(X \rightarrow Y)} = \frac{T_{X \cup Y}}{T}$$
+*Where $T_{X \cup Y}$ is the number of records containing both $X$ and $Y$, and $T$ is the total number of records.*
+
+**2. Confidence**
+
+Measures the probability of the consequent occurring given the occurrence of the antecedent.
+$$Conf_{(X \rightarrow Y)} = \frac{T_{X \cup Y}}{T_X}$$
+*Where $T_X$ is the number of records satisfying the antecedent $X$.*
+
+**3. Lift**
+
+Shows how much more frequently $Y$ occurs when $X$ is present compared to its general occurrence. It is calculated by dividing the rule's Confidence by the Support of the consequent.
+$$Lift_{(X \rightarrow Y)} = \frac{Conf_{(X \rightarrow Y)}}{Sup_{(Y)}}$$
+
+_Lift Interpretation:_
+
+* _$Lift = 1$:_ Indicates conditional independence; $X$ does not affect the occurrence of $Y$.
+* _$Lift > 1$:_ Positive dependence ($X$ increases the probability of $Y$).
+* _$Lift < 1$:_ Negative dependence ($X$ reduces the probability of $Y$).
+
+> **Note:** Support and Confidence act as filters; only rules meeting the minimum input thresholds are extracted.
+
 
 ## Project corpus and dataset used in our latest study
 
