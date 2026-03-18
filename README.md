@@ -134,36 +134,34 @@ Parameters:
 
 The merge effort is computed by comparing the changes introduced in the merge commit with the changes performed independently in each branch, using a set-based formulation over code differences.
 
+<u>Definitions</u>
 Let:
+- $C_{base}$: the common ancestor of the merge.
+- $C_{merge}$: the merge commit.
+- $C_{p1}, C_{p2}$: the parent commits of the merge.
 
-- `commit_base`: the common ancestor of the merge
-- `commit_merge`: the merge commit
-- `commit_parent1` and `commit_parent2`: the parent commits
+<u>Calculations</u>
+We compute the sets of actions as follows:
 
-We compute:
+1. Actions introduced by the merge:
+   $$A_{merge} = \text{diff}(C_{base}, C_{merge})$$
 
-- Actions introduced by the merge:
-  
-  actions_merge = diff(commit_base, commit_merge)
+2. Actions performed in each branch:
+   $$A_{b1} = \text{diff}(C_{base}, C_{p1})$$
+   $$A_{b2} = \text{diff}(C_{base}, C_{p2})$$
 
-- Actions performed in each branch:
+3. Total actions from both branches (union):
+   $$A_{branches} = A_{b1} \cup A_{b2}$$
 
-  actions_branch1 = diff(commit_base, commit_parent1)  
-  actions_branch2 = diff(commit_base, commit_parent2)
+4. Additional actions introduced during merge resolution:
+   $$A_{extra} = A_{merge} \setminus A_{branches}$$
 
-- Total actions from both branches:
+<u>Final Metric</u>
+The **Merge Effort** is defined as the cardinality (size) of the extra actions set:
 
-  actions_branches = actions_branch1 + actions_branch2
+$$\text{effort} = |A_{extra}|$$
 
-- Additional actions introduced during merge resolution:
-
-  actions_extra = actions_merge − actions_branches
-
-Finally, the merge effort is defined as:
-
-  effort = |actions_extra|
-
-This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches, i.e., the additional manual work required to reconcile concurrent changes.
+<u>Note:</u> This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches—essentially measuring the manual work required to reconcile concurrent changes.
 
 ### Building the Dataset
 
