@@ -134,13 +134,13 @@ Parameters:
 
 The merge effort is computed by comparing the changes introduced in the merge commit with the changes performed independently in each branch, using a set-based formulation over code differences.
 
-<u>Definitions</u>
+_Definitions_
 Let:
 - $C_{base}$: the common ancestor of the merge.
 - $C_{merge}$: the merge commit.
 - $C_{p1}, C_{p2}$: the parent commits of the merge.
 
-<u>Calculations</u>
+_Calculations_
 We compute the sets of actions as follows:
 
 1. Actions introduced by the merge:
@@ -156,12 +156,12 @@ We compute the sets of actions as follows:
 4. Additional actions introduced during merge resolution:
    $$A_{extra} = A_{merge} \setminus A_{branches}$$
 
-<u>Final Metric</u>
+_Final Metric_
 The **Merge Effort** is defined as the cardinality (size) of the extra actions set:
 
 $$\text{effort} = |A_{extra}|$$
 
-<u>Note:</u> This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches—essentially measuring the manual work required to reconcile concurrent changes.
+_Note:_ This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches—essentially measuring the manual work required to reconcile concurrent changes.
 
 ### Building the Dataset
 
