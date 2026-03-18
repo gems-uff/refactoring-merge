@@ -231,9 +231,9 @@ $$Lift_{(X \rightarrow Y)} = \frac{Conf_{(X \rightarrow Y)}}{Sup_{(Y)}}$$
 
 _Lift Interpretation:_
 
-* _$Lift = 1$:_ Indicates conditional independence; $X$ does not affect the occurrence of $Y$.
-* _$Lift > 1$:_ Positive dependence ($X$ increases the probability of $Y$).
-* _$Lift < 1$:_ Negative dependence ($X$ reduces the probability of $Y$).
+* _Lift = 1:_ Indicates conditional independence; $X$ does not affect the occurrence of $Y$.
+* _Lift > 1:_ Positive dependence ($X$ increases the probability of $Y$).
+* _Lift < 1:_ Negative dependence ($X$ reduces the probability of $Y$).
 
 > **Note:** Support and Confidence act as filters; only rules meeting the minimum input thresholds are extracted.
 
