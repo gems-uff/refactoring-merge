@@ -146,24 +146,23 @@ _Calculations_
 We compute the sets of actions as follows:
 
 1. Actions introduced by the merge:
-   $$A_{merge} = \text{diff}(C_{base}, C_{merge})$$
-
+   - $$A_{merge} = \text{diff}(C_{base}, C_{merge})$$
+  
 2. Actions performed in each branch:
-   $$A_{b1} = \text{diff}(C_{base}, C_{p1})$$
-   $$A_{b2} = \text{diff}(C_{base}, C_{p2})$$
+   - $$A_{b1} = \text{diff}(C_{base}, C_{p1})$$
+   - $$A_{b2} = \text{diff}(C_{base}, C_{p2})$$
 
-3. Total actions from both branches (union):
-   $$A_{branches} = A_{b1} \cup A_{b2}$$
-
-4. Additional actions introduced during merge resolution:
-   $$A_{extra} = A_{merge} \setminus A_{branches}$$
-
+4. Total actions from both branches (union):
+   - $$A_{branches} = A_{b1} \cup A_{b2}$$
+     
+6. Additional actions introduced during merge resolution:
+   - $$A_{extra} = A_{merge} \setminus A_{branches}$$
+     
 _Final Metric_
 
 The **Merge Effort** is defined as the cardinality (size) of the extra actions set:
-
-$$\text{effort} = |A_{extra}|$$
-
+   - $$\text{effort} = |A_{extra}|$$
+  
 _Note:_ 
 This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches—essentially measuring the manual work required to reconcile concurrent changes.
 
