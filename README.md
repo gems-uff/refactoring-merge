@@ -216,6 +216,7 @@ A rule $X \rightarrow Y$ indicates, with a certain assurance, that antecedent $X
 Measures the percentage of instances in the dataset $D$ that satisfy both the antecedent and the consequent.
 
 $$Sup_{(X \rightarrow Y)} = \frac{T_{X \cup Y}}{T}$$
+
 *Where $T_{X \cup Y}$ is the number of records containing both $X$ and $Y$, and $T$ is the total number of records.*
 
 **2. Confidence**
