@@ -222,6 +222,7 @@ Where $T_{X \cup Y}$ is the number of records containing both $X$ and $Y$ , and 
 **2. Confidence**
 
 Measures the probability of the consequent occurring given the occurrence of the antecedent.
+
 $$Conf_{(X \rightarrow Y)} = \frac{T_{X \cup Y}}{T_X}$$
 
 Where $T_X$ is the number of records satisfying the antecedent $X$.
@@ -323,7 +324,7 @@ Hidden due to paper submission.
 
 ## License
 
-Copyright (c) 2023 Universidade Federal Fluminense (UFF)
+Copyright (c) 2026 Universidade Federal Fluminense (UFF)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
