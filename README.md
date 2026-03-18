@@ -217,17 +217,19 @@ Measures the percentage of instances in the dataset $D$ that satisfy both the an
 
 $$Sup_{(X \rightarrow Y)} = \frac{T_{X \cup Y}}{T}$$
 
-*Where $T_{X \cup Y}$ is the number of records containing both $X$ and $Y$, and $T$ is the total number of records.*
+Where $T_{X \cup Y}$ is the number of records containing both $X$ and $Y$ , and $T$ is the total number of records.
 
 **2. Confidence**
 
 Measures the probability of the consequent occurring given the occurrence of the antecedent.
 $$Conf_{(X \rightarrow Y)} = \frac{T_{X \cup Y}}{T_X}$$
-*Where $T_X$ is the number of records satisfying the antecedent $X$.*
+
+Where $T_X$ is the number of records satisfying the antecedent $X$.
 
 **3. Lift**
 
 Shows how much more frequently $Y$ occurs when $X$ is present compared to its general occurrence. It is calculated by dividing the rule's Confidence by the Support of the consequent.
+
 $$Lift_{(X \rightarrow Y)} = \frac{Conf_{(X \rightarrow Y)}}{Sup_{(Y)}}$$
 
 _Lift Interpretation:_
