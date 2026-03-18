@@ -130,6 +130,41 @@ Parameters:
 --retry (optional) boolean parameter indicating the need to retry the execution. This new attempt is applicable in cases of interruptions in the execution of the script or in situations of timeout in the effort calculation.
 ```
 
+**Merge Effort Computation**
+
+The merge effort is computed by comparing the changes introduced in the merge commit with the changes performed independently in each branch, using a set-based formulation over code differences.
+
+Let:
+
+- `commit_base`: the common ancestor of the merge
+- `commit_merge`: the merge commit
+- `commit_parent1` and `commit_parent2`: the parent commits
+
+We compute:
+
+- Actions introduced by the merge:
+  
+  actions_merge = diff(commit_base, commit_merge)
+
+- Actions performed in each branch:
+
+  actions_branch1 = diff(commit_base, commit_parent1)  
+  actions_branch2 = diff(commit_base, commit_parent2)
+
+- Total actions from both branches:
+
+  actions_branches = actions_branch1 + actions_branch2
+
+- Additional actions introduced during merge resolution:
+
+  actions_extra = actions_merge − actions_branches
+
+Finally, the merge effort is defined as:
+
+  effort = |actions_extra|
+
+This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches, i.e., the additional manual work required to reconcile concurrent changes.
+
 ### Building the Dataset
 
 To build the dataset for the application of the data mining technique (extraction of association rules) just run the script "extract_merge_commits_score.py":
