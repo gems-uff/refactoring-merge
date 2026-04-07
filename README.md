@@ -170,7 +170,7 @@ This value represents the number of lines added or removed during the merge proc
 
 The figure below presents a simplified version of the conceptual model, summarizing the structure of the database used to store both collected and computed data. The data collection and processing are organized into a three-stage mining pipeline implemented through three scripts. Script S1 iterates over each selected repository, identifies merge commits and the commits contained in their respective branches, collects relevant project-level metadata, and stores this information in the relational database (tables Project, Commit, MergeBranch, and MergeCommit). Script S2 traverses all commits in the branches of each merge commit, extracts detailed information about refactorings using RefactoringMiner v3.1, and stores the refactoring type and code locations in the Refactoring table. Script S3 computes the merge effort for each merge commit and stores the resulting values in the corresponding attributes of the MergeCommit table. Scripts S2 and S3 are independent and can be executed in any order, as they analyze different aspects of the collected data.
 
-![Conceptual Model](caminho/da/sua/imagem.png)
+![Conceptual Model](images/ConceptualModel.png)
 
 ### Building the Dataset
 
