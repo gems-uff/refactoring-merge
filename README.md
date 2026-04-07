@@ -166,6 +166,12 @@ The **Merge Effort** is defined as the cardinality (size) of the extra actions s
 _Note:_ 
 This value represents the number of lines added or removed during the merge process that cannot be directly explained by the independent evolution of the branches—essentially measuring the manual work required to reconcile concurrent changes.
 
+**Conceptual model of the database used to store the data collected by the mining scripts**
+
+The figure below presents a simplified version of the conceptual model, summarizing the structure of the database used to store both collected and computed data. The data collection and processing are organized into a three-stage mining pipeline implemented through three scripts. Script S1 iterates over each selected repository, identifies merge commits and the commits contained in their respective branches, collects relevant project-level metadata, and stores this information in the relational database (tables Project, Commit, MergeBranch, and MergeCommit). Script S2 traverses all commits in the branches of each merge commit, extracts detailed information about refactorings using RefactoringMiner v3.1, and stores the refactoring type and code locations in the Refactoring table. Script S3 computes the merge effort for each merge commit and stores the resulting values in the corresponding attributes of the MergeCommit table. Scripts S2 and S3 are independent and can be executed in any order, as they analyze different aspects of the collected data.
+
+![Conceptual Model](caminho/da/sua/imagem.png)
+
 ### Building the Dataset
 
 To build the dataset for the application of the data mining technique (extraction of association rules) just run the script "extract_merge_commits_score.py":
