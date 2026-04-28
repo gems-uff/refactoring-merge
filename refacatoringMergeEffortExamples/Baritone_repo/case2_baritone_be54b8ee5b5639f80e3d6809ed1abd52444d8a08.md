@@ -1,4 +1,4 @@
-# Case 3 — Project: baritone — Merge commit SHA1: be54b8ee5b5639f80e3d6809ed1abd52444d8a08
+# Case 2 — Project: baritone — Merge commit SHA1: be54b8ee5b5639f80e3d6809ed1abd52444d8a08
 
 ---
 
