@@ -1,4 +1,4 @@
-# Case 2 [Strong] — Project: android-oss — Merge commit SHA1: 8b1d70b620dde05ddca55ef7382f27947e7a13d0
+# Case 2 — Project: android-oss — Merge commit SHA1: 8b1d70b620dde05ddca55ef7382f27947e7a13d0
 
 ## Modified file(s):
 - `app/src/main/java/com/kickstarter/ui/adapters/DiscoveryAdapter.java`
