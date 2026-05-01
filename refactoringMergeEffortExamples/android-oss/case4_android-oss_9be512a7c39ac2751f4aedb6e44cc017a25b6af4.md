@@ -1,4 +1,4 @@
-# Case 4 [Strong] — Project: android-oss — Merge commit SHA1: 9be512a7c39ac2751f4aedb6e44cc017a25b6af4
+# Case 4 — Project: android-oss — Merge commit SHA1: 9be512a7c39ac2751f4aedb6e44cc017a25b6af4
 
 ## Modified file(s):
 - `app/src/main/java/com/kickstarter/viewmodels/outputs/DiscoveryViewModelOutputs.java`
@@ -74,7 +74,7 @@ This is a **Change_Return_Type** conflict. P1 changed the return type of `showPr
 1. Adopt P1's new return type `Observable<Pair<Project, RefTag>>` on the interface
 2. Write the implementation body combining P2's `showProject` subject (as the trigger source) with P1's `params + map(...)` transformation (`++` lines)
 
-The `++` lines on the implementation body are the merge's reconciliation work: using P2's subject name (`showProject`) inside P1's transformation pipeline. This cross-parent synthesis is the core of the merge effort. The case is defensible for IEEE TSE: a return type change on a public interface method forces all implementors and consumers to be updated, the parent attribution is clear, and the `++` lines represent non-trivial behavioral synthesis.
+The `++` lines on the implementation body are the merge's reconciliation work: using P2's subject name (`showProject`) inside P1's transformation pipeline. This cross-parent synthesis is the core of the merge effort. 
 
 ## Complete diff
 
