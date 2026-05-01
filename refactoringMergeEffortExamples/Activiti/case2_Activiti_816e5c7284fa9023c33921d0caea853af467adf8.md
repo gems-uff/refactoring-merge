@@ -1,4 +1,4 @@
-# Case 2 [Very Strong] — Project: Activiti — Merge commit SHA1: 816e5c7284fa9023c33921d0caea853af467adf8
+# Case 2 — Project: Activiti — Merge commit SHA1: 816e5c7284fa9023c33921d0caea853af467adf8
 
 ## Modified file(s):
 - `modules/activiti-rest/src/main/java/org/activiti/rest/api/RestResponseFactory.java`
@@ -136,7 +136,7 @@ This is a **Split_Attribute** (and **Rename_Attribute**) conflict. P1 split each
 4. Write the eight new getter/setter pairs (`++`)
 5. Update `RestResponseFactory` to use the new split setter names (`setParentTaskUrl`, `setProcessDefinitionUrl`, etc.) and to read IDs from `response` instead of `task` (`++`/`--` on the condition source)
 
-The `--`/`++` pairs are precisely aligned: each old attribute name is replaced by its new split counterpart. The case is Very Strong and defensible for IEEE TSE: it is a structural split of four REST response attributes across two files, with clear parent attribution from the combined-diff notation and more than 40 merge-effort lines.
+The `--`/`++` pairs are precisely aligned: each old attribute name is replaced by its new split counterpart.  it is a structural split of four REST response attributes across two files, with clear parent attribution from the combined-diff notation and more than 40 merge-effort lines.
 
 ## Complete diff
 
