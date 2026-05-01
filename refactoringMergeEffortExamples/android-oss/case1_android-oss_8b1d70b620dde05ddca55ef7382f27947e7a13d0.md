@@ -1,4 +1,4 @@
-# Case 1 [Very Strong] — Project: android-oss — Merge commit SHA1: 8b1d70b620dde05ddca55ef7382f27947e7a13d0
+# Case 1 — Project: android-oss — Merge commit SHA1: 8b1d70b620dde05ddca55ef7382f27947e7a13d0
 
 ## Modified file(s):
 - `app/src/main/java/com/kickstarter/ui/viewholders/HamburgerNavigationChildFilterViewHolder.java`
@@ -107,7 +107,7 @@ public void onBind() {
 
 This is a **Rename_Method** conflict (with method split on the base class). P1 renamed and split `onBind(@NonNull Object datum)` into `bindData(@Nullable Object data)` + `onBind()` on `KSViewHolder`. P2 simultaneously added five new ViewHolder subclasses against the old API. The merge had to write the full two-method body for all five classes (28 `++` lines), conforming to P1's new contract.
 
-The evidence is unambiguous: the `-` lines (P2 discards) show the old `onBind(@NonNull Object datum)` signature; the `++` lines produce `bindData` + `onBind()` in its place. The pattern repeats identically across five independent files, confirming a systematic refactoring conflict. The case is defensible for IEEE TSE: the rename changes the lifecycle contract of a base class, the parent attribution is directly readable from the combined-diff notation, and the `++` lines are behaviorally non-trivial.
+The evidence is unambiguous: the `-` lines (P2 discards) show the old `onBind(@NonNull Object datum)` signature; the `++` lines produce `bindData` + `onBind()` in its place. The pattern repeats identically across five independent files, confirming a systematic refactoring conflict. 
 
 ## Complete diff
 
