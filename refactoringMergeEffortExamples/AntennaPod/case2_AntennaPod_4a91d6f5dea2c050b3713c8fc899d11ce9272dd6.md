@@ -1,4 +1,4 @@
-# Case 2 [Strong] — Project: AntennaPod — Merge commit SHA1: 4a91d6f5dea2c050b3713c8fc899d11ce9272dd6
+# Case 2 — Project: AntennaPod — Merge commit SHA1: 4a91d6f5dea2c050b3713c8fc899d11ce9272dd6
 
 ## Modified file(s):
 - `core/src/main/java/de/danoeh/antennapod/core/service/download/handler/FeedParserTask.java`
@@ -79,7 +79,7 @@ The merge had to:
 3. Update the import path for `DownloadStatus` in `FeedSyncTask` (` -` old / ` +` new)
 4. Update the import path for `DownloadError` in `OnlineFeedViewActivity` (` -` old / ` +` new)
 
-The `++` lines on the constructor arguments are directly traceable to the `Change_Parameter_Type` refactoring in P1. The case is Strong and defensible for IEEE TSE: the constructor signature mismatch is unambiguous, the parent attribution is clear, and the move of class packages is confirmed by the import changes.
+The `++` lines on the constructor arguments are directly traceable to the `Change_Parameter_Type` refactoring in P1. The  constructor signature mismatch is unambiguous, the parent attribution is clear, and the move of class packages is confirmed by the import changes.
 
 ## Complete diff
 
