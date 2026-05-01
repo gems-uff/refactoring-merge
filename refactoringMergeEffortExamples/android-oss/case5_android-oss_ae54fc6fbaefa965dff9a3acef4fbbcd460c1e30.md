@@ -1,4 +1,4 @@
-# Case 5 [Medium] — Project: android-oss — Merge commit SHA1: ae54fc6fbaefa965dff9a3acef4fbbcd460c1e30
+# Case 5 — Project: android-oss — Merge commit SHA1: ae54fc6fbaefa965dff9a3acef4fbbcd460c1e30
 
 ## Modified file(s):
 - `app/src/main/java/com/kickstarter/models/User.java`
@@ -75,7 +75,7 @@ public abstract class User implements Parcelable {
 
 This is a **Rename_Attribute** conflict. P1 renamed `launchedProjectsCount` → `createdProjectsCount` in the `User` model. P2 was simultaneously adding new attributes to `User` without awareness of P1's rename. The merge had to write `createdProjectsCount` in the new canonical position and style (`++` lines), after the old `launchedProjectsCount` was removed (`-` line from P1) and P2's conflicting declarations were discarded (` -` lines).
 
-The evidence is clear: the `-` line removes `launchedProjectsCount`; the `++` line places `createdProjectsCount` in its final form. The same rename is confirmed symmetrically in `Builder`. The case is defensible for IEEE TSE: the rename is surgical (one attribute), it propagates to both the model interface and its builder, and the parent attribution is directly readable from the combined-diff notation.
+The evidence is clear: the `-` line removes `launchedProjectsCount`; the `++` line places `createdProjectsCount` in its final form. The same rename is confirmed symmetrically in `Builder`. 
 
 ## Complete diff
 
