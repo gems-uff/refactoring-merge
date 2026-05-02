@@ -110,9 +110,9 @@ The merge had to reconcile: P1's `private` constants vs P2's `public` constants,
 
 P2 performed two refactorings that caused merge conflicts with P1:
 
-### 1. Replace_Attribute — visibility promotion of all `RTP_MEDIA_*` constants
+### 1. Replace Attribute Modifier — visibility promotion of all `RTP_MEDIA_*` constants
 
-All 16 constants changed from `private static final` to `public static final` in P2. P1 still had `private static final`. The merge produced `--` lines removing all private declarations and `++` lines introducing the public versions — a **Replace_Attribute** (change of modifier/visibility) applied uniformly across the entire constant set.
+All 16 constants changed from `private static final` to `public static final` in P2. P1 still had `private static final`. The merge produced `--` lines removing all private declarations and `++` lines introducing the public versions — a **Replace Attribute Modifier** (change of modifier/visibility) applied uniformly across the entire constant set.
 
 ### 2. Rename_Attribute — `RTP_MEDIA_MPEG4_AUDIO` → `RTP_MEDIA_MPEG4_LATM_AUDIO`
 

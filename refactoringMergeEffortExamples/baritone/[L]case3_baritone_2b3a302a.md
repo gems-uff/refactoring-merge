@@ -105,5 +105,5 @@ mode 000000,100644..100644
 diff --cc src/launch/resources/mixins.baritone.json
 @@@ -8,21 -8,26 +8,22 @@@
  -    \"MixinGuiChat\",
-++    \"MixinChatScreen\",
+
 ```

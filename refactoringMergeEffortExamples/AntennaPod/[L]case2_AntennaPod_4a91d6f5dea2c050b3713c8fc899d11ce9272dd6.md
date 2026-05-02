@@ -54,7 +54,7 @@ import de.danoeh.antennapod.model.download.DownloadError;
 ```
 
 ## Number of merge-effort lines (++ and --) associated with the refactoring types under analysis:
-6 lines (5 `++` and 1 `--` — the import `java.util.Date` and the 4 constructor argument lines are `++`; the old 2-arg constructor call is discarded as ` -`)
+5 lines
 
 ## What each side had
 
