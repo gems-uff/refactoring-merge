@@ -1,4 +1,4 @@
-# Case 2 — Project: baritone — Merge commit SHA1: 5ae4f23886dac7ba9a5975c8e00bee3bf6fa4d17
+# Case 6 — Project: baritone — Merge commit SHA1: 5ae4f23886dac7ba9a5975c8e00bee3bf6fa4d17
 
 ## Modified file(s):
 - `src/comms/java/cabaletta/comms/IMessageListener.java`

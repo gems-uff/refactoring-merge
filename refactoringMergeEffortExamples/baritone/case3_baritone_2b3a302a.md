@@ -1,4 +1,4 @@
-# Case 1 — Project: baritone — Merge commit SHA1: 2b3a302a5fdae4d150c381d48436c4d674c275b2
+# Case 3 — Project: baritone — Merge commit SHA1: 2b3a302a5fdae4d150c381d48436c4d674c275b2
 
 ## Modified file(s):
 - `src/launch/java/baritone/launch/mixins/MixinChatScreen.java`

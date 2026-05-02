@@ -1,4 +1,4 @@
-# Case 3 — Project: baritone — Merge commit SHA1: 6f843bd24da1a9ea62f653b216d6e25012392133
+# Case 5 — Project: baritone — Merge commit SHA1: 6f843bd24da1a9ea62f653b216d6e25012392133
 
 ## Modified file(s):
 - `src/main/java/baritone/pathing/movement/MovementHelper.java`
