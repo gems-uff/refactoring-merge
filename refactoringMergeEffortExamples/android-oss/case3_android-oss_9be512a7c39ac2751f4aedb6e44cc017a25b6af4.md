@@ -1,4 +1,4 @@
-# Case 3 [Strong] — Project: android-oss — Merge commit SHA1: 9be512a7c39ac2751f4aedb6e44cc017a25b6af4
+# Case 3 — Project: android-oss — Merge commit SHA1: 9be512a7c39ac2751f4aedb6e44cc017a25b6af4
 
 ## Modified file(s):
 - `app/src/main/java/com/kickstarter/ui/viewholders/ProfileCardViewHolder.java`
@@ -75,7 +75,7 @@ This is a **Rename_Method** conflict. P1 renamed `projectCardClick` → `project
 2. Write the new dispatch call in `onClick` (`++` line replacing `projectCardClick`)
 3. Fix the parameter type mismatch in `ProfileViewModel`: the `--` / `++` pair corrects `ProjectCardViewHolder` → `ProfileCardViewHolder`
 
-The ` -` and `++` lines directly on the interface method name and call site are unambiguous evidence of a **Rename_Method** conflict. The additional `--`/`++` pair on the `ProfileViewModel` method signature represents a **Change_Parameter_Type** conflict caused by P2 using the wrong ViewHolder type. Both are defensible for IEEE TSE: the rename affects an interface contract, crosses two files, and the parent attribution is clear from the combined-diff notation.
+The ` -` and `++` lines directly on the interface method name and call site are unambiguous evidence of a **Rename_Method** conflict. The additional `--`/`++` pair on the `ProfileViewModel` method signature represents a **Change_Parameter_Type** conflict caused by P2 using the wrong ViewHolder type. 
 
 ## Complete diff
 

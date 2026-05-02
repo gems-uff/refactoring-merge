@@ -1,4 +1,4 @@
-# Case 1 [Very Strong] — Project: Activiti — Merge commit SHA1: 1187d8ae123dae3899a052d9d8170eea783bb5df
+# Case 1 — Project: Activiti — Merge commit SHA1: 1187d8ae123dae3899a052d9d8170eea783bb5df
 
 ## Modified file(s):
 - `modules/activiti-engine/src/main/java/org/activiti/engine/compatibility/Activiti5CompatibilityHandler.java`
@@ -140,7 +140,7 @@ More than 60 lines (30+ `++` and 30+ `--`), spread across 15 files
 
 ## Interpretation
 
-This is a **Change_Parameter_Type** refactoring conflict — one of the largest and most defensible cases for IEEE TSE. P1 changed the parameter type of every method in the async executor subsystem from the concrete `JobEntity` to the `Job` interface, reflecting an abstraction-layer-widening refactoring. P2 simultaneously modified the same files without knowledge of P1's type change.
+This is a **Change_Parameter_Type** . P1 changed the parameter type of every method in the async executor subsystem from the concrete `JobEntity` to the `Job` interface, reflecting an abstraction-layer-widening refactoring. P2 simultaneously modified the same files without knowledge of P1's type change.
 
 The evidence is unambiguous: every `--` line removes `JobEntity` and every `++` line introduces `Job` in its place — across interfaces, concrete classes, anonymous classes, fields, constructors, and local variables in 15 files. The parameter name change `jobEntity` → `job` in factory methods is also a **Rename_Parameter** refactoring applied as part of the same effort.
 

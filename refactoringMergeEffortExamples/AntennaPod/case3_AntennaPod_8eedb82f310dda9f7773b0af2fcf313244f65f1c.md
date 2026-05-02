@@ -1,4 +1,4 @@
-# Case 3 [Medium] — Project: AntennaPod — Merge commit SHA1: 8eedb82f310dda9f7773b0af2fcf313244f65f1c
+# Case 3 — Project: AntennaPod — Merge commit SHA1: 8eedb82f310dda9f7773b0af2fcf313244f65f1c
 
 ## Modified file(s):
 - `core/src/main/java/de/danoeh/antennapod/core/service/download/DownloadServiceNotification.java`
