@@ -333,12 +333,13 @@ The examples extracted during the manual inspection of real open-source merge co
 ## Team
 
 - **André Oliveira** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: andrelucio@ic.uff.br
+- **João Victor Monteiro** — Veiga de Almeida University, Brazil. E-mail: joaovictor.monteiro@veigadealmeida.edu.br
 - **Vânia Neves** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: vania@ic.uff.br
 - **Alexandre Plastino** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: plastino@ic.uff.br
 - **Leonardo Murta** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: leomurta@ic.uff.br
 - **Bianca Trinkenreich** — Colorado State University, Fort Collins, CO, USA. E-mail: bianca.trinkenreich@colostate.edu
 - **Alessandro Garcia** — Pontifical Catholic University of Rio de Janeiro (PUC-Rio), Rio de Janeiro, Brazil. E-mail: afgarcia@inf.puc-rio.br
-- **João Victor Monteiro** — Veiga de Almeida University, Brazil. E-mail: joaovictor.monteiro@veigadealmeida.edu.br
+
 
 ## License
 
