@@ -324,9 +324,21 @@ This folder contains two compressed .csv files: **ds_os_join.csv** and **ds_os_s
 |64|zaproxy|9,544|3,121|1,582|1,539|
 |-|**Totals**|**1,281,477**|**127,256**|**35,986**|**91,270**|
 
+## Open-Source Project Inspection Examples
+
+The examples extracted during the manual inspection of real open-source merge commits are available in the [`refactoringMergeEffortExamples`](https://github.com/gems-uff/refactoring-merge/tree/master/refactoringMergeEffortExamples) folder.
+
+- [Open-Source Project Inspection Examples](https://github.com/gems-uff/refactoring-merge/tree/master/refactoringMergeEffortExamples)
+
 ## Team
 
-Hidden due to paper submission.
+- **André Oliveira** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: andrelucio@ic.uff.br
+- **Vânia Neves** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: vania@ic.uff.br
+- **Alexandre Plastino** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: plastino@ic.uff.br
+- **Leonardo Murta** — Computing Institute, Fluminense Federal University (UFF), Niterói, RJ, Brazil. E-mail: leomurta@ic.uff.br
+- **Bianca Trinkenreich** — Colorado State University, Fort Collins, CO, USA. E-mail: bianca.trinkenreich@colostate.edu
+- **Alessandro Garcia** — Pontifical Catholic University of Rio de Janeiro (PUC-Rio), Rio de Janeiro, Brazil. E-mail: afgarcia@inf.puc-rio.br
+- **João Victor Monteiro** — Veiga de Almeida University, Brazil. E-mail: joaovictor.monteiro@veigadealmeida.edu.br
 
 ## License
 
