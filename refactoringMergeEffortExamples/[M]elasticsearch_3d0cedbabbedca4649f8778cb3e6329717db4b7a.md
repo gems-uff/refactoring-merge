@@ -1,4 +1,4 @@
-# Case 3 — Project: elasticsearch — Merge commit SHA1: 3d0cedbabbedca4649f8778cb3e6329717db4b7a
+Project: elasticsearch — Merge commit SHA1: 3d0cedbabbedca4649f8778cb3e6329717db4b7a
 
 ## Modified file(s):
 - `core/src/main/java/org/elasticsearch/action/support/replication/BasicReplicationRequest.java`
