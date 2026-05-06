@@ -256,7 +256,7 @@ The study were conducted with **64 open-source projects** between **May 2025** a
 
 This folder contains two compressed .csv files: **ds_os_join.csv** and **ds_os_split.csv** (available in this repository - folder *project-corpus*). Each dataset row represents a merge commit and its collected/calculated attributes. In the first one, the total number of refactorings for each type is added without considering the branch on which it was implemented. In the second one, these amounts are separated by branches.
 
-#|Project Name|Oldest Commit|Newest Commit|NC|NMC|NMC-nff|NVMC
+#|Project Name|Oldest Commit date|Newest Commit date|NC|NMC|NMC-nff|NVMC
 | --- | ----------------- | ----- | --- | ------ | ---- | ---- | ---- |
 |1|Activiti|2012-09-21|2024-06-03|11,696|1,920|682|1,238|
 |2|aeron|2014-02-27|2024-06-03|17,074|957|157|800|
