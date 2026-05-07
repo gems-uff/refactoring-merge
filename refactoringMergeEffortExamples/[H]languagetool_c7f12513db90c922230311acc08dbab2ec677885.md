@@ -83,6 +83,3 @@ protected List<RuleMatch> getRuleMatches(String word, int startPos, AnalyzedSent
 
 This case evidences a **Change_Parameter_Type** / parameter addition refactoring on `getRuleMatches`: P2 added a `List<RuleMatch> ruleMatchesSoFar` parameter to allow the method to short-circuit suggestion generation when many errors are found. This conflicts with P1's 3-parameter call sites. The `++` merge effort lines resolve the conflict at every call site by adopting P2's 4-argument signature. Similarly, the `MorfologikMultiSpeller` constructor conflict is resolved by adopting P2's version with `languageVariantPlainTextDict`. Both are well-supported by the diff evidence.
 
-## Complete diff
-
-*(See full diff in `languagetool_c7f12513db90c922230311acc08dbab2ec677885.diff`)*

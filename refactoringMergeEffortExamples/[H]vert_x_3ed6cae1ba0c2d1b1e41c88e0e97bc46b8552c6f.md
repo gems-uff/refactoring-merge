@@ -201,9 +201,3 @@ This is a clear **Rename_Attribute** + **Rename_Method** case. P1 introduced the
 
 The merge effort (`++` and `--` lines) is the direct reconciliation of those two naming schemes: the `--` lines eliminate the P1 naming from definition, call sites, tests, and generated converters, while the `++` lines establish the P2 naming everywhere. The consistent pattern across `HttpClientOptions`, `HttpServerOptions`, both converter files, `ConnectionManager`, `HttpServerImpl`, and test files confirms this is a genuine, surgical rename — not a broad namespace migration — making it a strong and defensible case.
 
-## Complete diff
-
-```diff
-diff --cc src/main/asciidoc/dataobjects.adoc
-[... full raw diff content as provided in the input file ...]
-```

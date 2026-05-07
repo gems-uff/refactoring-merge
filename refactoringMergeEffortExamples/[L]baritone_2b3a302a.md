@@ -80,30 +80,3 @@ Renamed `GuiChat` to `ChatScreen` and `GuiTextField` to `TextFieldWidget` in the
 
 This case evidences a **Rename_Class** refactoring: `MixinGuiChat` was renamed to `MixinChatScreen` in P2 as a consequence of the Minecraft API migration from `GuiChat` to `ChatScreen`. The merge had to reconcile P1's reference to `"MixinGuiChat"` in `mixins.baritone.json` with P2's new class name, producing `++` on the new class declaration (`@Mixin(ChatScreen.class)`, `public class MixinChatScreen`), the renamed field type (`TextFieldWidget`), and the updated entry in the JSON registry. The `++` lines directly confirm the rename: the class annotation, class name, and field type all change together as a unit, which is the hallmark of a Rename_Class refactoring. The conflict is surgical and specific to this mixin class.
 
-## Complete diff
-
-```diff
-diff --cc src/launch/java/baritone/launch/mixins/MixinChatScreen.java
-index 000000000,8d4c867e5..fe52723df
-mode 000000,100644..100644
---- a/src/launch/java/baritone/launch/mixins/MixinChatScreen.java
-+++ b/src/launch/java/baritone/launch/mixins/MixinChatScreen.java
-@@@ -1,0 -1,99 +1,99 @@@
-+ package baritone.launch.mixins;
- -import net.minecraft.client.gui.GuiChat;
- -import net.minecraft.client.gui.GuiTextField;
-++import net.minecraft.client.gui.screen.ChatScreen;
-++import net.minecraft.client.gui.widget.TextFieldWidget;
- -@Mixin(GuiChat.class)
- -public class MixinGuiChat {
-++@Mixin(ChatScreen.class)
-++public class MixinChatScreen {
-     @Shadow
- -    protected GuiTextField inputField;
-++    protected TextFieldWidget inputField;
-
-diff --cc src/launch/resources/mixins.baritone.json
-@@@ -8,21 -8,26 +8,22 @@@
- -    \"MixinGuiChat\",
-
-```

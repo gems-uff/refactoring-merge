@@ -178,12 +178,3 @@ Two refactoring types are clearly evidenced:
 
 Both renames were introduced in P2 before the merge. P1 had made independent edits to the same files (fixing the null-check bodies, restructuring `bridge()` calls), causing conflicts that required explicit merge effort.
 
-## Complete diff
-
-```diff
-diff --cc vertx-core/src/main/java/org/vertx/java/core/sockjs/EventBusBridge.java
-index 6c1350716b,1185922b13..0942dd8db7
---- a/vertx-core/src/main/java/org/vertx/java/core/sockjs/EventBusBridge.java
-+++ b/vertx-core/src/main/java/org/vertx/java/core/sockjs/EventBusBridge.java
-[... full raw diff content as provided in the input file ...]
-```

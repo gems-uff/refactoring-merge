@@ -114,11 +114,3 @@ Three refactoring types are evidenced:
 
 All three cases are strongly supported by the `--` (removed) and `++` (created in merge) markers in the combined diff.
 
-## Complete diff
-
-<details>
-<summary>Click to expand full combined diff</summary>
-
-See uploaded file: `keycloak_97d5f4aafc0caa573557bd18cf88e5906bee85e1.diff`
-
-</details>
