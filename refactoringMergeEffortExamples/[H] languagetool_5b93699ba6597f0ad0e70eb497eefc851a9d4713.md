@@ -61,3 +61,4 @@ public final Element compile(final AnalyzedTokenReadings token, final Synthesize
 ## Interpretation
 
 The merge effort resolves the conflict between P1's `void compile()` (which mutated `this`) and P2's `Element compile()` (which clones and returns). The `++` lines produce the final merged body: P2's clone-and-return logic, with P1's code style (4-space indent, no `this.` prefix, `final` variables). This is a strong case of **Change_Return_Type** (from `void` to `Element`) caused by P2's refactoring. The conflict is structural: callers in the same P2 branch (e.g., `ElementMatcher.resolveReference`) expect a return value from `compile()`, while P1 had void. The merge must reconcile both.
+ 
