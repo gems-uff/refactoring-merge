@@ -1,0 +1,717 @@
+{
+  "What determines merge effort?": {
+    "Branch Management and Workflow Complexity": {
+      "Branches that took a long time to be merged": {
+        "I02_excerpt": "We had several merges with this old flow, a project that stayed in staging for many years.",
+        "I03_excerpt": "When you remember you have to do that merge, sometimes several weeks have already passed; if there's a conflict, it's annoying to resolve."
+      },
+      "Long branches": {
+        "I07_excerpt": "We have a case of a specific developer who... ends up having a tendency to stay with the branch for a long time, taking a long time to return that code to the release branch.",
+        "I09_excerpt": "The longer you take to deliver your changes in a branch, the longer it takes to discover if you'll have a conflict. Then you run the risk of having more conflicts.",
+        "I20_excerpt": "Some developers, unfortunately, have the bad habit of remaining for a long time with their branches, and it is usually that developer with more difficulty who needs some support, and conflicts arise almost inevitably."
+      },
+      "Many branches in parallel": {
+        "I01_excerpt": "We have 3 branches: the current one, the one with business IBs, and one for technical debt. They are very specific updates at specific points that will hardly have any merge conflict.",
+        "I04_excerpt": "If we are working on the same code, although in different branches, when the time comes to merge... if the conversation and communication don't happen, a conflict will certainly occur.",
+        "I05_excerpt": "Now we have 5 people, so we are starting to have cases of merge problems again, but still nothing very serious recently.",
+        "I09_excerpt": "You have many branches of production, some of staging, and some for future development work being done in an isolated way, and when finished, they will be merged into the main branch.",
+        "I10_excerpt": "We have 3 developers acting at the moment... what we have done precisely to try and avoid this merge situation is to separate by components what each one will touch.",
+        "I14_excerpt": "They have a lot of branches open in parallel according to the demands they are serving. It was a situation that caused conflicts periodically because of the amount of demands running.",
+        "I15_excerpt": "We began living with many flows together because there were several releases, and you had to carry code from chronologically older releases forward to newer ones, creating a lot of conflicts.",
+        "I28_excerpt": "If you start opening a lot of flows for every little thing you do, it becomes an absolute hell to join everything back into a single flow.",
+        "I29_excerpt": "When it starts to have a lot of separate branches and high concurrency, we have to spend time working on these merges which are sometimes quite complicated. When a lot of people are working on the same thing, those conflicts give a bit of extra work."
+      },
+      "Large Projects": {
+        "I02_excerpt": "It was a very large project for 'Carga', and it stayed in staging for many years.",
+        "I05_excerpt": "But recently we had a very large project and it was very mixed, so we had plenty of problems, yes.",
+        "I09_excerpt": "In a large project like this, with many people delivering and many people fixing production incidents, I don't manage to follow all the evolutions.",
+        "I14_excerpt": "They have a single repository for everything, which has at least 15 years of history. That was a situation where I saw the most broken merges; every week there was something to merge."
+      },
+      "Evolutive maintenance": {
+        "I07_excerpt": "The reasons why we change code? From demand, be it corrective or evolutive.",
+        "I09_excerpt": "I see the difference in effort between when refactoring happens and when it's more evolution—evolutive maintenance that has no refactoring."
+      },
+      "Corrective maintenance": {
+        "I03_excerpt": "In some systems with fewer developers or less active development, just maintenance... the chance of having to handle a conflict is much smaller.",
+        "I07_excerpt": "When a corrective maintenance occurs in the production branch... we create the correction branch, make the change and throw it back to the production branch.",
+        "I09_excerpt": "The day-to-day is the correction of the production version... these changes are merged from the deployed branch to a main production branch or master."
+      },
+      "<<NEW>> Branches delayed by client homologation or external bureaucracy accumulate complex refactoring conflicts over time": {
+        "I16_excerpt": "We have some evolutionary demands that depend on client homologation and stay halted due to a bureaucratic step; then every now and then a refactoring impacts these halted branches, which generates the most conflicts."
+      }
+    },
+    "Code Structure and Design Quality": {
+      "Changes to files with project dependencies": {
+        "I09_excerpt": "Any evolution determined by Infrastructure or engineering teams relative to dependency evolution also has to be merged, because some of these evolutions imply code changes."
+      },
+      "Development without using design patterns": {},
+      "Large Commits": {
+        "I03_excerpt": "Let's try to make small and fast commits; instead of accumulating changes and sending a giant commit that will probably run into a merge problem."
+      },
+      "Lack of refactoring can also generate conflicts": {},
+      "Large number of files changed": {
+        "I03_excerpt": "Sometimes it's not even a refactoring, but for some reason, you had to change several files at the same time.",
+        "I07_excerpt": "The higher the number of classes refactored... the higher are the chances of conflict and higher the chances of you having a greater merge effort.",
+        "I09_excerpt": "If he scans the entire project making this type of alteration, I will possibly have a conflict in every class he alters, so the quantity is also greater."
+      },
+      "Tightly coupled code": {
+        "I03_excerpt": "Refactorings in a system with high coupling are always a headache.",
+        "I07_excerpt": "As the code... was highly coupled, to make a small change, you had to touch a gigantic file that did thousands of other things. It generated many conflicts."
+      },
+      "Changes to core functionality that involve many pieces of code": {
+        "I09_excerpt": "You're altering a class here that ceased to exist on this other side... you'll have indications of where the class went or that it ceased to exist. Much of it you'll have to do by hand.",
+        "I16_excerpt": "There are functionalities that span the entire system, like an entire module being worked on, and we have had cases with a lot of merge effort because of that.",
+        "I20_excerpt": "When you have developers working on common parts of the code... there is a reuse of components and classes, and sometimes there is a base component, which is like the building block of others, and if someone touches it, it will affect everyone.",
+        "I23_excerpt": "It happens when you have features that share code. For example, in the backend, we move a lot in a BC tobacco that is used by dos features that are running in parallel, and when you combine them, there is always a merge."
+      },
+      "Large Classes": {
+        "I02_excerpt": "The classes were very large; some BO Business classes had more than 5,000 lines.",
+        "I03_excerpt": "A Java class that is accessed in various points of the system; if you start changing it a lot, you'll likely conflict with someone.",
+        "I05_excerpt": "We had a lot of problems in the old project that had these super classes with thousands of lines, and that ends up generating more problems.",
+        "I07_excerpt": "These highly coupled classes, which have many responsibilities... will fatally generate merges with many conflicts.",
+        "I09_excerpt": "When the team was still divided and standards weren't followed, it generated a lot of merge effort, and sometimes the merge was on the entire class.",
+        "I15_excerpt": "Sometimes the class is gigantic, which is also a problem... but in some cases, you know it ends up being necessary.",
+        "I26_excerpt": "Sometimes there's a class or method with more than 1000 lines like that. It's complicated to touch that; no one wants to touch it.",
+        "I27_excerpt": "In our last release, we had many conflicts because a large backlog item was implemented entirely in a single HTML and TypeScript file instead of being modularized into separate components, creating a giant file where everyone touched at the same time.",
+        "I30_excerpt": "In Java, it happens much more frequently when there is a class that is the 'do-it-all' class; there are a lot of merges in that god class that everyone has to touch."
+      }
+    },
+    "Refactoring and Technical Debt Activities": {
+      "Have some refactoring": {
+        "I03_excerpt": "Refactoring is a classic case where you inevitably end up touching many different places.",
+        "I08_excerpt": "It happens, for example, when we were doing some refactorings to rename classes, we were putting everything into standards and new packages, etc.",
+        "I09_excerpt": "When there is a very large refactoring in the project, it implies changing the class package... it's especially difficult because they are codes in different locations.",
+        "I11_excerpt": "If I focus on Sonar... there will be a tendency to have merges because they are specific things, so I might be working on the same program as another person."
+      },
+      "Implementation of technical debt": {
+        "I07_excerpt": "We also did it for technical debts, for meeting sonar metrics, for example.",
+        "I10_excerpt": "Technical debt situations appear and we sometimes try to resolve them... when we try to resolve technical debt while developing something else, and someone else is touching that sensitive part, it ends up causing a conflict.",
+        "I13_excerpt": "You end up identifying something there that is standard and then you are forced to accept those changes, and then, like that, this ends up generating a technical debt that you will have to correct later, understand?",
+        "I16_excerpt": "Whenever we have the opportunity to attack these technical debts, we pick them to refactor some part of that code, and this generally generates a lot of conflicts.",
+        "I27_excerpt": "You can be resolving a comprehensive technical debt that spans the entire system, like replacing a deprecated logging class across all Java artifacts, which then conflicts with specific files being modified by colleagues for their backlog items."
+      },
+      "Initiative of developers who like to standardize coding methods": {
+        "I09_excerpt": "There's a group that likes to standardize things. The people most accustomed to standardizing get uncomfortable with the lack of standardization and perform a refactoring."
+      },
+      "Non-adherence to standards and work methodology (eg. Checkstyles)": {
+        "I03_excerpt": "If you follow a certain set of best practices, these scenarios—which are very unpleasant—don't happen.",
+        "I05_excerpt": "Refaiserupattern de desenvolvimento em termos de tipo, mas a equipe não usa uma ferramenta tipo checkstyle onde você não padroniza o código.",
+        "I09_excerpt": "When it's implemented without method ordering and you perform the merge, the person with automatic method ordering receives code from those who didn't order it and it already changes the order.",
+        "I15_excerpt": "The team did not use any checkstyle to organize the code or keep an indentation standard... then at some point you used it and refactored the code based on a checkstyle, reorganizing methods alphabetically, and that gets in the way of understanding what was done.",
+        "I17_excerpt": "Tinha um que pula mais linha, tem outro que pula menos linha... então isso ia gerando merge desnecessários por vaidade, porque ele gostava daquele estilo ali de... É simplesmente estilo de indentação de código, entendeu?",
+        "I24_excerpt": "What causes the most problems nowadays is the Eclipse formatting—that code style from the Eclipse formatting. So it has happened many times where one developer is using one style and another is using a different one, and when it's time to merge, it's simply spaces and lines, not code alterations themselves. This sometimes gives unnecessary work.",
+        "I26_excerpt": "In version 59 there was no code style verification and in 63 there is, so several formatting and stylistic things change in that process.",
+        "I30_excerpt": "When you don't have what we call a 'save action' to format files automatically upon saving, everyone has their own formatting, and it becomes a terror when one developer modifies code that another already touched."
+      },
+      "Implementing technical debt along with business changes": {
+        "I07_excerpt": "The perception is that yes, it [refactoring] can have influence... especially when we are dealing with this code refactoring to address these technical debts produced by tools.",
+        "I09_excerpt": "I know that when they deliver things, I'll have more problems because the guy, besides correcting, did a refactoring. He gave an extra improvement to that code."
+      },
+      "<<NEW>> Refactorings driven by static analysis recommendations (e.g., Sonar)": {
+        "I06_excerpt": "Sonar usually points out complexity... it asks you to break it down into several methods. If two developers break it down, they might give the methods different names, causing a conflict.",
+        "I11_excerpt": "We have to talk about refactoring... the big cause is Sonar, which we use; it will look for codes that have a problem.",
+        "I23_excerpt": "Sometimes a person is focused on doing a refactoring to address Sonar warnings... but at the same time, another colleague was working on a feature that also touches that same component you are refactoring.",
+        "I25_excerpt": "I dedicated myself to a series of maintenances to improve our score in Sonar... I went there and created a constant, and most of the time this substitution was very smooth... but in one of those I placed it wrong, so a constant like that substituted something that wasn't exactly equal due to an error of mine.",
+        "I30_excerpt": "We have to fix Sonar because the indicators are low, so someone has to go there to remove the complexity of a method while another person is modifying it, and you split the method while they are working on it; that is despair."
+      }
+    },
+    "Technology or Ecosystem Constraints": {
+      "Frontend changes tend to generate more conflicts": {
+        "I05_excerpt": "Mainly screen issues, people touching the screen and DAOs, in queries and such, there were many changes.",
+        "I11_excerpt": "I prefer doing the back-end merge over doing the JavaScript merge... I think it's much more unstable.",
+        "I15_excerpt": "I always see that frontend merges are more complex, perhaps because frontend languages are very detailed regarding spaces or semicolons right on the edge, less so than in the backend.",
+        "I19_excerpt": "It was related to UX demands and consequently front-end code, which end up having more merge conflicts."
+      },
+      "Technology changes": {
+        "I08_excerpt": "Eclipse is very annoying to handle merges in Git. I don't have full intimacy with Git on the command line, so I try to do everything through Eclipse... the Eclipse tool is not good for resolving conflicts; it's confusing.",
+        "I09_excerpt": "When we have to evolve some technology that is being discontinued or is already deprecated. There are situations where we have no choice; we are forced by the company.",
+        "I10_excerpt": "It is a bit more delicate because we are migrating systems from an older version, from Angular to a more recent one.",
+        "I11_excerpt": "Suppose a front-end component has already been deprecated... then I have to swap it for a newer one. This causes me much more concern than messing with that pure Java code."
+      },
+      "Poorly structured legacy systems with older code style": {
+        "I01_excerpt": "In JSF, the code had a lot of duplicated code, several validations done in various places, the same validation."
+      },
+      "<<NEW>> Inconsistent IDE configurations across developers": {
+        "I04_excerpt": "Each developer had a specific configuration on their machine, and when they committed... the alignment of implementation artifacts was completely different, which already caused conflicts."
+      },
+      "<<NEW>> Git GUI interfaces misinterpreting merge direction compared to command line": {
+        "I18_excerpt": "We had a really bad experience using the Git interface because in a process where you merge one branch into another, Git gets confused when you use the interface regarding who is the source and who is the destination of the merge. For some reason, it inverted it, and it started messing up our entire code."
+      },
+      "<<NEW>> Graphical user interface (GUI) tools getting lost or failing to track complex file renames and moves": {
+        "I21_excerpt": "Graphical interface tools get lost a bit more regarding file renames—whether a file stays or doesn't stay, when it was renamed, sometimes folders are deleted or renamed and trash is left behind. In general, I would say this type of thing is much more easily resolved using the line of command."
+      }
+    },
+    "Multi-Environment and Release Synchronization": {
+      "Development culture in releases in an ecosystem formed by many systems": {
+        "I14_excerpt": "We have this release-based delivery model, which is more complicated because everyone goes and packages things, sets up release 63, then 67, that huge package delivered all at once."
+      },
+      "Multiple development environments that require code merging": {
+        "I09_excerpt": "Working with different releases in parallel increases the quantity of merges and, consequently, the effort. We have challenges because there are different evolutions across three releases."
+      },
+      "Need for code updates across multiple active releases": {
+        "I09_excerpt": "Everything done in the oldest version is merged to the middle one, and from that one to the future release. Anything done in the middle version goes only to the future one.",
+        "I15_excerpt": "Every time you have an incident treatment, you also have to navigate what was deployed in production across the other future releases, which is when more merge conflicts usually occur.",
+        "I18_excerpt": "We are currently with release 63, which they approved but didn't deploy yet. So when an error happens in production, we have to perform a hotfix, update master, pull the update to master, pull it to release 63, and then pull it to release 67. So it gets quite annoying when you have to perform merges.",
+        "I22_excerpt": "The conflicts I have encountered are usually due to this work in multiple versions that we have to develop in parallel, and sometimes we have to make corrections on top of production, on top of a future release, and it's a lot of things being developed at the same time."
+      }
+    },
+    "People and Team Processes": {
+      "Lack of a unit testing culture or low unit test coverage": {
+        "I05_excerpt": "And then it generates this rework... retesting what has sometimes already been tested because it touched something someone else already... we don't know how the final result turned out.",
+        "I25_excerpt": "Most conflicts have to do with a lack of tests, or with the idea of testing only in the environment... each one has a way of working and he just wants to work there. These ways of working of not having this habit of testing are what create problems.",
+        "I26_excerpt": "We have few unit tests, and that leaves us very fearful of merging and deploying hotfixes, you know? With tests, you refactor, run them again, and if everything goes well, you proceed with total peace of mind."
+      },
+      "Lack of business knowledge": {
+        "I09_excerpt": "If I weren't a 100% understander of the business, maybe I wouldn't depend on the help of the implementers to resolve these conflicts.",
+        "I13_excerpt": "Business knowledge so you can understand what is being done, right?",
+        "I16_excerpt": "Some developers have more knowledge of the system's business rules, and others don't, so we have to stop together to evaluate the business rules to make sure we aren't breaking anything."
+      },
+      "Developers' attention lapses in repository updates and code merges": {
+        "I03_excerpt": "Someone forgets they made a change in a branch and forgot to pull it to another branch that branched off from it.",
+        "I05_excerpt": "Someone did the merge and overwrote some code because they didn't pay attention. I think that is almost human inattention, it would be the worst problem.",
+        "I28_excerpt": "Over 20 years, it has obviously happened that someone forgot to download something from the repository, programmed over it, pushed it, and erased a colleague's code."
+      },
+      "Lack of communication between developers": {
+        "I01_excerpt": "When we didn't plan the sprint well or distributed the IBs poorly, we end up touching the same functionality and files.",
+        "I04_excerpt": "I think the basis for reducing merge conflicts is communication between teams regarding a specific main functionality where multiple developers are working.",
+        "I05_excerpt": "When there is a bad orientation when we pick the items, right? Sometimes we don't have a nice conversation, someone pulls it and starts doing it and says: 'No man, I'm touching this stuff'.",
+        "I06_excerpt": "And usually you have to call the other developer to help with that merge to identify what needs to be done.",
+        "I09_excerpt": "If the refactorings are different, then I have to discover them. I have to try to understand why this conflict appeared.",
+        "I17_excerpt": "Teve uma pessoa lá que não entrou em contato, não consultou os colegas. Então a gente acabou perdendo parte do código por isso e aí eu só fui perceber isso depois, mais à frente, quando já estava em ambiente de homologação.",
+        "I25_excerpt": "I might still be paying a technical debt that we listed and, without dialogue, without good communication, I might end up bumping into the maintenance of another colleague. So it's another point that is very important."
+      },
+      "Large development teams": {
+        "I01_excerpt": "There were a lot of people too; there was no way not to have a conflict.",
+        "I03_excerpt": "The moment you have more than one person on the team, merging is a reality.",
+        "I07_excerpt": "The team was larger, there were more developers and then it forced me to talk to each developer when I didn't understand what their intention was, what was happening there.",
+        "I09_excerpt": "It's a lot of work when you have a very large team, many correction branches running in parallel, technical debts, backlog items, and production incident corrections.",
+        "I12_excerpt": "I believe that because I've always worked in small teams, right? There aren't many hands touching it. I think that's something that impacts a lot... When you have a lot of people there, you know, making changes.",
+        "I28_excerpt": "In some projects, it's just me and Diego for the backend, so we can coordinate and talk, unlike a project like CCT, which had 20 people working. There it's chaos."
+      },
+      "Work Method": {
+        "I02_excerpt": "One of the implementers used the Eclipse option to format, so sometimes one line became dos, creating a mess.",
+        "I07_excerpt": "This work methodology has been relatively simpler, because these changes are not so large and do not take so long.",
+        "I08_excerpt": "I do a pull from the repository and then apply my local changes on top, which allows me to avoid conflicts; if there's a mess, I know what I changed and I just rewrite it manually.",
+        "I09_excerpt": "In this project, it was agreed that only the DevOps would perform the main merges; when there is a large change, there's an extra challenge.",
+        "I10_excerpt": "We really avoid touching a component knowing that another person is working on it... we really work more isolated, each one working on a component and committing whenever possible.",
+        "I11_excerpt": "The system doesn't have much merge activity because... it's divided by functionality; each person takes a functionality and normally there isn't that code intersection.",
+        "I27_excerpt": "I avoid resolving conflicts the conventional way; if a git pull aborts due to a conflict, I copy my changes to another file, accept the incoming changes, and overwrite my changes back on top to keep total control and avoid merge errors."
+      },
+      "<<NEW>> Developer inexperience": {
+        "I03_excerpt": "Some people, maybe due to inexperience as they are new, were making repeated changes—one in the main branch and a different commit in the newer branch.",
+        "I30_excerpt": "Since we have new people on the team who are sometimes not that experienced with Git and merging, it happens that they call me to clarify doubts or even do the merge together."
+      }
+    }
+  },
+  "How do refactorings influence the merge effort?": {
+    "Time to merge refactorings": {
+      "Branch with refactorings that takes a long time to be merged, due to some impediment": {
+        "I09_excerpt": "If you do it in the future version, you'll take a conflict every time you merge from the oldest version to the future one. Every single time there is an alteration in that class."
+      }
+    },
+    "Refactoring vs. Business Changes": {
+      "Conflicts generated by business changes are more difficult to resolve than those generated by refactorings": {
+        "I13_excerpt": "The effort is always greater when it is a business issue. You look for the person who implemented it, then look for the person who wrote the requirement, verify if that's it...",
+        "I19_excerpt": "If it is a conflict that involves only a business rule, I think it ends up being a bit more difficult... if I am working on a business rule and someone created a conflict that was a refactoring, I imagine it will be a bit easier to deal with because we didn't both change business rules."
+      },
+      "Implementation of business changes along with refactorings": {
+        "I01_excerpt": "Sometimes we have the tendency to refactor while developing a functionality. I think it should be Exponential, this possibility of conflicts if you move in several types.",
+        "I05_excerpt": "When you have a very fast delivery need and many people touching that code... if you stop to do a refactoring, you might be touching code that your friend will be touching in a bit.",
+        "I07_excerpt": "When you are forced to do both things at the same time, refactor... and still meet demands of your client... the merge effort will be great.",
+        "I09_excerpt": "Sometimes it was determined by a business matter, and sometimes you did it just to refactor. That collision always happens.",
+        "I11_excerpt": "Either the person doing that code refactors as they go, before closing the code and delivering, like giving it one last review.",
+        "I14_excerpt": "Out of proactivity, he goes there and refactors something, ending up changing much more than what was requested by the client, and ends up refactoring to improve readability, code performance, or something like that.",
+        "I20_excerpt": "I try to correct something that seems like an error to me. It gets in the way of my demand, but it hasn't been mapped as an error yet.",
+        "I21_excerpt": "Usually the team, for some reason, understands that it's worth doing a refactoring in a certain part... but normally this is done during the development of other things. And then, when your refactoring impacts the part where other people are working, it will invariably result in a merge.",
+        "I22_excerpt": "You see a code that is a bit messy, and in the eagerness to improve it, you try to refactor, break it down, or trim it. This will certainly generate a merge, depending on when the deliveries are made.",
+        "I29_excerpt": "When there is a change in business rules and refactoring, it's the worst of worlds, because you have to reason about the code, what flow it should have, and what path it will have to take now. Working with refactoring in parallel with code evolution, if on one side you are refactoring the structure of that class and on the other you are working on the business of that class, every time you try to integrate that, it's hell on Earth."
+      },
+      "Resolving merge conflicts that involve only refactoring is easier": {
+        "I30_excerpt": "I personally prefer when there is only refactoring because the code already existed and I already knew what it was doing, making the merge easier compared to a conflict with completely new business code."
+      },
+      "Conflicts generated by refactoring are more difficult than conflicts generated by business changes": {
+        "I03_excerpt": "A business change or a more punctual fix is generally peaceful... whereas a refactoring merge is usually more sensitive.",
+        "I04_excerpt": "In the business scenario, I consider what is new. With refactoring, there are local rule changes and I need to understand that change to manage the conflict; in scenario one, I always consider the new rule.",
+        "I05_excerpt": "I think [conflicts involving refactoring] are more difficult because we don't know which one is right, as there is nothing written saying which would be the right way.",
+        "I09_excerpt": "If you ask me to choose which is harder between refactoring and business evolution, it's difficult. I think it depends on the refactoring and the code evolution.",
+        "I15_excerpt": "It is harder with refactoring precisely because refactoring usually groups things differently, breaking things from a single method into dos ou três, ou changing classes.",
+        "I17_excerpt": "O esforço vai ser maior, né? Você tinha um código e não tinha nenhuma refaturação e você pega um código que foi refaturado na hora de você fazer o merge, você vai ter o maior esforço, isso aí sem dúvidas.",
+        "I18_excerpt": "When there is no refactoring, the conflicts appear more easily because the classes are in the same locations. This issue of refactoring has really given us a headache during merges, much more than the other case of touching the same method for business changes.",
+        "I22_excerpt": "I think the refactoring one is harder to resolve because there is a somewhat personal factor there. With business, it's about business rules, so the person can manage because it's kind of a standard. Now, refactoring depends on each developer.",
+        "I27_excerpt": "Conflicts involving refactoring are more difficult to resolve because the code completely changes places or blocks of code are transferred to other files, rather than just having one line replacing another.",
+        "I28_excerpt": "I find it easier when there is no refactoring because the problem is just the business logic. With refactoring, you have to read the whole code to understand it, otherwise you lose the thread when a method is cut in half."
+      }
+    },
+    "Refactoring Type, Size, and Complexity": {
+      "Resolving merge conflicts that involve refactoring is more difficult": {
+        "I02_excerpt": "Refactoring is something that, in my experience, is a bit traumatic.",
+        "I03_excerpt": "When it's a refactoring merge, generally it is more sensitive because it will be altering more files and more code points.",
+        "I05_excerpt": "Refactoring normally is one of the very common cases for generating merges because sometimes you can't predict that that code will be touched and then it generates more conflicts.",
+        "I06_excerpt": "When there is a conflict, you can see that most of the time it is refactoring, indeed.",
+        "I09_excerpt": "Mention refactoring and I already sleep poorly that night, because maybe the next day I'll have more problems doing that merge.",
+        "I10_excerpt": "When you have a refactoring, it ends up being a bit more difficult because you have to understand what it is doing. That adds a degree of complexity to the code review."
+      },
+      "Different types of refactoring influence the merge effort differently": {
+        "I05_excerpt": "I think the impact is smaller when you don't move the line from one place and put it in another... than when you have to take a part of the code and throw it somewhere else.",
+        "I08_excerpt": "It is quite striking sometimes, depending on the type of refactoring, the difficulty of the merge.",
+        "I09_excerpt": "I think it impacts in both ways: either the large volume of the same refactoring or different refactorings. If I'm warned about the type, I'm mentally prepared.",
+        "I16_excerpt": "I believe different types have an influence. I think some specific types will generate a lot of merge effort.",
+        "I23_excerpt": "I think it can make a difference because some refactorings can be very complex. For example, when you go to unify common code from classes with a lot of repeated code into a larger class... this touches many artifacts, so it depends on the type of refactoring to cause greater merge effort."
+      },
+      "The size of a refactoring influences the generation of merge conflicts": {
+        "I03_excerpt": "In my experience, the difficulty is directly related to the size of the commit; more files or more lines of code increase the difficulty exponentially.",
+        "I05_excerpt": "When a refactoring is very large, the risk ends up being very high and I think that generates a greater risk in terms of conflict.",
+        "I09_excerpt": "Change class package—that is a refactoring. You can have a project that is hell until that version is deployed if you make a very large change.",
+        "I12_excerpt": "With someone moving in parallel, certainly.",
+        "I14_excerpt": "When they are small and specific refactorings, I don't believe there is a direct correlation. It depends on the size of the refactoring to cause this impact, so it's only when there is something large that it inevitably ends up touching shared files that others are also modifying.",
+        "I21_excerpt": "In terms of the number of modified files or altered points, yes, because the more altered points on one side, the higher the chance of clashing with an alteration on the other side. There is a higher probability of having a greater merge effort.",
+        "I23_excerpt": "If the refactoring is large, it can be complete and you will certainly have a much greater effort. Now, if it's something localized, the effort will consequently be smaller too.",
+        "I24_excerpt": "Refactoring generates more conflicts because when you start refactoring, it ends up reflecting on the code of the alteration. This ends up touching many classes... you start on one, then it goes reflecting, reflecting, and you end up having to alter a lot of code in this refactoring sometimes.",
+        "I26_excerpt": "When we do a very large refactoring, it's more laborious for everyone because then the merges are more complex. Small packages of continuous refactoring are accepted much more smoothly by the team than a massive one."
+      },
+      "Refactorings that involve technology changes": {
+        "I01_excerpt": "When we started the migration of the attachment from JSF to Spring Boot, we tried to unify the duplicate validations. Until we managed to stabilize, some conflicts occurred in the code.",
+        "I09_excerpt": "Evolution from Thorntail to Spring Boot implied a lot of change. New classes were created, packages changed, and classes ceased to exist, generating absurd work.",
+        "I20_excerpt": "An easy case of refactoring... migrating from Angular JS to the new Angular. There is no way to do it without recreating the code; they are very different frameworks and different languages, so it's not even refactoring, it's recreating.",
+        "I24_excerpt": "This moment here is going to be very impactful... It's a change of the Spring version here, right? It breaks completely. As I am going to perform a version migration, this update that I do ends up requiring me to touch also all the classes of the project. This will be inevitable afterwards; if it can give a conflict, it will give a conflict.",
+        "I28_excerpt": "A short time ago there was a case where they were changing the Angular version, moving from JS to 13, and they ended up acting on the same classes, so there were merge problems."
+      },
+      "The number of refactorings influences the merge effort": {
+        "I01_excerpt": "Yes, for sure, the more refactoring, the more conflicts can appear because refactoring can impact several parts of the system and the code.",
+        "I02_excerpt": "I believe [quantity matters], because it is tiring to look at code by code and make the comparison.",
+        "I03_excerpt": "Definitely. For sure, the more refactorings, the more merge effort.",
+        "I04_excerpt": "I think the quantity of refactorings increases the merge management effort because the person might not know the business and faces ambiguity when deciding what to keep.",
+        "I05_excerpt": "I think [the relationship between quantity and effort] exists, yes, I think so, the effort is greater.",
+        "I06_excerpt": "When there is a lot of refactoring, a lot indeed, it will certainly influence the merge; it requires a bit more effort because a lot of code has moved.",
+        "I07_excerpt": "The higher the number of classes refactored, the higher the number of methods refactored... higher are the chances of conflict and higher the chances of you having a greater merge effort.",
+        "I09_excerpt": "Refactoring implies more merge risk. If it's a lot of refactoring, it's something that will accompany me until that future version becomes stable.",
+        "I10_excerpt": "What I perceive is that it is not necessarily linear... it's not a situation of the more refactorings, the more conflicts appear. Complexity doesn't increase linearly.",
+        "I11_excerpt": "More refactorings will have more possibility of making the merge effort, inclusive of how much it would increase.",
+        "I13_excerpt": "The greater the number of updates, the greater the complexity of doing the merge.",
+        "I15_excerpt": "If you simply refactor to meet certain standards or want to change everything just for the sake of changing, like trying to resolve everything from Sonar all at once, you will make mistakes because it's not a trivial recipe.",
+        "I16_excerpt": "I believe the quantity is connected, yes. I think that in most cases there would be a direct relationship with the merge effort.",
+        "I18_excerpt": "The fact of having many classes or many packages really gives us much more work. It is very much proportional to the number of alterations you make, so the more you refactor, the more work you have during the merge.",
+        "I19_excerpt": "If a developer stops to repair a file like that, it ends up generating a much larger volume of changes, and the chance of a conflict appearing will be very high.",
+        "I22_excerpt": "The probability of having more conflicts is higher, right?",
+        "I25_excerpt": "The refactored code probably will have much more, a much greater quantity of conflicts... but I will perceive based on the volume, when I see more changes, probably I will have an understanding that there was a refactoring.",
+        "I28_excerpt": "The more refactoring, the more effort. I worked on a project where a guy would arrive and refactor the entire code because if it wasn't the way he thought it should be, he couldn't work.",
+        "I29_excerpt": "Theoretically it makes it harder... but I don't remember seeing dos refactorings happening at the same point at the same time.",
+        "I30_excerpt": "The more refactorings, the more problems happen, especially when you have to deal with method complexity metrics and split methods."
+      },
+      "Diversity of refactorings influence the merge effort": {
+        "I01_excerpt": "It influences. I think it increases the possibility of conflict; the more surgical the refactoring, the less possibility of merge issues.",
+        "I02_excerpt": "I believe the chances of the merge becoming critical increase as the types of refactoring increase.",
+        "I03_excerpt": "This type of refactoring [combined changes] will give more work when it falls into the merge because it identifies changes in more files.",
+        "I04_excerpt": "I think diversity influences it because sometimes people refactor just to reduce lines without purpose; this takes away the essence of refactoring which should be intelligibility and reuse.",
+        "I05_excerpt": "I don't perceive a difference in the type of merge because of the variety of refactoring types that exist. I think the effort would be the same.",
+        "I07_excerpt": "It really isn't possible for you to enter the process 'let's clean everything, the whole system' and do several refactorings... the merge effort and the amount of conflicts tend to be enormous.",
+        "I08_excerpt": "YEs, because as you said, there are about 90 different types; many are simple, others are more complex.",
+        "I09_excerpt": "If the refactorings are different, I have to figure it out. I have to understand why the method is in dos places or why the name is different.",
+        "I10_excerpt": "Sometimes there is a certain type of refactoring that one developer is familiar with and another isn't... you have this effort to decide on a certain standardization for your code, which already adds extra effort.",
+        "I12_excerpt": "I imagine it has more to do with the scope of that refactoring you are doing, right? The amount of changes, right? Not necessarily with diversity itself.",
+        "I14_excerpt": "I don't believe that having different types of refactoring should impact the conflict, because again, there will only be a conflict if you are moving the same thing. So no, I don't believe there is a correlation with the increase in refactoring types.",
+        "I15_excerpt": "A single type of refactoring makes it more robotic and easier to resolve the merge, like just changing a package name. But if you change the package name and the class also moves into a subclass, I think that is worse.",
+        "I16_excerpt": "I believe that a varying quantity of types will influence the effort because you will have more chances of conflicts, though it depends heavily on the scenario and what was actually altered.",
+        "I18_excerpt": "If you have only one type of modification, you know exactly what you need to look at. Now, if I perform class name changes and package changes at the same time, I think that is much worse; it becomes much harder to identify what should stay and what should leave.",
+        "I19_excerpt": "I think diversity influences it because if it's only one type of refactoring, analyzing what's happening is faster. But if there are many different types, some might not be obvious, increasing the effort to understand what is going on.",
+        "I25_excerpt": "Having dos different types here... to me I understand that having dos types will immediately double my effort. I have to understand both refactorings and maybe even unify them.",
+        "I26_excerpt": "If it's one type, it's much simpler to do the merge, but if you start combining several types, you have to pay much more attention, so it's much more laborious than just one type.",
+        "I27_excerpt": "Mixing different types of refactorings, like creating new artifacts, removing code, and transferring large blocks elsewhere alongside other minor adjustments, significantly increases the attention and overall effort needed during a merge.",
+        "I28_excerpt": "The merge effort is extremely high because it's no longer enough to just know the business logic; you have to read the code of the person who refactored to understand why they did it.",
+        "I29_excerpt": "When it's more than one type of refactoring, it complicates more. And normally that is common, because someone rarely does just one type of refactoring when refactoring; it's to refactor everything at once.",
+        "I30_excerpt": "The more varied the types of refactorings, the more different ways the code is modified, sometimes altering it very drastically visually, which highly influences the difficulty of the merge."
+      },
+      "Refactoring Complexity": {
+        "I01_excerpt": "Sonar, every now and then, points out the complexity of methods; I think these can eventually lead to more conflicts.",
+        "I08_excerpt": "It all varies according to the complexity of the refactoring; for example, changing a business rule snippet is one thing, but renaming a method and also moving it to a different class is another.",
+        "I09_excerpt": "If it's a refactoring that took a method and divided it in dos, it won't generate extra work. But if it's large in a future version on a class with much evolution, it will always generate conflict.",
+        "I10_excerpt": "In a refactoring conflict, you have to choose between one or the other, or you really still need a 'fourth way'—a combination of the dos refactorings so it stays performant. So, environment with refactoring adds more complexity.",
+        "I12_excerpt": "To me, in principle, the complexity, the amount of things to touch, that's what seems to impact the most."
+      },
+      "Refactorings that involve changes in programming structures.": {
+        "I07_excerpt": "It is even worse when it touches the content of the method, because the name of the method didn't change... you have to try to understand what it was, what is the new one, and that becomes worse.",
+        "I09_excerpt": "Method ordering functionality... if you implement without it and merge, it changes the order of what's implemented. That is chaos because it creates methods in different locations.",
+        "I29_excerpt": "When we have this saving that reorders the methods inside the class, if everyone doesn't have the same structure, the merge complicates everything because it starts comparing distinct paths of the code."
+      },
+      "<<NEW>> Presence of refactoring does not inherently influence conflicts unless touching the exact same code": {
+        "I14_excerpt": "The fact of having refactoring or not does not directly impact it. The only thing that impacts it is if you touch the same thing. The restructuring itself does not influence whether a conflict occurs.",
+        "I27_excerpt": "I think refactoring influences conflicts very little because you generally won't have more than one person working on the same artifact for a refactoring, so it rarely causes collisions in my experience."
+      }
+    },
+    "Developer Expertise, Practices, and Cognitive Effort": {
+      "More common types of refactorings are easier to resolve merge conflicts": {},
+      "Not following refactoring patterns widely known in the market and literature": {
+        "I05_excerpt": "Refactoring is a standardization... when you identify a problem in the code or it was poorly implemented in the past, or for example, it has a very high cyclomatic complexity."
+      },
+      "Refactorings often require low cognitive effort but involve repetitive manual work": {
+        "I02_excerpt": "It becomes tiring; sometimes your eyes get tired and you don't notice a difference there.",
+        "I05_excerpt": "I really like to refactor a lot... I see my class all marked with problems by Sonar, these blue lines, and I feel I have to take them out.",
+        "I09_excerpt": "If I am warned about the refactoring, I already start mentally prepared that I will have the effort—a large manual task, possibly.",
+        "I26_excerpt": "Sometimes it can even be a bit more laborious in quantitative terms, but in terms of the existing logic there, sometimes it seems easier because the context is simpler and smaller."
+      },
+      "The difficulty in understand the motivation behind refactorings can make it difficult to resolve conflicts": {
+        "I03_excerpt": "You have to inspect the code to understand what the developer's intent was at the time so you know which version should stay now.",
+        "I07_excerpt": "When the intention is difficult for us to read and understand, if that produces a conflict in the merge, it becomes difficult for you to understand what is the right and what is the wrong one.",
+        "I09_excerpt": "There's the effort of discovering what the developer did... I have to look at the code and see if there's a difference between that method appearing repeated there.",
+        "I10_excerpt": "Refactoring is associated with problems because it ends up bringing some side effect. Then someone on the other end tries to fix it, and things start to get more tangled there.",
+        "I15_excerpt": "You feel the absence of a method that used to be there, and then you need to understand the code to see where that went. You have this effort to understand a new logic or reasoning."
+      },
+      "<<NEW>> Emotional impact and frustration in conflict resolution": {
+        "I07_excerpt": "Merging these dos coisas que é uma totalmente nova terceira coisa... foi às vezes um pouco frustrante. Isso causa uma questão emotional também, às vezes me irritava um pouco.",
+        "I22_excerpt": "Às vezes você cansa de tentar entender e simplesmente opta por reescrever."
+      },
+      "<<NEW>> Responsibility of the merger for the resulting code": {
+        "I07_excerpt": "O resultado do merge virou uma espécie de responsabilidade de quem estava fazendo o merge, uma vez que o código original de ambos os desenvolvedores funcionava em suas máquinas."
+      },
+      "<<NEW>> Vanity or \"clean-as-you-go\" refactoring before task completion": {
+        "I11_excerpt": "Eu quero que seja um código legal, eu quero refatorar. Você visualiza refatorações antes de entregar por causa de vaidade também; eu não quero entregar um código sujo."
+      }
+    },
+    "Refactoring And Code Spread": {
+      "Refactoring across many files increases merge effort": {
+        "I01_excerpt": "In refactoring, if you do something that covers a large number of code files, the risk is high. If you take a part of the code that covers many files, I think it's a higher risk.",
+        "I03_excerpt": "Refactoring generally involves you reworking several different classes and updating all other system parts that reference those methods.",
+        "I09_excerpt": "If he goes through the whole project doing this kind of change, I will have conflicts in all the classes he changed, so the quantity is greater."
+      },
+      "Refactorings implemented in one or a few files - large files with many refactorings": {},
+      "Refactorings result in difficult merges": {
+        "I02_excerpt": "In that merge, there was a method that disappeared; it left one class to go to another, and the method was deleted.",
+        "I03_excerpt": "The more refactorings you are doing, the worse the merge effort will be when someone pulls those operations.",
+        "I06_excerpt": "In that situation where the most recent branch had a refactoring, moving things around, the person brings it in and can't find their way around, so they have to keep asking questions.",
+        "I09_excerpt": "If the person who did a very large refactoring isn't present, you have to call another experienced developer to understand what he did.",
+        "I13_excerpt": "I ended up putting my hands on a lot of things, and I noticed that when it came time to do the merge, we had a lot of problems. This refactoring part generated a certain effort on the part of the person responsible for doing the merge.",
+        "I23_excerpt": "You go to perform a merge and we get a conflict in the entire class. Sometimes it's code indentation or classes that you were importing unnecessarily... that scary merge tree full of red dots appears, so the effort is definitely large to resolve afterward."
+      },
+      "Refactorings tend to touch more code points, increasing the chances of effort": {
+        "I08_excerpt": "Usually, refactoring involves a larger quantity. Refactoring is a more global thing, so the chance of merge problems is higher.",
+        "I09_excerpt": "Every time someone talks about refactoring, I already raise my eyebrow... refactoring implies more merge risk.",
+        "I11_excerpt": "Refactoring via Sonar... will be points scattered on that screen... we will work on praticamente todo o sistema, ou um pedaço dele.",
+        "I19_excerpt": "Refactoring ends up being something that extends beyond your initial idea of where you needed to touch and alters many different places. The probability of conflicts is higher because it touches more sparse lines throughout the code.",
+        "I28_excerpt": "Refactoring moves a lot of things because you start saying you won't touch just this, but then this calls something else, which uses something else, and suddenly you are modifying 20 Java files because you started refactoring a tiny thing."
+      },
+      "<<NEW>> Global file formatting changes causing widespread diff conflicts": {
+        "I14_excerpt": "What I noticed caused a lot of fights was the issue of code formatting standards. Someone would format the entire class, and boom, it broke the merge for everyone because the whole file appeared in the diff.",
+        "I20_excerpt": "The refactoring happens in an unintentional way because one developer uses a style slightly different from the other, and this involves indentation, line breaks, and spacing... that causes a headache because it increases the volume of changes shown during the merge."
+      },
+      "<<NEW>> Abandoning automated merge tools in favor of manual copy-paste or re-implementation due to extreme refactoring conflict complexity": {
+        "I22_excerpt": "It can get to a point where you abandon the merge and go with control+c, control+v because it can become so complex that it's not worth spending time merging, right? So you simply re-implement or copy and paste the new features that eventually emerged in the other branch."
+      }
+    },
+    "Multi-Developer and Concurrent Work Factors": {
+      "Refactorings implemented in teams with many developers": {
+        "I05_excerpt": "When dos pessoas que estão mexendo naquela classe resolvem fazer aquela refatoração em branchs diferentes, é isso que acaba gerando problema.",
+        "I09_excerpt": "Tem pessoas ali que eu já sei o nome, quando entregam as coisas eu já sei que vou ter mais problemas porque ele refatorou corrigindo.",
+        "I12_excerpt": "Se você juntar os dois fatores, né? Que é a refatoração mais a colaboração com mais, sabe, desenvolvedores, aí provavelmente essa questão de ser uma refatoração começa a ter um peso maior.",
+        "I22_excerpt": "Agora se tiver pessoas evoluindo aquela funcionalidade em um outro branch e você estiver fazendo essa refatoração de código em um branch paralelo, aí sim, com certeza vai causar um baita trabalho, ainda mais se for mais de uma pessoa."
+      }
+    }
+  },
+  "Do refactoring types influence the merge effort?": {
+    "Method Signature and Parameter Changes": {
+      "Change Parameter Type": {
+        "I09_excerpt": "You changed the variable type. This happens a lot here, mainly with date fields. You pass a more specific date type and it changes the signature."
+      },
+      "Refactorings that change method signature": {
+        "I01_excerpt": "Reducing input parameters of a method, the input properties, I think the risk has to be a little bit higher.",
+        "I03_excerpt": "If you change the signature, including parameters or returns, you will already demand effort from the other side.",
+        "I07_excerpt": "The problem is when you have that refactoring that is the 'throw away and do it again' story... changes the parameters of the method, changes the name of the method.",
+        "I09_excerpt": "Changing project signatures is something that generates many problems. You changed a method signature, added parameters or removed them.",
+        "I14_excerpt": "Refactoring in both branches might have changed little things, but if that little thing that was changed ends up changing some code interface or a method signature, then inevitably you will have a merge conflict related to that."
+      },
+      "Change Return Type": {},
+      "Merge Parameter": {},
+      "Split Parameter": {}
+    },
+    "Method-Level Restructuring and Control-Flow Changes": {
+      "Extract Method": {
+        "I01_excerpt": "Generally it's breaking the method, making smaller methods that do more specific things and the main method calling it.",
+        "I02_excerpt": "Regarding a refactoring like splitting a method that is too large, I've never seen any difficulty in that.",
+        "I04_excerpt": "Extracting a method is a type... identifying that a routine can be broken down because part of it will be used by more than one functionality.",
+        "I06_excerpt": "Sonar usually complains about a method being too big or too deep (lots of nested 'ifs') and asks you to break it down into several smaller methods.",
+        "I07_excerpt": "Is the sonar complaining that the cognitive complexity is too high? So I'll take pieces of this code, create private methods and that's it, problem solved.",
+        "I09_excerpt": "If it was a refactoring that took a method and divided it into dos... you have to find the extractions that were made.",
+        "I15_excerpt": "The repositioning of methods becomes very clear when someone refactors an entire feature, taking something that was all encapsulated in a single function and starting to break it down.",
+        "I19_excerpt": "Taking a function and breaking it down into dos ou três... É bem fácil de olhar e ver que ele só dividiu a função em duas, então eu sei mais ou menos como resolver esse conflito.",
+        "I24_excerpt": "It's strange when you actually break the code of the class into more methods and keep breaking it. Maybe this gives more conflicts than a simple move or rename. When you refactor for real a piece of code or a method... the Sonar itself has already influenced some things like that, right? Where it complained about method complexity, you had to reduce the cyclomatic complexity... You keep breaking it down to meet the Sonar, but this will give some problems later to do the merge.",
+        "I26_excerpt": "Besides decreasing cyclomatic complexity, we have to take a method and divide it into several as well, which sometimes causes a bit of an annoyance.",
+        "I30_excerpt": "Refactoring is often exactly that: you have to go there and remove the complexity of that method by splitting it into several methods while another person is also modifying it."
+      },
+      "Move Method": {
+        "I02_excerpt": "The merge was very difficult because some methods that were in one class moved to another.",
+        "I06_excerpt": "When a method changed places and a person ended up working inside that method, you have to compare the dos versions—the old and the new—to see what needs to be done."
+      },
+      "Replace Pipeline": {}
+    },
+    "Class and Inheritance Restructuring": {
+      "Extract Class": {
+        "I08_excerpt": "If you are refactoring and you break one class into more than one, for example, then when you come from the previous branch, it used to be one and now it has become dos.",
+        "I15_excerpt": "He pulled that out of a class and created other classes or transferred it to a pre-existing class.",
+        "I29_excerpt": "We refactor and transform a class into dos. So, a part of the code will stay inside one class or, for example, creating a class hierarchy where you extend a class... that is sometimes a bit confusing to merge."
+      },
+      "Interface Refactoring": {
+        "I13_excerpt": "You stopped using a class to use an interface that has a very specific contract there.",
+        "I17_excerpt": "Com um projeto de 6 anos que já tá vivo, pra você fazer isso aí [extract interface] no início você vai ter um impacto gigantesco, mas depois a manutenção desse código vai ser melhor, tá?"
+      },
+      "Extract Sub Class": {
+        "I05_excerpt": "That was a more complicated merge because you took, say, a thousand lines inside a class and threw them into another, while someone was touching those thousand lines."
+      },
+      "Extract Super Class": {
+        "I28_excerpt": "We noticed we had a core that all representations shared, so we pulled that out into a generic representation class, creating a new class and moving those generic methods there."
+      },
+      "Move Class": {
+        "I03_excerpt": "Moving a class to another package has an inevitable consequence: everyone referencing that class will already have a code change and a guaranteed merge.",
+        "I05_excerpt": "The guy is touching a method that went to the second class and he couldn't do the merge anymore because they are different files.",
+        "I06_excerpt": "The biggest [conflicts] occur when there's a refactoring that moves a class to a different place, because you have to figure out how it ended up; I think it's the worst merge case I've seen.",
+        "I08_excerpt": "I think it occurs most when working with refactorings like changing a method name, changing a class name, or moving a class to a different package.",
+        "I09_excerpt": "You change the class package and Git can still find itself, but there are situations where it will get totally lost.",
+        "I29_excerpt": "What generates the most effort is what I said, which is class migration; that was a lot of effort. Because when the class leaves its directory, when it changes package, it loses the reference, so I had to do this merge entirely by hand."
+      }
+    },
+    "Large-Scale Architectural and Incompatible Refactorings": {
+      "Incompatible refactoring types when implemented in parallel": {
+        "I01_excerpt": "Renaming methods or variables on both sides; suddenly I renamed it to one name and the other person rennames it to a synonym, and it ends up being renamed twice.",
+        "I03_excerpt": "When dos changes are occurring in parallel and they have some common objectives but different premises, it might be impossible to reconcile the dos versions.",
+        "I05_excerpt": "I think when you have the same piece of code and you have to do different refactorings, the impact is truly greater.",
+        "I06_excerpt": "They might have refactored the same piece of code in different ways. One person refactored one part, and the other person refactored another part differently.",
+        "I07_excerpt": "One developer will work on the cognitive complexity of methods, the other will work on reducing the number of input parameters... the tendency is for one to hit the other... that breaks me.",
+        "I08_excerpt": "I am changing things from PL/SQL to a native SQL query, and the way the query is built will also be very different, while another person is working on the same piece of code adding new things.",
+        "I09_excerpt": "In one branch he extracts a method into dos, but in another branch he changed the signature of this method... when you merge this, it will give conflicts.",
+        "I10_excerpt": "There are several ways to write code... sometimes one way of writing ends up invalidating another possibility that was being done by the other person. This can increase complexity and be incompatible with each other.",
+        "I13_excerpt": "Architectural alterations, André, those, without a doubt, are the ones that generate the most problems. On both sides, right? An architectural change on one side, an architectural change on the other, that's it.",
+        "I17_excerpt": "A pessoa resolveu separar em 3 classes (inclusão, alteração e exclusão), só que aí eu tenho um outro coleguinha meu que achou melhor não dividir dessa forma, ele criou uma classe só dinâmica... imagina você chegar e combinar tudo isso, não é?",
+        "I19_excerpt": "If dos people are refactoring the same code in parallel... One splits a 500-line function into five functions and another splits it in a different way, it will generate hundreds of conflicts that become a fruit salad that is very hard to resolve.",
+        "I21_excerpt": "If I am doing dos refactorings with the same set of data or features involved, and the person doing one has a different reasoning than the other... if you try to merge that, the world ends afterward. It's like doing a new refactoring of dos refactorings.",
+        "I23_excerpt": "For example, regarding breaking a method... the developer on the other side is doing the same thing, but he gives the method a different name or breaks it at different points. When you merge, the conflict is much larger because both are correct, but which of the dos will stay.",
+        "I28_excerpt": "If dos people are doing refactorings in different flows, when merging both have to be there because I might see the improvement one way and he sees it another, even though the code ends up doing the same thing."
+      },
+      "Refactorings involving structural/architectural changes in the code": {
+        "I03_excerpt": "Refactorings of this type I call structural; it's something in the architecture that isn't good, and you can't change architecture in a punctual way.",
+        "I08_excerpt": "When there are major transitions, major changes in shared code, it's annoying.",
+        "I09_excerpt": "Separating one project into more than one, as we have already done and undone... this is especially difficult because the codes are in different places.",
+        "I13_excerpt": "These architectural changes, these architectural refactorings, they end up giving more work, right? And they end up generating more effort.",
+        "I14_excerpt": "Switching a processing from synchronous to asynchronous, for example... things that involve this change of the business core for the whole application around it. This is the type of thing that will certainly cause conflicts for a lot of people.",
+        "I17_excerpt": "Quando você tem que mudar o seu projeto para uma nova abordagem, uma nova arquitetura praticamente... e você tem que fazer manutenção ainda naquele fluxo que não tinha ainda aquela arquitetura mais avançada, levar isso para a nova estrutura é difícil, é complicado.",
+        "I20_excerpt": "We recently did a refactoring to separate everything that belonged to import from export... you are dismantling everything. In this case, it's a huge restructuring; it was basically creating a separate project just for the API input.",
+        "I21_excerpt": "Very structural changes, mainly architectural changes... from the point of view of looking at how that functionality works. Imagine if I am doing a refactoring of the whole thing and someone working on a specific part decides to change the entire idea of it? Man, when it's time to merge, it's going to be a lot of work."
+      }
+    },
+    "Renaming Refactorings": {
+      "Rename Class": {
+        "I03_excerpt": "If you changed the class name, it's already going to identify changes in more files and the merge will be more laborious.",
+        "I06_excerpt": "I've seen situations where a class was renamed; in the old branch it has one name, and when it comes to the new one, the developer feels lost and has to find it.",
+        "I08_excerpt": "When you rename a class and then merge a previous branch where it hadn't been renamed yet, it doesn't find the class anymore; it ends up creating the old class alongside the new renamed one.",
+        "I09_excerpt": "Renaming a class while keeping the package—to Git, it's almost the same thing when it sees that something changed path or name."
+      },
+      "Rename Method": {
+        "I02_excerpt": "The merge tool pointed to a change in the method name as if it were a different method, leaving dos equal methods with different names."
+      },
+      "Rename Variable": {},
+      "Renamings in General": {
+        "I01_excerpt": "Changing names I think is the least complicated, but now thinking, I think it's what can most lead to conflict depending on where you change.",
+        "I07_excerpt": "Refactorings that change method names or move classes from packages... tend not to be, in my opinion, that complicated."
+      }
+    },
+    "Literal and Constant Handling Refactorings": {
+      "Replace Magic Literal / Replace Magic Number with Symbolic Constant": {
+        "I07_excerpt": "These DAOs ended up having a lot of repeated strings... and the sonar pointed out 'you are repeating this string too much, put it in a constant'.",
+        "I09_excerpt": "I can tell just by looking... people have the characteristic of changing a string to a constant. It's correct, but it generates conflict.",
+        "I25_excerpt": "They keep bugging you to create a constant and to improve the scope. I went there and created the constant, and most of the time this substitution was very smooth..."
+      }
+    },
+    "Package and Folder Restructuring": {
+      "Changes to folder structures in general": {
+        "I07_excerpt": "Refactorings... that change classes from packages, for example, those tend not to be, in my opinion, so complicated... because the IDE itself helps us.",
+        "I26_excerpt": "Version 59 had a certain structure of folders and things, and version 63 has a totally different one."
+      },
+      "Folder and package renames": {
+        "I08_excerpt": "There was a refactor that caused recurring merge errors. In version 59, it was package1.Class1. In 63, it was refactored to package2.Class2. Every time a change was made in 59, the merge created the old package structure in 63 and we had to delete it manually.",
+        "I09_excerpt": "Package changes give me more work. They must be done in a way that Git doesn't get lost.",
+        "I15_excerpt": "Sometimes you just changed the package name, which is an annoying part of refactoring and can be laborious, but if you know it's only that, it's easier to resolve the merge.",
+        "I18_excerpt": "Package refactoring, in my opinion, is the worst because Git doesn't show you the conflicts clearly. It brings things that shouldn't be there, so you have to do it manually and check one by one to see if it duplicated classes or see what you need to remove.",
+        "I21_excerpt": "I think that rename refactorings, especially those involving folders, tend to cause more difficulty in the merge.",
+        "I26_excerpt": "Restructuring the project in terms of packages and file names impacts the merge very negatively due to file duplication and Git alignment issues."
+      }
+    }
+  },
+  "What suggestions did the developers offer to avoid or minimize the risk of merge effort involving refactoring?": {
+    "Avoiding Concurrent and Conflicting Work": {
+      "Avoid changing code in parallel": {
+        "I09_excerpt": "Any change in a local branch or delivery to a remote branch would imply an absurd merge effort because many things changed name or package."
+      },
+      "Avoid parallelizing changes to the same functionalities": {
+        "I01_excerpt": "We try to avoid merge conflicts by not taking IBs that work on the same functionalities or source files.",
+        "I03_excerpt": "The worst scenario is having dos people working on the same logic in parallel branches, whether for the same functionality or because the code segment is important to both.",
+        "I07_excerpt": "We manage to divide the work in such a way that developers avoid touching the same files a bit.",
+        "I11_excerpt": "I'll try to work on something that has no intersection precisely so as not to have to lose time with merge effort.",
+        "I19_excerpt": "The team says: 'I think you're going to touch the same file I'm working on... Is it worth waiting for you to pick up another task after I finish to avoid conflicts?'",
+        "I24_excerpt": "We try to separate the tasks so that people take something more isolated, in this case. But like that, when we know we will have to touch something more common, I end up uploading this task before to make this alteration before the other people so that they already have it prepared."
+      },
+      "Maintain active communication between Devs about implementing changes": {
+        "I03_excerpt": "When we know someone is working on the same part of code, the first thing we do is coordinate verbally to avoid conflicts.",
+        "I05_excerpt": "When there is something very complex, we call the person responsible for the previous commit and say: 'Man, let's review this together, can I touch this?'",
+        "I13_excerpt": "As a matter of prudence, I advise that the person go there and look for the other colleague to understand what was done.",
+        "I30_excerpt": "We already knew we were going to touch that do-it-all class, so we would talk to each other to check if anyone else was going to modify it that day to avoid merge problems."
+      },
+      "Maintain active communication between Devs about implementing refactorings": {
+        "I01_excerpt": "When someone is going to work on a refactoring, let the team know so everyone can make their commits before and stay alert when the final commit of the refactoring is made.",
+        "I04_excerpt": "Communication is fundamental; you must inform others that a main functionality is being refactored so they wait to work on top of the new version.",
+        "I05_excerpt": "I quickly do a lot of things and then commit immediately saying: 'Guys, I uploaded a bunch of stuff, pull it before you start touching anything.'",
+        "I09_excerpt": "Combine before doing it. The person usually talks to me: 'I want to change such a thing, I think I can change it, where do I change it?'",
+        "I11_excerpt": "If the team is small, there's that thing of giving a heads-up. 'Look, this code here could be improved... I'll resolve it for you and upload it.'",
+        "I19_excerpt": "Generally I would ask the most experienced developer on the team if it made sense, and I would also give a heads-up in the team's developer group: 'Hey everyone, I think I'm going to refactor this code here'.",
+        "I22_excerpt": "Always negotiate with the team, right? Whoever takes a part to refactor signals that they will be doing that there, and you prevent other people from taking it to touch the same code.",
+        "I23_excerpt": "We already know more or less. 'Ah, I'm going to touch this guy here.' The colleague will also touch the same guy, so we coordinate: 'Look, we are going to touch the same thing, do your change first, upload your code, perform the merge, and then I will change it on my side.'",
+        "I25_excerpt": "I think process and communication are the items that I would propose teams to review to have gains... if you establish good communication, you can already minimize this... it happens even before implementation.",
+        "I28_excerpt": "A person should give a heads-up: 'Look, I am refactoring here,' so everyone is aware that that piece of code or functionality is being refactored, and if they can work on something else, all the better."
+      },
+      "Prevent concurrent large-scale refactoring by multiple developers": {
+        "I05_excerpt": "We ended up not splitting this task between dos pessoas, exatamente fearing this need for a more 'brutal' merge.",
+        "I09_excerpt": "We froze that version. Everyone delivers by tomorrow at 10 am. When everyone delivered, the giant work of changing packages and class names began.",
+        "I22_excerpt": "To do deliveries like that, for more structural things, you practically have to stop any parallel development. This really saves merge effort."
+      }
+    },
+    "Refactoring Planning and Management": {
+      "Avoid developing in parallel branches with business backlog items and refactorings": {
+        "I07_excerpt": "I think if you have a project in which you are dedicated exclusively to refactoring without having to deliver anything new, I believe the merge risk is perhaps lower.",
+        "I09_excerpt": "Take care not to generate a legacy for the person who merges and for the developer who will be called to resolve it."
+      },
+      "Choosing the most appropriate time to implement refactorings": {
+        "I04_excerpt": "I think there has to be a right time to do this... 'guys, now we need to improve this functionality because it's gigantic and unintelligible'.",
+        "I05_excerpt": "We try to do it when there are some gaps, where we take the opportunity to improve what we've done... solve some technical debts.",
+        "I08_excerpt": "The turn of a version is ideal because that minimizes the number of necessary merges. If I do these refactorings right after a release enters, I will pass it once and then it's over.",
+        "I09_excerpt": "Deciding in which branch to do it is a matter of timing... we often agreed: 'Let's have a bigger job now, tomorrow I'll reserve the whole morning to merge a refactoring conflict'.",
+        "I24_excerpt": "What I am doing lately is I do not perform refactoring during the sprints; I do it afterward precisely so as not to impact the work that people are executing during that sprint. I leave it to refactor as soon as a sprint is concluded, then I go there and do this work. I basicamente don't do it during the course of the sprint, precisely to avoid these problems; we isolate this refactoring by sprints."
+      },
+      "Establish refactoring prioritization": {
+        "I07_excerpt": "Choose the one that is most priority and let's attack that first; when it's ready, let's merge... before moving to the next refactoring.",
+        "I09_excerpt": "Is it time to do this? Where do I do this? Do I do it in a separate branch? In the newest version or the oldest? We often decide to do it once and for all."
+      },
+      "Have a refactoring management process": {
+        "I09_excerpt": "We looked there and said, 'I think you should change in this location.' Can you change in this version? Yes! Then we change in that version and do the most laborious merge."
+      },
+      "Implement more localized refactorings": {
+        "I01_excerpt": "Always a refactoring, let's say, as localized as possible. We refactor this here, then move to another refactoring.",
+        "I03_excerpt": "The smoothest refactoring is changing the core logic inside a method without changing its signature or the file tree; that's a punctual merge.",
+        "I07_excerpt": "If we could structure our code better, making it so that we have a lower incidence of heroic classes and heroic methods that do a lot of things, we reduce the risk of merge and conflicts.",
+        "I14_excerpt": "look for more isolated things."
+      },
+      "The team has a refactoring culture: small but frequent refactorings": {
+        "I07_excerpt": "The refactoring process first requires courage from the team. Second, it has to be something constant.",
+        "I26_excerpt": "These refactoring issues should be much more inside the daily routine of the teams, with everyone doing small refactorings so it enters naturally into the process rather than hitting a specific moment like a bomb."
+      },
+      "It won't take long to finish the refactorings": {
+        "I01_excerpt": "This refactoring should also be as short as possible in time. If I notify the team and then take a week to do it, it's not possible; it has to be surgical and as fast as possible.",
+        "I22_excerpt": "I think that when you take something to refactor, go all the way to the end and deliver it; get it over with, perform the merge, get it over with. Now, this stopping halfway through is what ends up propitiating these lapses that will generate merges."
+      }
+    },
+    "Branching and Integration Strategies": {
+      "Avoid long branches": {
+        "I07_excerpt": "A branch cannot be very long in development... The tendency over time is for the merge of that branch to anywhere else to have a very high merge effort, generating many conflicts."
+      },
+      "Commit changes and update local repositories more frequently": {
+        "I01_excerpt": "What we try to do is commit as soon as possible and merge as early as possible.",
+        "I03_excerpt": "Commits should be frequent. Even if the commit is small, if you don't do it frequently, the other guy working doesn't even know he is outdated.",
+        "I05_excerpt": "We actually try to bring the code in before starting to program, often at the start of the day, to avoid complex merges.",
+        "I09_excerpt": "Everyone delivered by tomorrow at 10 am. When everyone delivered, they did the work... then everyone pulled the remote changes into their local branches.",
+        "I10_excerpt": "Each one touching a component and committing whenever possible; that is the day-to-day.",
+        "I19_excerpt": "What I do today... I always stash my local changes before pulling the code from my colleagues, and then I try to resolve the merge and apply the stash locally."
+      },
+      "Implement refactorings in a specific branch for this purpose": {
+        "I03_excerpt": "We even anticipate it: let's create a separate branch for this structural refactoring and do everything that needs to be done there.",
+        "I05_excerpt": "Maybe you should take a sprint to do a general refactoring of the code so that you avoid some type of conflict later.",
+        "I09_excerpt": "Where do I do this? Do I do it in a separate branch? Do I do it in the newest version or the oldest?",
+        "I27_excerpt": "You should perform refactoring in a dedicated branch isolated from the normal workflow branch. This ensures you don't disrupt your colleagues' daily work, consolidating the merge effort into a single operation at the end rather than causing continuous disruption."
+      },
+      "Merge code more frequently": {
+        "I03_excerpt": "Once you've fixed something in one branch, merge that fix into the other branches immediately. Don't leave it for later.",
+        "I14_excerpt": "And third, merge frequently."
+      },
+      "Smaller commits to implement refactorings": {
+        "I03_excerpt": "Smallest commits possible. You can almost always do refactoring in parts rather than accumulating changes for a giant commit.",
+        "I07_excerpt": "I cannot have so many commits inside a development branch."
+      },
+      "Copying a branch for merge operation": {
+        "I09_excerpt": "When there are many conflicts, what I normally do is perform the merge of these changes through a copy of that working branch... so I don't run the risk of cluttering the branch."
+      },
+      "Create a branch for each task": {
+        "I07_excerpt": "For each backlog item or for each intention of the developer to modify the code, he creates his own branch based on the release branch.",
+        "I25_excerpt": "I create a branch per task. And each time I perform a merge, I destroy that branch and create it anew, so there is never any remnant left on my machine... The pattern of creating branches per task and killing them after the merge made conflicts a very uncommon thing for us.",
+        "I30_excerpt": "Using a version control strategy like Git Flow helps significantly because each developer works isolated on their own branch before merging it back."
+      },
+      "<<NEW>> Performing merge operations collaboratively in pairs or groups to minimize mistakes": {
+        "I18_excerpt": "When we are going to perform merges nowadays, we try not to do them alone. We always gather dos or três people from the team to see if the person is following the steps. Having always more than one person performing the merges has helped a lot to reduce conflicts."
+      },
+      "<<NEW>> Locking inactive branches in the repository to prevent accidental changes": {
+        "I18_excerpt": "First of all, we block all the branches that we are not working on to prevent someone from entering a branch thinking they are working on a future release when they are not. So we keep all those branches locked."
+      },
+      "<<NEW>> Creating a step-by-step written guide or checklist for repository merge procedures": {
+        "I18_excerpt": "We try to follow a little script. Pablo created a step-by-step guide in the Git repository of our project for us to follow so we don't get lost when performing merges."
+      }
+    },
+    "Code Quality, Architecture, and Standards": {
+      "Code review culture": {
+        "I14_excerpt": "using the merge request feature... they would open a merge request from the branch they were working on to the release branch and get a colleague to review it... they ended up organizing themselves with the help of a tool.",
+        "I20_excerpt": "Encourage code review and use this code review as a moment for refactoring."
+      },
+      "Communicate new team members about work standards": {
+        "I04_excerpt": "For new team members arriving, putting them on par with configuration management helps them understand how they can help reduce conflict problems.",
+        "I09_excerpt": "That's what I said to the person taking over my work during my vacation: 'Are you in doubt? Unsure? Make a copy of that branch and there you can make whatever mess you want'."
+      },
+      "Create a stub (mock) of the refactored structures and make it available to Devs immediately": {
+        "I17_excerpt": "Eu já crio toda as cascas, crio todas as as classes, as abstrações, as cascas dos métodos. As entradas e saídas eu já deixo praticamente tudo assim bem encaminhado... foi a melhor forma de tentar organizar e ter menos impactos de merge."
+      },
+      "Document and follow coding standards": {
+        "I02_excerpt": "I think this CCT methodology helps a lot because programming standards make it much easier.",
+        "I04_excerpt": "Standardizing naming of routines, methods, and properties reduces conflicts significantly; it doesn't exhaust them, but it decreases them.",
+        "I05_excerpt": "The idea is that you define a writing standard, whether using a tool or anything, to prevent this need for refactoring from occurring in the future.",
+        "I09_excerpt": "We need to standardize to leave the house tidy. There's a time when you have to do the cleaning.",
+        "I10_excerpt": "The biggest tip I can give is documentation. We have to have a development guide... not just how the code should work, but how it should be implemented, including certain patterns.",
+        "I14_excerpt": "This kind of thing regarding code standards must be common to everyone. It gets to the point of being strict to ensure that this won't be an incompatibility, whether doing refactoring or not.",
+        "I15_excerpt": "It is very much the maturity of the definitions within the team, having these quality tools calibrated in a unique way with few changes along the way.",
+        "I25_excerpt": "Standardization—you can even use different tools, but if you agree on an identical or very close approach within the team... Everyone creates a small method in a separate class, attributes the responsibility there, although it's not my preference, I can simply adopt it because it becomes easy for everyone to understand."
+      },
+      "Good code organization and clean code": {
+        "I05_excerpt": "When a project has a better structure, it is more structured, the classes are well defined... we have fewer problems.",
+        "I06_excerpt": "What also helps to avoid conflicts is configuring the projects, like in Eclipse, to always integrate and position methods in the same place."
+      },
+      "Have a well-defined architecture using design patterns": {
+        "I07_excerpt": "Something that helps a lot is the way we design the architecture of our solution at the code level, separating the responsibilities of our classes well.",
+        "I15_excerpt": "The first thing is to have a well-defined architecture, meaning well-defined architectural patterns, which already guides you a lot on where you need to go.",
+        "I16_excerpt": "The ideal is to have a code that from the very beginning is developed following design patterns; that facilitates a lot when you are going to refactor."
+      },
+      "Well-planned architectural changes": {
+        "I09_excerpt": "The team planned everything they were going to do beforehand. Then they implemented the changes in a single day, but it was a multi-handed effort."
+      },
+      "<<NEW>> Standardize IDE formatting and configuration settings": {
+        "I02_excerpt": "I found it very valid to have that list of Eclipse configurations, like line size and ensuring new methods go to the end... it facilitates a lot.",
+        "I04_excerpt": "A way to minimize this is to standardize the configuration of the IDE you'll be using for deliveries to decrease conflicts in non-identifiable lines.",
+        "I15_excerpt": "Configuring those formatting standards to be identical for all developers in the IDE is a lifesaver, because each person had it configured differently and every commit was a merge just because of the code order.",
+        "I28_excerpt": "Everyone must have the same code organization so we don't get merges just because of indentation, which is chaos. We try to have everyone program the same way across the whole application.",
+        "I30_excerpt": "Before starting to touch the code of a new project, I always try to align with the team to standardize the formatting, line length, and configurations to avoid these problems."
+      }
+    },
+    "Testing and Quality Assurance": {
+      "Robust Regression Testing to Minimize Merge Failures": {
+        "I09_excerpt": "I'm talking about a package change, a larger refactoring, which depends on a more elaborate test. We usually do it only when we have no other choice."
+      }
+    },
+    "Tooling and Automation": {
+      "Using AI in development": {
+        "I01_excerpt": "With the help of AIs, I have to police myself a little because sometimes I blindly follow what the AI says and then there's a problem."
+      },
+      "<<NEW>> Automated formatting and code structure synchronization tools": {
+        "I06_excerpt": "In the frontend, we created a 'hook' that formats modified files before delivering them to git, so everyone delivers the code the same way and avoids formatting conflicts."
+      }
+    },
+    "<<NEW>> Conflict Mitigation Practices": {
+      "Creating new classes to isolate refactored logic": {
+        "I08_excerpt": "To minimize this problem, I'm not using the same classes that exist; I'm using new classes. This way I can identify what was changed in the old ones and bring it to the new one to facilitate the conflict problem."
+      }
+    },
+    "<<NEW>> Refactoring Propagation Strategies": {
+      "Refactoring in older versions to propagate to new ones": {
+        "I09_excerpt": "To have the work of resolving conflict once, do it in the stable version, because this refactoring will go to the stable and be propagated to all others."
+      }
+    }
+  }
+}
